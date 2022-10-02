@@ -10,7 +10,9 @@ import javafx.stage.Stage;
 import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Grass;
+import uet.oop.bomberman.entities.Oneal;
 import uet.oop.bomberman.entities.Wall;
+import uet.oop.bomberman.entities.ballon;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
@@ -26,6 +28,8 @@ public class BombermanGame extends Application {
     private Group root;
     private Canvas canvas;
     private Bomber bomberman;
+    private ballon ballon1;
+    private Oneal oneal1;
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
 
@@ -42,7 +46,11 @@ public class BombermanGame extends Application {
         scene = new Scene(root);
 
         bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
+        ballon1 = new ballon(10, 10, Sprite.balloom_left1.getFxImage());
+        oneal1 = new Oneal(6, 8, Sprite.oneal_left1.getFxImage());
         entities.add(bomberman);
+        entities.add(ballon1);
+        entities.add(oneal1);
 
     }
 

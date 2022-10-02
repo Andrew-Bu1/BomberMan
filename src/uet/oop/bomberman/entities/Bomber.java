@@ -5,11 +5,6 @@ import javafx.scene.input.KeyEvent;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomber extends Entity {
-    private final int up = 2;
-    private final int down = 3;
-    private final int left = 0;
-    private final int right = 1;
-    private int direction;
 
     public Bomber(int x, int y, Image img) {
         super(x, y, img);

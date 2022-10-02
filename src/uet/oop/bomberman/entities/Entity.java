@@ -13,9 +13,12 @@ public abstract class Entity {
 
     protected Image img;
 
-    public void setImg(Image img) {
-        this.img = img;
-    }
+    protected int direction;
+
+    protected final int up = 2;
+    protected final int down = 3;
+    protected final int left = 0;
+    protected final int right = 1;
 
     protected int countSprite = 0;
 

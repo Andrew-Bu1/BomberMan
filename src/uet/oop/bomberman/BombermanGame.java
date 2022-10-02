@@ -33,6 +33,9 @@ public class BombermanGame extends Application {
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
 
+    private final int FPS = 60;
+    private final int frameDelay = 1000000000 / FPS;
+
     public BombermanGame() {
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
@@ -66,11 +69,22 @@ public class BombermanGame extends Application {
         stage.show();
 
         AnimationTimer timer = new AnimationTimer() {
+            long frameStart = System.nanoTime();
+
             @Override
             public void handle(long l) {
                 render();
                 handleEvent();
                 update();
+
+                long frameTime = System.nanoTime() - frameStart;
+                if (frameDelay > frameTime) {
+                    try {
+                        Thread.sleep((frameDelay - frameTime) / 1000000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         };
         timer.start();
@@ -85,6 +99,7 @@ public class BombermanGame extends Application {
         scene.setOnKeyReleased(keyEvent -> {
             bomberman.handleEvent(keyEvent);
         });
+
     }
 
     public void createMap() {

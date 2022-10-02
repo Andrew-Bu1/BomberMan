@@ -15,6 +15,8 @@ public abstract class Entity {
 
     protected int direction;
 
+    protected int animate = 0;
+
     protected final int up = 2;
     protected final int down = 3;
     protected final int left = 0;

@@ -5,17 +5,19 @@ import javafx.scene.input.KeyEvent;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomber extends Entity {
-    public Bomber(int x, int y, Image img) {
-        super(x, y, img);
+    private int speed = 5;
+
+    public void buffSpeed() {
+        this.speed += 3;
+    }
+
+    public Bomber(int x, int y) {
+        super(x, y, Sprite.player_right.getFxImage());
     }
 
     @Override
     public void update() {
         objectRender(direction);
-        animate++;
-        if (animate > 20) {
-            animate = 0;
-        }
     }
 
     @Override
@@ -33,42 +35,42 @@ public class Bomber extends Entity {
             img = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, animate, 18)
                     .getFxImage();
         }
-
     }
 
     public void handleEvent(KeyEvent event) {
         switch (event.getCode()) {
             case W:
-                direction = up;
-                move(direction);
+                move(direction = up);
                 break;
             case S:
-                direction = down;
-                move(direction);
-
+                move(direction = down);
                 break;
             case A:
-                direction = left;
-                move(direction);
+                move(direction = left);
                 break;
             case D:
-                direction = right;
-                move(direction);
+                move(direction = right);
                 break;
+            case SPACE:
             default:
                 break;
+
         }
     }
 
     public void move(int direction) {
         if (direction == 0) {
-            x -= 5;
+            x -= speed;
         } else if (direction == 1) {
-            x += 5;
+            x += speed;
         } else if (direction == 2) {
-            y -= 5;
+            y -= speed;
         } else if (direction == 3) {
-            y += 5;
+            y += speed;
+        }
+        animate++;
+        if (animate > 20) {
+            animate = 0;
         }
     }
 

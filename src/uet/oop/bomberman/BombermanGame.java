@@ -2,17 +2,20 @@ package uet.oop.bomberman;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Grass;
 import uet.oop.bomberman.entities.Oneal;
 import uet.oop.bomberman.entities.Wall;
-import uet.oop.bomberman.entities.ballon;
+import uet.oop.bomberman.entities.Ballom;
+import uet.oop.bomberman.entities.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
@@ -28,10 +31,11 @@ public class BombermanGame extends Application {
     private Group root;
     private Canvas canvas;
     private Bomber bomberman;
-    private ballon ballon1;
-    private Oneal oneal1;
-    private List<Entity> entities = new ArrayList<>();
-    private List<Entity> stillObjects = new ArrayList<>();
+    private Entity ballon1;
+    private Entity oneal1;
+    public List<Entity> enemies = new ArrayList<>();
+    public List<Bomb> bombs = new ArrayList<>();
+    public List<Entity> stillObjects = new ArrayList<>();
 
     private final int FPS = 60;
     private final int frameDelay = 1000000000 / FPS;
@@ -48,13 +52,11 @@ public class BombermanGame extends Application {
         // Tao scene
         scene = new Scene(root);
 
-        bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
-        ballon1 = new ballon(10, 10, Sprite.balloom_left1.getFxImage());
-        oneal1 = new Oneal(6, 8, Sprite.oneal_left1.getFxImage());
-        entities.add(bomberman);
-        entities.add(ballon1);
-        entities.add(oneal1);
-
+        bomberman = new Bomber(1, 1);
+        ballon1 = new Ballom(10, 10);
+        oneal1 = new Oneal(6, 8);
+        enemies.add(ballon1);
+        enemies.add(oneal1);
     }
 
     public static void main(String[] args) {
@@ -67,16 +69,26 @@ public class BombermanGame extends Application {
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                bomberman.handleEvent(event);
+            }
+        });
 
+        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                bomberman.handleEvent(event);
+            }
+        });
         AnimationTimer timer = new AnimationTimer() {
             long frameStart = System.nanoTime();
 
             @Override
             public void handle(long l) {
                 render();
-                handleEvent();
                 update();
-
                 long frameTime = System.nanoTime() - frameStart;
                 if (frameDelay > frameTime) {
                     try {
@@ -92,24 +104,14 @@ public class BombermanGame extends Application {
         createMap();
     }
 
-    public void handleEvent() {
-        scene.setOnKeyPressed(keyEvent -> {
-            bomberman.handleEvent(keyEvent);
-        });
-        scene.setOnKeyReleased(keyEvent -> {
-            bomberman.handleEvent(keyEvent);
-        });
-
-    }
-
     public void createMap() {
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
                 Entity object;
                 if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
-                    object = new Wall(i, j, Sprite.wall.getFxImage());
+                    object = new Wall(i, j);
                 } else {
-                    object = new Grass(i, j, Sprite.grass.getFxImage());
+                    object = new Grass(i, j);
                 }
                 stillObjects.add(object);
             }
@@ -117,12 +119,14 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
-        entities.forEach(Entity::update);
+        enemies.forEach(Entity::update);
+        bomberman.update();
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         stillObjects.forEach(g -> g.render(gc));
-        entities.forEach(g -> g.render(gc));
+        enemies.forEach(g -> g.render(gc));
+        bomberman.render(gc);
     }
 }

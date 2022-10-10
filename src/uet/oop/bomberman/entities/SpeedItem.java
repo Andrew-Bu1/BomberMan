@@ -10,15 +10,11 @@ public class SpeedItem extends Entity {
 
     @Override
     public void update() {
-        objectRender(direction);
-        animate++;
-        if (animate > 20) {
-            animate = 0;
-        }
+
     }
 
     @Override
-    public void objectRender(int direction) {
+    public void animateSprite() {
 
     }
 

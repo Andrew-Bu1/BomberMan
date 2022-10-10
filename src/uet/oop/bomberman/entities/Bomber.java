@@ -1,11 +1,25 @@
 package uet.oop.bomberman.entities;
 
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomber extends Entity {
+    public boolean pressUp, pressDown, pressLeft, pressRight;
+    private boolean isAlive = true;
     private int speed = 5;
+    public static boolean isMoving = false;
+
+    public void setAlive(boolean isAlive) {
+        this.isAlive = isAlive;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 
     public void buffSpeed() {
         this.speed += 3;
@@ -17,23 +31,80 @@ public class Bomber extends Entity {
 
     @Override
     public void update() {
-        objectRender(direction);
+        animateSprite();
     }
 
     @Override
-    public void objectRender(int direction) {
+    public void animateSprite() {
         if (direction == up) {
-            img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, animate, 18)
-                    .getFxImage();
+            if (isMoving) {
+                img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, animate, 18)
+                        .getFxImage();
+            } else {
+                img = Sprite.player_up.getFxImage();
+            }
         } else if (direction == down) {
-            img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, animate, 18)
-                    .getFxImage();
+            if (isMoving) {
+                img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, animate, 18)
+                        .getFxImage();
+            } else {
+                img = Sprite.player_down.getFxImage();
+            }
         } else if (direction == left) {
-            img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, animate, 18)
-                    .getFxImage();
+            if (isMoving) {
+                img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, animate, 18)
+                        .getFxImage();
+            } else {
+                img = Sprite.player_left.getFxImage();
+            }
+
         } else if (direction == right) {
-            img = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, animate, 18)
-                    .getFxImage();
+            if (isMoving) {
+                img = Sprite
+                        .movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, animate, 18)
+                        .getFxImage();
+            } else {
+                img = Sprite.player_right.getFxImage();
+            }
+
+        }
+    }
+
+    public void pressKey(KeyEvent event) {
+        switch (event.getCode()) {
+            case W:
+                pressUp = true;
+                break;
+            case S:
+                pressDown = true;
+                break;
+            case A:
+                pressLeft = true;
+                break;
+            case D:
+                pressRight = true;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void releaseKey(KeyEvent event) {
+        switch (event.getCode()) {
+            case W:
+                pressUp = false;
+                break;
+            case S:
+                pressDown = false;
+                break;
+            case A:
+                pressLeft = false;
+                break;
+            case D:
+                pressRight = false;
+                break;
+            default:
+                break;
         }
     }
 
@@ -51,7 +122,6 @@ public class Bomber extends Entity {
             case D:
                 move(direction = right);
                 break;
-            case SPACE:
             default:
                 break;
 

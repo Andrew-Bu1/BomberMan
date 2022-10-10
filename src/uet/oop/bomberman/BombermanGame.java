@@ -7,6 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.Bomber;
@@ -30,12 +31,13 @@ public class BombermanGame extends Application {
     private GraphicsContext gc;
     private Group root;
     private Canvas canvas;
-    private Bomber bomberman;
+    public static Bomber bomberman;
     private Entity ballon1;
     private Entity oneal1;
     public List<Entity> enemies = new ArrayList<>();
-    public List<Bomb> bombs = new ArrayList<>();
-    public List<Entity> stillObjects = new ArrayList<>();
+    public List<Entity> undamObject = new ArrayList<>();
+    public static List<Entity> removObject = new ArrayList<>();
+    public static List<Entity> board = new ArrayList<>();
 
     private final int FPS = 60;
     private final int frameDelay = 1000000000 / FPS;
@@ -72,6 +74,10 @@ public class BombermanGame extends Application {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
+                Bomber.isMoving = true;
+                if (event.getCode() == KeyCode.SPACE) {
+                    Bomb.placeBomb();
+                }
                 bomberman.handleEvent(event);
             }
         });
@@ -79,6 +85,7 @@ public class BombermanGame extends Application {
         scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
+                Bomber.isMoving = false;
                 bomberman.handleEvent(event);
             }
         });
@@ -105,15 +112,18 @@ public class BombermanGame extends Application {
     }
 
     public void createMap() {
+
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
                 Entity object;
                 if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
                     object = new Wall(i, j);
+                    undamObject.add(object);
                 } else {
                     object = new Grass(i, j);
+                    undamObject.add(object);
                 }
-                stillObjects.add(object);
+
             }
         }
     }
@@ -125,8 +135,9 @@ public class BombermanGame extends Application {
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        stillObjects.forEach(g -> g.render(gc));
+        undamObject.forEach(g -> g.render(gc));
         enemies.forEach(g -> g.render(gc));
         bomberman.render(gc);
+
     }
 }

@@ -1,6 +1,6 @@
 package uet.oop.bomberman.entities;
 
-import javafx.scene.image.Image;
+//import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Ballom extends Entity {
@@ -9,7 +9,7 @@ public class Ballom extends Entity {
     }
 
     public void update() {
-        objectRender(direction);
+        animateSprite();
         animate++;
         if (animate > 20) {
             animate = 0;
@@ -17,7 +17,7 @@ public class Ballom extends Entity {
     }
 
     @Override
-    public void objectRender(int direction) {
+    public void animateSprite() {
         if (direction == left) {
             img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3, animate, 18)
                     .getFxImage();

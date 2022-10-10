@@ -1,6 +1,6 @@
 package uet.oop.bomberman.entities;
 
-import javafx.scene.image.Image;
+//import javafx.scene.image.Image;
 
 public class Flame extends Entity {
     public Flame(int x, int y) {
@@ -9,7 +9,7 @@ public class Flame extends Entity {
 
     @Override
     public void update() {
-        objectRender(direction);
+        animateSprite();
         animate++;
         if (animate > 20) {
             animate = 0;
@@ -17,7 +17,7 @@ public class Flame extends Entity {
     }
 
     @Override
-    public void objectRender(int direction) {
+    public void animateSprite() {
 
     }
 

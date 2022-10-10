@@ -8,23 +8,14 @@ public abstract class Entity {
     // Tọa độ X tính từ góc trái trên trong Canvas
     protected int x;
 
-    public int getX() {
-        return x;
-    }
-
     // Tọa độ Y tính từ góc trái trên trong Canvas
     protected int y;
 
-    public int getY() {
-        return y;
-    }
-
     protected Image img;
-
-    protected int direction;
 
     protected int animate = 0;
 
+    protected int direction;
     protected final int up = 2;
     protected final int down = 3;
     protected final int left = 0;
@@ -46,7 +37,7 @@ public abstract class Entity {
         gc.drawImage(img, x, y);
     }
 
-    public abstract void objectRender(int direction);
+    public abstract void animateSprite();
 
     public abstract void update();
 

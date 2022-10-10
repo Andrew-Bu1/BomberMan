@@ -13,7 +13,7 @@ public class Portal extends Entity {
     }
 
     @Override
-    public void objectRender(int direction) {
+    public void animateSprite() {
 
     }
 

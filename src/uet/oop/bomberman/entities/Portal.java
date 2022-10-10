@@ -18,7 +18,7 @@ public class Portal extends Entity {
     }
 
     @Override
-    public void move(int direction) {
+    public void move() {
 
     }
 }

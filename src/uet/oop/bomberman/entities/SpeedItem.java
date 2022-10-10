@@ -19,7 +19,7 @@ public class SpeedItem extends Entity {
     }
 
     @Override
-    public void move(int direction) {
+    public void move() {
 
     }
 }

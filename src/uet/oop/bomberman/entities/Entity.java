@@ -41,5 +41,5 @@ public abstract class Entity {
 
     public abstract void update();
 
-    public abstract void move(int direction);
+    public abstract void move();
 }

@@ -22,7 +22,7 @@ public class Flame extends Entity {
     }
 
     @Override
-    public void move(int direction) {
+    public void move() {
 
     }
 }

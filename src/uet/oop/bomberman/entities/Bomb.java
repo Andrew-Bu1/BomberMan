@@ -57,7 +57,7 @@ public class Bomb extends Entity {
     }
 
     @Override
-    public void move(int direction) {
+    public void move() {
 
     }
 }

@@ -4,10 +4,11 @@ import javafx.scene.input.KeyEvent;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomber extends Entity {
-    public boolean pressUp, pressDown, pressLeft, pressRight;
+    private boolean pressUp, pressDown, pressLeft, pressRight;
     private boolean isAlive = true;
-    private int speed = 5;
+    private int speed = 2;
     public static boolean isMoving = false;
+    private int direction; // left = 0, right = 1, up = 2, down = 3
 
     public void setAlive(boolean isAlive) {
         this.isAlive = isAlive;
@@ -31,26 +32,31 @@ public class Bomber extends Entity {
 
     @Override
     public void update() {
+        move();
         animateSprite();
+        animate++;
+        if (animate > 20) {
+            animate = 0;
+        }
     }
 
     @Override
     public void animateSprite() {
-        if (direction == up) {
+        if (direction == 2) {
             if (isMoving) {
                 img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, animate, 18)
                         .getFxImage();
             } else {
                 img = Sprite.player_up.getFxImage();
             }
-        } else if (direction == down) {
+        } else if (direction == 3) {
             if (isMoving) {
                 img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, animate, 18)
                         .getFxImage();
             } else {
                 img = Sprite.player_down.getFxImage();
             }
-        } else if (direction == left) {
+        } else if (direction == 0) {
             if (isMoving) {
                 img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, animate, 18)
                         .getFxImage();
@@ -58,7 +64,7 @@ public class Bomber extends Entity {
                 img = Sprite.player_left.getFxImage();
             }
 
-        } else if (direction == right) {
+        } else if (direction == 1) {
             if (isMoving) {
                 img = Sprite
                         .movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, animate, 18)
@@ -74,19 +80,24 @@ public class Bomber extends Entity {
         switch (event.getCode()) {
             case W:
                 pressUp = true;
+                direction = 2;
                 break;
             case S:
                 pressDown = true;
+                direction = 3;
                 break;
             case A:
                 pressLeft = true;
+                direction = 0;
                 break;
             case D:
                 pressRight = true;
+                direction = 1;
                 break;
             default:
                 break;
         }
+        isMoving = true;
     }
 
     public void releaseKey(KeyEvent event) {
@@ -106,42 +117,19 @@ public class Bomber extends Entity {
             default:
                 break;
         }
+        isMoving = false;
     }
 
-    public void handleEvent(KeyEvent event) {
-        switch (event.getCode()) {
-            case W:
-                move(direction = up);
-                break;
-            case S:
-                move(direction = down);
-                break;
-            case A:
-                move(direction = left);
-                break;
-            case D:
-                move(direction = right);
-                break;
-            default:
-                break;
-
-        }
-    }
-
-    public void move(int direction) {
-        if (direction == 0) {
-            x -= speed;
-        } else if (direction == 1) {
-            x += speed;
-        } else if (direction == 2) {
-            y -= speed;
-        } else if (direction == 3) {
+    @Override
+    public void move() {
+        if (pressDown)
             y += speed;
-        }
-        animate++;
-        if (animate > 20) {
-            animate = 0;
-        }
+        if (pressUp)
+            y -= speed;
+        if (pressLeft)
+            x -= speed;
+        if (pressRight)
+            x += speed;
     }
 
 }

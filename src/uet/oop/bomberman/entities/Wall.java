@@ -20,7 +20,7 @@ public class Wall extends Entity {
     }
 
     @Override
-    public void move(int direction) {
+    public void move() {
 
     }
 }

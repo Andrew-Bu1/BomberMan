@@ -29,7 +29,7 @@ public class Oneal extends Entity {
     }
 
     @Override
-    public void move(int direction) {
+    public void move() {
 
     }
 }

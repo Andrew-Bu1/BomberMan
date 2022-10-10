@@ -20,7 +20,7 @@ public class Grass extends Entity {
     }
 
     @Override
-    public void move(int direction) {
+    public void move() {
 
     }
 }

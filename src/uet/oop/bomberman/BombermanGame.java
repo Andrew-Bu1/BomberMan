@@ -74,19 +74,19 @@ public class BombermanGame extends Application {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                Bomber.isMoving = true;
                 if (event.getCode() == KeyCode.SPACE) {
                     Bomb.placeBomb();
                 }
-                bomberman.handleEvent(event);
+                bomberman.pressKey(event);
+                // bomberman.handleEvent(event);
             }
         });
 
         scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                Bomber.isMoving = false;
-                bomberman.handleEvent(event);
+                bomberman.releaseKey(event);
+                // bomberman.handleEvent(event);
             }
         });
         AnimationTimer timer = new AnimationTimer() {

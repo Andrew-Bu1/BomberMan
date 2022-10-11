@@ -5,14 +5,14 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomber extends Entity {
     private boolean pressUp, pressDown, pressLeft, pressRight;
-    private boolean isAlive = true;
+    // private boolean isAlive = true;
     private int speed = 2;
     public static boolean isMoving = false;
     private int direction; // left = 0, right = 1, up = 2, down = 3
 
-    public void setAlive(boolean isAlive) {
-        this.isAlive = isAlive;
-    }
+    // public void setAlive(boolean isAlive) {
+    // this.isAlive = isAlive;
+    // }
 
     public int getX() {
         return x;

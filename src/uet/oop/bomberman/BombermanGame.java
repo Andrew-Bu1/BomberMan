@@ -7,18 +7,27 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.Bomber;
+import uet.oop.bomberman.entities.Brick;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.FlameItem;
 import uet.oop.bomberman.entities.Grass;
 import uet.oop.bomberman.entities.Oneal;
+import uet.oop.bomberman.entities.Portal;
+import uet.oop.bomberman.entities.SpeedItem;
 import uet.oop.bomberman.entities.Wall;
 import uet.oop.bomberman.entities.Ballom;
 import uet.oop.bomberman.entities.Bomb;
+import uet.oop.bomberman.entities.BombItem;
 import uet.oop.bomberman.graphics.Sprite;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,12 +41,8 @@ public class BombermanGame extends Application {
     private Group root;
     private Canvas canvas;
     public static Bomber bomberman;
-    private Entity ballon1;
-    private Entity oneal1;
-    public List<Entity> enemies = new ArrayList<>();
-    public List<Entity> undamObject = new ArrayList<>();
+    public List<Entity> unRemovObject = new ArrayList<>();
     public static List<Entity> removObject = new ArrayList<>();
-    public static List<Entity> board = new ArrayList<>();
 
     private final int FPS = 60;
     private final int frameDelay = 1000000000 / FPS;
@@ -53,12 +58,7 @@ public class BombermanGame extends Application {
 
         // Tao scene
         scene = new Scene(root);
-
         bomberman = new Bomber(1, 1);
-        ballon1 = new Ballom(10, 10);
-        oneal1 = new Oneal(6, 8);
-        enemies.add(ballon1);
-        enemies.add(oneal1);
     }
 
     public static void main(String[] args) {
@@ -74,9 +74,9 @@ public class BombermanGame extends Application {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if (event.getCode() == KeyCode.SPACE) {
-                    Bomb.placeBomb();
-                }
+                // if (event.getCode() == KeyCode.SPACE) {
+                // Bomb.placeBomb();
+                // }
                 bomberman.pressKey(event);
                 // bomberman.handleEvent(event);
             }
@@ -107,37 +107,85 @@ public class BombermanGame extends Application {
             }
         };
         timer.start();
-
-        createMap();
+        // "res/levels/Level0.txt"
+        createMap("res/levels/Level0.txt");
     }
 
-    public void createMap() {
+    public void createMap(String file) {
+        char[][] map = new char[WIDTH][HEIGHT];
+        File read = new File(file);
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(read));
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        String st;
+        try {
+            int j = 0;
+            while ((st = br.readLine()) != null) {
+                for (int i = 0; i < st.length(); i++) {
+                    map[i][j] = st.charAt(i);
+                }
+                j++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         for (int i = 0; i < WIDTH; i++) {
+            boolean isRemovable = false;
+            Entity object;
             for (int j = 0; j < HEIGHT; j++) {
-                Entity object;
-                if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
-                    object = new Wall(i, j);
-                    undamObject.add(object);
-                } else {
-                    object = new Grass(i, j);
-                    undamObject.add(object);
+                switch (map[i][j]) {
+                    case '*':
+                        object = new Brick(i, j);
+                        isRemovable = true;
+                        break;
+                    case '#':
+                        object = new Wall(i, j);
+                        break;
+                    case '1':
+                        object = new Ballom(i, j);
+                        isRemovable = true;
+                        break;
+                    case '2':
+                        object = new Oneal(i, j);
+                        isRemovable = true;
+                        break;
+                    case 'f':
+                        object = new FlameItem(i, j);
+                        isRemovable = true;
+                        break;
+                    case 'x':
+                        object = new Portal(i, j);
+                        isRemovable = true;
+                        break;
+                    default:
+                        object = new Grass(i, j);
+                        break;
                 }
+                if (isRemovable) {
+                    removObject.add(object);
+                    Entity object1 = new Grass(i, j);
+                    unRemovObject.add(object1);
+                }
+                unRemovObject.add(object);
 
             }
         }
+
     }
 
     public void update() {
-        enemies.forEach(Entity::update);
+        removObject.forEach(Entity::update);
         bomberman.update();
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        undamObject.forEach(g -> g.render(gc));
-        enemies.forEach(g -> g.render(gc));
+        removObject.forEach(g -> g.render(gc));
+        unRemovObject.forEach(g -> g.render(gc));
         bomberman.render(gc);
-
     }
 }

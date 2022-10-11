@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class SpeedItem extends Entity {
-    public SpeedItem(int x, int y, Image img) {
+    public SpeedItem(int x, int y) {
         super(x, y, Sprite.powerup_speed.getFxImage());
     }
 

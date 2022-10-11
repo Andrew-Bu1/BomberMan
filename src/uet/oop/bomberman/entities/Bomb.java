@@ -9,7 +9,7 @@ public class Bomb extends Entity {
     private static int numBomb = 0;
     private static int maxBombs = 1;
     private static boolean canBomb = true;
-    private boolean isFinish = false;
+    // private boolean isFinish = false;
 
     // private static int
 

@@ -2,8 +2,8 @@ package uet.oop.bomberman.entities;
 
 //import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
-import static uet.oop.bomberman.BombermanGame.bomberman;
-import static uet.oop.bomberman.BombermanGame.removObject;
+// import static uet.oop.bomberman.BombermanGame.bomberman;
+// import static uet.oop.bomberman.BombermanGame.removable;
 
 public class Bomb extends Entity {
     private static int numBomb = 0;
@@ -22,14 +22,14 @@ public class Bomb extends Entity {
     }
 
     public static void placeBomb() {
-        if (canBomb && numBomb <= maxBombs) {
-            numBomb++;
-            int x = bomberman.getX() / 32;
-            int y = bomberman.getY() / 32;
+        // if (canBomb && numBomb <= maxBombs) {
+        // numBomb++;
+        // int x = bomberman.getX() / 32;
+        // int y = bomberman.getY() / 32;
 
-            Entity bombt = new Bomb(x, y);
-            removObject.add(bombt);
-        }
+        // Entity bombt = new Bomb(x, y);
+        // removObject.add(bombt);
+        // }
     }
 
     public Bomb(int x, int y) {

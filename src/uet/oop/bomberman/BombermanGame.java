@@ -23,9 +23,10 @@ public class BombermanGame extends Application {
     private Group root;
     private Canvas canvas;
     public static Bomber bomberman;
-    // public static List<Entity> enemies = new ArrayList<>();
-    public static List<Entity> removable = new ArrayList<>();
-    public static List<Entity> unremovable = new ArrayList<>();
+    public static List<Entity> hiddenItem = new ArrayList<>();
+    public static List<Entity> enemies = new ArrayList<>();
+    public static List<Entity> stillObject = new ArrayList<>();
+    public static List<Entity> grass = new ArrayList<>();
     private tileManager level = new tileManager();
     public static handleKey input = new handleKey();
 
@@ -90,21 +91,22 @@ public class BombermanGame extends Application {
         };
         timer.start();
 
-        level.loadMap("res/levels/Level0.txt");
-        level.render();
+        level.loadMap("res\\levels\\Level0.txt");
+        level.createObjects();
+        level.createEnemies();
     }
 
     public void update() {
         // enemies.forEach(Entity::update);
-        removable.forEach(Entity::update);
+        enemies.forEach(Entity::update);
         bomberman.update();
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        // enemies.forEach(g -> g.render(gc));
-        removable.forEach(g -> g.render(gc));
-        unremovable.forEach(g -> g.render(gc));
+        grass.forEach(g -> g.render(gc));
+        stillObject.forEach(g -> g.render(gc));
+        enemies.forEach(g -> g.render(gc));
         bomberman.render(gc);
     }
 }

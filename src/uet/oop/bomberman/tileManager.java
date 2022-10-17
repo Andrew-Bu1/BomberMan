@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javafx.scene.canvas.GraphicsContext;
 import uet.oop.bomberman.entities.Ballom;
 import uet.oop.bomberman.entities.BombItem;
 import uet.oop.bomberman.entities.Brick;
@@ -22,13 +23,14 @@ import static uet.oop.bomberman.BombermanGame.enemies;
 import static uet.oop.bomberman.BombermanGame.stillObject;
 import static uet.oop.bomberman.BombermanGame.hiddenItem;
 import static uet.oop.bomberman.BombermanGame.grass;
+import static uet.oop.bomberman.BombermanGame.bomberman;
 
 public class tileManager {
     public static final int WIDTH = 20;
     public static final int HEIGHT = 15;
     public static int level = 0;
 
-    private char[][] map = new char[WIDTH][HEIGHT];
+    public static char[][] map = new char[WIDTH][HEIGHT];
 
     public String path() {
         return "res/levels/level" + level + ".txt";
@@ -84,6 +86,7 @@ public class tileManager {
                 if (map[i][j] != '#') {
                     grass.add(new Grass(i, j));
                 }
+
             }
         }
     }
@@ -104,48 +107,11 @@ public class tileManager {
         }
     }
 
-    // public void render() {
-    // for (int i = 0; i < WIDTH; i++) {
-    // boolean isRemovable = false;
-    // Entity object;
-    // for (int j = 0; j < HEIGHT; j++) {
-    // switch (map[i][j]) {
-    // case '*':
-    // object = new Brick(i, j);
-    // isRemovable = true;
-    // break;
-    // case '#':
-    // object = new Wall(i, j);
-    // break;
-    // case '1':
-    // object = new Ballom(i, j);
-    // isRemovable = true;
-    // break;
-    // case '2':
-    // object = new Oneal(i, j);
-    // isRemovable = true;
-    // break;
-    // case 'f':
-    // object = new FlameItem(i, j);
-    // isRemovable = true;
-    // break;
-    // case 'x':
-    // object = new Portal(i, j);
-    // isRemovable = true;
-    // break;
-    // default:
-    // object = new Grass(i, j);
-    // break;
-    // }
-    // board.add(object);
-    // if (isRemovable) {
-    // removable.add(object);
-    // Entity object1 = new Grass(i, j);
-    // removable.add(object1);
-    // }
-    // unremovable.add(object);
-    // }
-    // }
-    // }
+    public void render(GraphicsContext gc) {
+        grass.forEach(g -> g.render(gc));
+        stillObject.forEach(g -> g.render(gc));
+        enemies.forEach(g -> g.render(gc));
+        bomberman.render(gc);
+    }
 
 }

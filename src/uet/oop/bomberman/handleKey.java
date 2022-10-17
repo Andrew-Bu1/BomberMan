@@ -1,7 +1,7 @@
 package uet.oop.bomberman;
 
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import static uet.oop.bomberman.entities.Bomber.bombPlaced;
 
 public class handleKey {
     private boolean pressUp, pressDown, pressLeft, pressRight;
@@ -58,6 +58,9 @@ public class handleKey {
                 break;
             case S:
                 pressDown = true;
+                break;
+            case SPACE:
+                bombPlaced = true;
                 break;
             default:
                 break;

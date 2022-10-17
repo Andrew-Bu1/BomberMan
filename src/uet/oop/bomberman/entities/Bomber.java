@@ -1,13 +1,17 @@
 package uet.oop.bomberman.entities;
 
 import uet.oop.bomberman.graphics.Sprite;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import static uet.oop.bomberman.BombermanGame.input;
 
 public class Bomber extends Entity {
     private boolean isAlive = true;
     private int speed = 2;
-    private int direction; // left = 0, right = 1, up = 2, down = 3
+    public static int direction;
+
+    public static boolean bombPlaced = false;
+    // left = 0, right = 1, up = 2, down = 3
 
     public void setAlive(boolean isAlive) {
         this.isAlive = isAlive;
@@ -26,6 +30,8 @@ public class Bomber extends Entity {
     public void update() {
         move();
         animateSprite();
+        System.out.println("x =" + x);
+        System.out.println("y =" + y);
     }
 
     public void handleEvent(KeyEvent e) {
@@ -40,21 +46,21 @@ public class Bomber extends Entity {
 
     @Override
     public void animateSprite() {
-        if (direction == up) {
+        if (input.isPressUp()) {
             if (input.isMoving() && input.isPress()) {
                 img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, animate, 18)
                         .getFxImage();
             } else {
                 img = Sprite.player_up.getFxImage();
             }
-        } else if (direction == down) {
+        } else if (input.isPressDown()) {
             if (input.isMoving() && input.isPress()) {
                 img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, animate, 18)
                         .getFxImage();
             } else {
                 img = Sprite.player_down.getFxImage();
             }
-        } else if (direction == left) {
+        } else if (input.isPressLeft()) {
             if (input.isMoving() && input.isPress()) {
                 img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, animate, 18)
                         .getFxImage();
@@ -62,7 +68,7 @@ public class Bomber extends Entity {
                 img = Sprite.player_left.getFxImage();
             }
 
-        } else if (direction == right) {
+        } else if (input.isPressRight()) {
             if (input.isMoving() && input.isPress()) {
                 img = Sprite
                         .movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, animate, 18)
@@ -79,22 +85,52 @@ public class Bomber extends Entity {
 
     @Override
     public void move() {
+        int y1;
+        int x1;
         if (input.isPressDown()) {
-            direction = down;
-            y += speed;
+            y1 = y + speed;
+            if (!checkStaticObject(x, y1)) {
+                y = y1;
+            }
         }
         if (input.isPressUp()) {
-            direction = up;
-            y -= speed;
+            y1 = y - speed;
+            if (!checkStaticObject(x, y1)) {
+                y = y1;
+            }
         }
         if (input.isPressLeft()) {
-            direction = left;
-            x -= speed;
+            x1 = x - speed;
+            if (!checkStaticObject(x1, y)) {
+                x = x1;
+            }
         }
         if (input.isPressRight()) {
-            direction = right;
-            x += speed;
+            x1 = x + speed;
+            if (!checkStaticObject(x1, y)) {
+                x = x1;
+            }
         }
+
+    }
+
+    @Override
+    public void render(GraphicsContext gc) {
+        if (isAlive) {
+            gc.drawImage(img, x, y);
+        } else {
+            img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, animate, 18)
+                    .getFxImage();
+            gc.drawImage(img, x, y);
+        }
+    }
+
+    public void renderDeath() {
+
+    }
+
+    public String getName() {
+        return "Bomber";
     }
 
 }

@@ -77,7 +77,7 @@ public class BombermanGame extends Application {
 
             @Override
             public void handle(long l) {
-                render();
+                level.render(gc);
                 update();
                 long frameTime = System.nanoTime() - frameStart;
                 if (frameDelay > frameTime) {
@@ -97,16 +97,12 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
-        // enemies.forEach(Entity::update);
         enemies.forEach(Entity::update);
         bomberman.update();
     }
 
-    public void render() {
+    public void render(GraphicsContext gc) {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        grass.forEach(g -> g.render(gc));
-        stillObject.forEach(g -> g.render(gc));
-        enemies.forEach(g -> g.render(gc));
-        bomberman.render(gc);
+        level.render(gc);
     }
 }

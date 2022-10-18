@@ -1,7 +1,5 @@
 package uet.oop.bomberman.entities;
 
-//import javafx.scene.image.Image;
-
 public class Flame extends Entity {
     public Flame(int x, int y) {
         super(x, y);
@@ -25,4 +23,5 @@ public class Flame extends Entity {
     public void move() {
 
     }
+
 }

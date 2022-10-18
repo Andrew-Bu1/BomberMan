@@ -60,4 +60,5 @@ public class Bomb extends Entity {
     public void move() {
 
     }
+
 }

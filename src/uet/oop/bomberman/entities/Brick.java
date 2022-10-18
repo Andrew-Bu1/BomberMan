@@ -22,4 +22,5 @@ public class Brick extends Entity {
     public void move() {
 
     }
+
 }

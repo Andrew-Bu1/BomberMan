@@ -21,4 +21,5 @@ public class Portal extends Entity {
     public void move() {
 
     }
+
 }

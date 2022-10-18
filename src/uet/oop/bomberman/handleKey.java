@@ -6,19 +6,10 @@ import static uet.oop.bomberman.entities.Bomber.bombPlaced;
 public class handleKey {
     private boolean pressUp, pressDown, pressLeft, pressRight;
     private boolean isMoving;
-    private boolean isPress;
 
     public handleKey() {
         pressDown = pressLeft = pressRight = pressUp = false;
         isMoving = false;
-    }
-
-    public void setPress(boolean isPress) {
-        this.isPress = isPress;
-    }
-
-    public boolean isPress() {
-        return isPress;
     }
 
     public boolean isPressUp() {

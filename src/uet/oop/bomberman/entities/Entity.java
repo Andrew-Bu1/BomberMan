@@ -13,9 +13,19 @@ public abstract class Entity {
     // Tọa độ Y tính từ góc trái trên trong Canvas
     protected int y;
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
     protected Image img;
 
     protected int animate = 0;
+
+    protected boolean isAlive = true;
 
     // Khởi tạo đối tượng, chuyển từ tọa độ đơn vị sang tọa độ trong canvas
     public Entity(int xUnit, int yUnit, Image img) {
@@ -43,31 +53,38 @@ public abstract class Entity {
         int xBottomRight = (int) ((x1) / (Sprite.SCALED_SIZE));
         int yBottomRight = (int) ((y1) / (Sprite.SCALED_SIZE));
 
-        int xBottomLeft = (int) (0.7 + (double) x1 / (Sprite.SCALED_SIZE));
+        int xBottomLeft = (int) (0.8 + (double) x1 / (Sprite.SCALED_SIZE));
         int yBottomLeft = (int) ((y1) / (Sprite.SCALED_SIZE));
 
         int xTopRight = (int) (x1 / (Sprite.SCALED_SIZE));
-        int yTopRight = (int) (0.9 + (double) y1 / (Sprite.SCALED_SIZE));
+        int yTopRight = (int) (0.8 + (double) y1 / (Sprite.SCALED_SIZE));
 
-        int xTopLeft = (int) (0.7 + (double) x1 / (Sprite.SCALED_SIZE));
-        int yTopLeft = (int) (0.9 + (double) y1 / (Sprite.SCALED_SIZE));
+        int xTopLeft = (int) (0.8 + (double) x1 / (Sprite.SCALED_SIZE));
+        int yTopLeft = (int) (0.8 + (double) y1 / (Sprite.SCALED_SIZE));
 
         if (map[xBottomRight][yBottomRight] == '#' || map[xBottomLeft][yBottomLeft] == '#'
                 || map[xTopRight][yTopRight] == '#' || map[xTopLeft][yTopLeft] == '#') {
-            System.out.println("detected1");
             return true;
         }
 
         if (map[xBottomRight][yBottomRight] == '*' || map[xBottomLeft][yBottomLeft] == '*'
                 || map[xTopRight][yTopRight] == '*' || map[xTopLeft][yTopLeft] == '*') {
-            System.out.println("detected2");
             return true;
         }
         return false;
     }
 
-    public void checkDynamicObject(int direction) {
+    public boolean checkDynamicObject(Entity object1, Entity object2) {
+        if (distance(object1, object2) <= 16) {
+            return true;
+        }
+        return false;
 
+    }
+
+    public double distance(Entity object1, Entity object2) {
+        return Math.sqrt(Math.pow(object1.getX() / 2 - object2.getX() / 2, 2)
+                + Math.pow(object1.getY() / 2 - object2.getY() / 2, 2));
     }
 
 }

@@ -14,7 +14,20 @@ public class Doll extends Entity {
 
     @Override
     public void animateSprite() {
-
+        if (isAlive) {
+            if (direction == 0 || direction == 2) {
+                img = Sprite.movingSprite(Sprite.doll_right1, Sprite.doll_right2,
+                        Sprite.doll_right3,
+                        animate, 18).getFxImage();
+            } else if (direction == 1 || direction == 3) {
+                img = Sprite.movingSprite(Sprite.doll_left1, Sprite.doll_left2,
+                        Sprite.doll_left3,
+                        animate, 18).getFxImage();
+            }
+        } else {
+            img = Sprite.movingSprite(Sprite.doll_dead, Sprite.mob_dead2, Sprite.mob_dead3, animate, 18)
+                    .getFxImage();
+        }
     }
 
     @Override
@@ -22,7 +35,5 @@ public class Doll extends Entity {
 
     }
 
-    public String getName() {
-        return "Doll";
-    }
+
 }

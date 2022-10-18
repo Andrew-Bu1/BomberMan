@@ -14,7 +14,20 @@ public class Kondoria extends Entity {
 
     @Override
     public void animateSprite() {
-
+        if (isAlive) {
+            if (direction == 0 || direction == 2) {
+                img = Sprite.movingSprite(Sprite.kondoria_right1, Sprite.kondoria_left2,
+                        Sprite.kondoria_left3,
+                        animate, 18).getFxImage();
+            } else if (direction == 1 || direction == 3) {
+                img = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2,
+                        Sprite.oneal_left3,
+                        animate, 18).getFxImage();
+            }
+        } else {
+            img = Sprite.movingSprite(Sprite.kondoria_dead, Sprite.mob_dead2, Sprite.mob_dead3, animate, 18)
+                    .getFxImage();
+        }
     }
 
     @Override
@@ -22,7 +35,4 @@ public class Kondoria extends Entity {
 
     }
 
-    public String getName() {
-        return "Kondoria";
-    }
 }

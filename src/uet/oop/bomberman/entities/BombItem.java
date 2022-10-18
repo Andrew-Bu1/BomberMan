@@ -22,4 +22,5 @@ public class BombItem extends Entity {
     public void move() {
 
     }
+
 }

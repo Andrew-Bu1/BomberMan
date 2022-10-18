@@ -60,16 +60,14 @@ public class BombermanGame extends Application {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                input.setPress(true);
-                bomberman.handleEvent(event);
+                bomberman.handleEventPressed(event);
             }
         });
 
         scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                input.setPress(false);
-                bomberman.handleEvent(event);
+                bomberman.handleEventReleased(event);
             }
         });
         AnimationTimer timer = new AnimationTimer() {

@@ -10,7 +10,7 @@ public class Ballom extends Entity {
 
     public Ballom(int x, int y) {
         super(x, y, Sprite.balloom_left1.getFxImage());
-
+        direction = random.nextInt(4);
     }
 
     public void update() {
@@ -18,52 +18,65 @@ public class Ballom extends Entity {
         animate++;
         if (animate > 20) {
             animate = 0;
-            moveRandom();
         }
         move();
     }
 
     @Override
     public void animateSprite() {
-        switch (direction) {
-            case 0:
-            case 2:
+        if (isAlive) {
+            if (direction == 0 || direction == 2) {
                 img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2,
                         Sprite.balloom_right3,
                         animate, 18).getFxImage();
-                break;
-            case 1:
-            case 3:
+            } else if (direction == 1 || direction == 3) {
                 img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2,
                         Sprite.balloom_left3,
                         animate, 18).getFxImage();
-                break;
+            }
+        } else {
+            img = Sprite.movingSprite(Sprite.balloom_dead, Sprite.mob_dead2, Sprite.mob_dead3, animate, 18)
+                    .getFxImage();
         }
-    }
-
-    public void moveRandom() {
-        direction = random.nextInt(4);
     }
 
     @Override
     public void move() {
+        int y1, x1;
         switch (direction) {
             case 0:
-                y -= 1;
+                y1 = y - 1;
+                if (!checkStaticObject(x, y1)) {
+                    y = y1;
+                } else {
+                    direction = random.nextInt(4);
+                }
                 break;
             case 1:
-                y += 1;
+                y1 = y + 1;
+                if (!checkStaticObject(x, y1)) {
+                    y = y1;
+                } else {
+                    direction = random.nextInt(4);
+                }
                 break;
             case 2:
-                x -= 1;
+                x1 = x - 1;
+                if (!checkStaticObject(x1, y)) {
+                    x = x1;
+                } else {
+                    direction = random.nextInt(4);
+                }
                 break;
             case 3:
-                x += 1;
+                x1 = x + 1;
+                if (!checkStaticObject(x1, y)) {
+                    x = x1;
+                } else {
+                    direction = random.nextInt(4);
+                }
                 break;
         }
     }
 
-    public String getName() {
-        return "Ballom";
-    }
 }

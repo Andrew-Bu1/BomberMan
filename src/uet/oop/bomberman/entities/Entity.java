@@ -1,9 +1,11 @@
 package uet.oop.bomberman.entities;
 
+import static uet.oop.bomberman.BombermanGame.bomberman;
+import static uet.oop.bomberman.tileManager.mapInGame;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
-import static uet.oop.bomberman.tileManager.map;
 
 public abstract class Entity {
     // Tọa độ X tính từ góc trái trên trong Canvas
@@ -22,6 +24,10 @@ public abstract class Entity {
     }
 
     protected Image img;
+
+    public Image getImg() {
+        return img;
+    }
 
     protected int animate = 0;
 
@@ -62,29 +68,48 @@ public abstract class Entity {
         int xTopLeft = (int) (0.8 + (double) x1 / (Sprite.SCALED_SIZE));
         int yTopLeft = (int) (0.8 + (double) y1 / (Sprite.SCALED_SIZE));
 
-        if (map[xBottomRight][yBottomRight] == '#' || map[xBottomLeft][yBottomLeft] == '#'
-                || map[xTopRight][yTopRight] == '#' || map[xTopLeft][yTopLeft] == '#') {
+        if (mapInGame[xBottomRight][yBottomRight] == '#' || mapInGame[xBottomLeft][yBottomLeft] == '#'
+                || mapInGame[xTopRight][yTopRight] == '#' || mapInGame[xTopLeft][yTopLeft] == '#') {
             return true;
         }
 
-        if (map[xBottomRight][yBottomRight] == '*' || map[xBottomLeft][yBottomLeft] == '*'
-                || map[xTopRight][yTopRight] == '*' || map[xTopLeft][yTopLeft] == '*') {
+        if (mapInGame[xBottomRight][yBottomRight] == '*' || mapInGame[xBottomLeft][yBottomLeft] == '*'
+                || mapInGame[xTopRight][yTopRight] == '*' || mapInGame[xTopLeft][yTopLeft] == '*') {
             return true;
+        }
+
+        if (this instanceof Bomber
+                && (mapInGame[xBottomRight][yBottomRight] == 'b' || mapInGame[xBottomLeft][yBottomLeft] == 'b'
+                        || mapInGame[xTopRight][yTopRight] == 'b' || mapInGame[xTopLeft][yTopLeft] == 'b')) {
+            mapInGame[xBottomRight][yBottomRight] = ' ';
+            bomberman.increaseBomb();
+        }
+
+        if (this instanceof Bomber
+                && (mapInGame[xBottomRight][yBottomRight] == 's' || mapInGame[xBottomLeft][yBottomLeft] == 's'
+                        || mapInGame[xTopRight][yTopRight] == 's' || mapInGame[xTopLeft][yTopLeft] == 's')) {
+            mapInGame[xBottomRight][yBottomRight] = ' ';
+            bomberman.increaseSpeed();
         }
         return false;
     }
 
     public boolean checkDynamicObject(Entity object1, Entity object2) {
-        if (distance(object1, object2) <= 16) {
-            return true;
-        }
-        return false;
+        int Left1 = object1.getX();
+        int Left2 = object2.getX();
 
-    }
+        int Right1 = object1.getX() + (int) object1.getImg().getWidth();
+        int Right2 = object2.getX() + (int) object2.getImg().getWidth();
 
-    public double distance(Entity object1, Entity object2) {
-        return Math.sqrt(Math.pow(object1.getX() / 2 - object2.getX() / 2, 2)
-                + Math.pow(object1.getY() / 2 - object2.getY() / 2, 2));
+        int Top1 = object1.getY();
+        int Top2 = object2.getY();
+
+        int Bottom1 = object1.getY() + (int) object1.getImg().getHeight();
+        int Bottom2 = object2.getY() + (int) object2.getImg().getHeight();
+
+        return Left1 < Right2 && Right1 > Left2
+                && Top1 < Bottom2 && Bottom1 > Top2;
+
     }
 
 }

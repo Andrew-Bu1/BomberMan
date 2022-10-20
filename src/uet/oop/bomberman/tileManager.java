@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import javafx.scene.canvas.GraphicsContext;
 import uet.oop.bomberman.entities.Ballom;
+import uet.oop.bomberman.entities.Bomb;
 import uet.oop.bomberman.entities.BombItem;
 import uet.oop.bomberman.entities.Brick;
 import uet.oop.bomberman.entities.FlameItem;
@@ -24,6 +25,8 @@ import static uet.oop.bomberman.BombermanGame.stillObject;
 import static uet.oop.bomberman.BombermanGame.hiddenItem;
 import static uet.oop.bomberman.BombermanGame.grass;
 import static uet.oop.bomberman.BombermanGame.bomberman;
+import static uet.oop.bomberman.BombermanGame.bombs;
+import static uet.oop.bomberman.BombermanGame.flames;
 
 public class tileManager {
     public static final int WIDTH = 20;
@@ -31,8 +34,9 @@ public class tileManager {
     public static int level = 0;
 
     public static char[][] map = new char[WIDTH][HEIGHT];
+    public static char[][] mapInGame = new char[WIDTH][HEIGHT];
 
-    public String path() {
+    public String mapPath() {
         return "res/levels/level" + level + ".txt";
     }
 
@@ -50,6 +54,11 @@ public class tileManager {
             while ((st = br.readLine()) != null) {
                 for (int i = 0; i < st.length(); i++) {
                     map[i][j] = st.charAt(i);
+                    if (map[i][j] == 'x' || map[i][j] == 's' | map[i][j] == 'f' || map[i][j] == 'b') {
+                        mapInGame[i][j] = '*';
+                    } else {
+                        mapInGame[i][j] = map[i][j];
+                    }
                 }
                 j++;
             }
@@ -112,6 +121,8 @@ public class tileManager {
         stillObject.forEach(g -> g.render(gc));
         enemies.forEach(g -> g.render(gc));
         bomberman.render(gc);
+        bombs.forEach(g -> g.render(gc));
+        flames.forEach(g -> g.render(gc));
     }
 
 }

@@ -17,7 +17,7 @@ public class Oneal extends Entity {
 
     @Override
     public void animateSprite() {
-        if (isAlive) {
+        if (!isDead) {
             if (direction == 0 || direction == 2) {
                 img = Sprite.movingSprite(Sprite.oneal_right1, Sprite.oneal_right2,
                         Sprite.oneal_right3,

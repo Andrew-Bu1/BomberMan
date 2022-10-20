@@ -10,12 +10,21 @@ public class Brick extends Entity {
 
     @Override
     public void update() {
-
+        if (isDead) {
+            animate++;
+            if (animate > 20) {
+                animate = 0;
+            }
+        }
+        animateSprite();
     }
 
     @Override
     public void animateSprite() {
-
+        if (isDead) {
+            img = Sprite.movingSprite(Sprite.brick_exploded, Sprite.brick_exploded1, Sprite.brick_exploded2, animate,
+                    18).getFxImage();
+        }
     }
 
     @Override

@@ -4,22 +4,44 @@ import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import static uet.oop.bomberman.BombermanGame.input;
+
 import static uet.oop.bomberman.BombermanGame.enemies;
+import static uet.oop.bomberman.BombermanGame.bombs;
 
 public class Bomber extends Entity {
     private int speed = 2;
     public static int direction;
 
-    public static boolean bombPlaced = false;
-    // left = 0, right = 1, up = 2, down = 3
+    private int numBomb = 0;
+    private int maxBomb = 3;
 
-    public void setAlive(boolean isAlive) {
-        this.isAlive = isAlive;
+    private int radius = 2;
+
+    public int getRadius() {
+        return radius;
     }
 
-    public void setCoordinate(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public void setRadius(int radius) {
+        this.radius = radius;
+    }
+
+    public void placeBomb() {
+        if (numBomb < maxBomb) {
+            numBomb++;
+            bombs.add(new Bomb((int) x / Sprite.SCALED_SIZE, (int) (y / Sprite.SCALED_SIZE)));
+        }
+    }
+
+    public void increaseBomb() {
+        maxBomb++;
+    }
+
+    public void bombFinished() {
+        numBomb--;
+    }
+
+    public void increaseSpeed() {
+        speed++;
     }
 
     public Bomber(int x, int y) {
@@ -50,6 +72,7 @@ public class Bomber extends Entity {
             if (input.isMoving()) {
                 img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, animate, 18)
                         .getFxImage();
+                isDead = false;
             } else {
                 img = Sprite.player_up.getFxImage();
             }
@@ -82,6 +105,10 @@ public class Bomber extends Entity {
             animate = 0;
         }
     }
+
+    // public void useItem() {
+    // if (mapInGame)
+    // }
 
     @Override
     public void move() {
@@ -116,7 +143,7 @@ public class Bomber extends Entity {
 
     @Override
     public void render(GraphicsContext gc) {
-        if (isAlive) {
+        if (!isDead) {
             gc.drawImage(img, x, y);
         } else {
             img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, animate, 18)
@@ -126,11 +153,11 @@ public class Bomber extends Entity {
     }
 
     public void checkDeath() {
-        for (int i = 0; i < enemies.size(); i++) {
-            if (checkDynamicObject(this, enemies.get(i))) {
-                isAlive = false;
-            }
-        }
+        // for (int i = 0; i < enemies.size(); i++) {
+        // if (checkDynamicObject(this, enemies.get(i))) {
+        // isDead = true;
+        // }
+        // }
     }
 
 }

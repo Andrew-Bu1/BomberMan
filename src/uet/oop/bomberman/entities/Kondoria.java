@@ -14,7 +14,7 @@ public class Kondoria extends Entity {
 
     @Override
     public void animateSprite() {
-        if (isAlive) {
+        if (!isDead) {
             if (direction == 0 || direction == 2) {
                 img = Sprite.movingSprite(Sprite.kondoria_right1, Sprite.kondoria_left2,
                         Sprite.kondoria_left3,

@@ -9,8 +9,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import uet.oop.bomberman.entities.Bomb;
 import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.Flame;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
@@ -27,6 +29,8 @@ public class BombermanGame extends Application {
     public static List<Entity> enemies = new ArrayList<>();
     public static List<Entity> stillObject = new ArrayList<>();
     public static List<Entity> grass = new ArrayList<>();
+    public static final List<Bomb> bombs = new ArrayList<>();
+    public static final List<Flame> flames = new ArrayList<>();
     private tileManager level = new tileManager();
     public static handleKey input = new handleKey();
 
@@ -94,9 +98,20 @@ public class BombermanGame extends Application {
         level.createEnemies();
     }
 
+    public void removeObject() {
+        bombs.removeIf(Bomb::isExploded);
+        enemies.removeIf(Entity::isDead);
+        stillObject.removeIf(Entity::isDead);
+        flames.removeIf(Flame::isOff);
+    }
+
     public void update() {
         enemies.forEach(Entity::update);
         bomberman.update();
+        bombs.forEach(Bomb::update);
+        stillObject.forEach(Entity::update);
+        flames.forEach(Entity::update);
+        removeObject();
     }
 
     public void render(GraphicsContext gc) {

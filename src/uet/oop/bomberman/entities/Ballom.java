@@ -24,7 +24,7 @@ public class Ballom extends Entity {
 
     @Override
     public void animateSprite() {
-        if (isAlive) {
+        if (!isDead) {
             if (direction == 0 || direction == 2) {
                 img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2,
                         Sprite.balloom_right3,

@@ -14,7 +14,7 @@ public class Doll extends Entity {
 
     @Override
     public void animateSprite() {
-        if (isAlive) {
+        if (!isDead) {
             if (direction == 0 || direction == 2) {
                 img = Sprite.movingSprite(Sprite.doll_right1, Sprite.doll_right2,
                         Sprite.doll_right3,
@@ -34,6 +34,5 @@ public class Doll extends Entity {
     public void move() {
 
     }
-
 
 }

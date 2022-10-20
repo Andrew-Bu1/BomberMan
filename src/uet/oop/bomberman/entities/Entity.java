@@ -31,7 +31,15 @@ public abstract class Entity {
 
     protected int animate = 0;
 
-    protected boolean isAlive = true;
+    protected boolean isDead = false;
+
+    public void setDead(boolean isDead) {
+        this.isDead = isDead;
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
 
     // Khởi tạo đối tượng, chuyển từ tọa độ đơn vị sang tọa độ trong canvas
     public Entity(int xUnit, int yUnit, Image img) {
@@ -65,8 +73,15 @@ public abstract class Entity {
         int xTopRight = (int) (x1 / (Sprite.SCALED_SIZE));
         int yTopRight = (int) (0.8 + (double) y1 / (Sprite.SCALED_SIZE));
 
-        int xTopLeft = (int) (0.8 + (double) x1 / (Sprite.SCALED_SIZE));
-        int yTopLeft = (int) (0.8 + (double) y1 / (Sprite.SCALED_SIZE));
+        int xTopLeft, yTopLeft;
+
+        if (this instanceof Bomber) {
+            xTopLeft = (int) (0.8 + (double) x1 / (Sprite.SCALED_SIZE));
+            yTopLeft = (int) (0.8 + (double) y1 / (Sprite.SCALED_SIZE));
+        } else {
+            xTopLeft = (int) (0.9 + (double) x1 / (Sprite.SCALED_SIZE));
+            yTopLeft = (int) (0.9 + (double) y1 / (Sprite.SCALED_SIZE));
+        }
 
         if (mapInGame[xBottomRight][yBottomRight] == '#' || mapInGame[xBottomLeft][yBottomLeft] == '#'
                 || mapInGame[xTopRight][yTopRight] == '#' || mapInGame[xTopLeft][yTopLeft] == '#') {
@@ -109,7 +124,6 @@ public abstract class Entity {
 
         return Left1 < Right2 && Right1 > Left2
                 && Top1 < Bottom2 && Bottom1 > Top2;
-
     }
 
 }

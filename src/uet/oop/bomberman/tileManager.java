@@ -11,7 +11,6 @@ import uet.oop.bomberman.entities.Blocks.Brick;
 import uet.oop.bomberman.entities.Blocks.Grass;
 import uet.oop.bomberman.entities.Blocks.Portal;
 import uet.oop.bomberman.entities.Blocks.Wall;
-import uet.oop.bomberman.entities.Bombs.Bomb;
 import uet.oop.bomberman.entities.Enemies.Ballom;
 import uet.oop.bomberman.entities.Enemies.Doll;
 import uet.oop.bomberman.entities.Enemies.Kondoria;

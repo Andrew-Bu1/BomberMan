@@ -46,4 +46,8 @@ public class Bomb extends Entity {
 
     }
 
+    public String getName() {
+        return "Bomb";
+    }
+
 }

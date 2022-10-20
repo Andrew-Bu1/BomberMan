@@ -24,4 +24,8 @@ public class Grass extends Entity {
 
     }
 
+    public String getName() {
+        return "Grass";
+    }
+
 }

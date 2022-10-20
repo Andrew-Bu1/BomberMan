@@ -35,4 +35,8 @@ public class Doll extends Entity {
 
     }
 
+    public String getName() {
+        return "Doll";
+    }
+
 }

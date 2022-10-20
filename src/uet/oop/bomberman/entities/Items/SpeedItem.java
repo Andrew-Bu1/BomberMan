@@ -20,7 +20,10 @@ public class SpeedItem extends Entity {
 
     @Override
     public void move() {
+    }
 
+    public String getName() {
+        return "SpeedItem";
     }
 
 }

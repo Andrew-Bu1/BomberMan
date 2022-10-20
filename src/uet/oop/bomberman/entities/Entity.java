@@ -65,11 +65,19 @@ public abstract class Entity {
         gc.drawImage(img, x, y);
     }
 
+    public abstract void move();
+
     public abstract void animateSprite();
 
     public abstract void update();
 
-    public abstract void move();
+    public void checkDeath() {
+        for (int i = 0; i < flames.size(); i++) {
+            if (checkDynamicObject(this, flames.get(i))) {
+                isDead = true;
+            }
+        }
+    }
 
     public boolean checkStaticObject(int x1, int y1) {
         int xBottomRight = (int) ((x1) / (Sprite.SCALED_SIZE));
@@ -134,12 +142,6 @@ public abstract class Entity {
                 && Top1 < Bottom2 && Bottom1 > Top2;
     }
 
-    public void checkDeath() {
-        for (int i = 0; i < flames.size(); i++) {
-            if (checkDynamicObject(this, flames.get(i))) {
-                isDead = true;
-            }
-        }
-    }
+    public abstract String getName();
 
 }

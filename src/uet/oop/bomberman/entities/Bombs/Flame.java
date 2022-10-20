@@ -3,9 +3,11 @@ package uet.oop.bomberman.entities.Bombs;
 import static uet.oop.bomberman.BombermanGame.flames;
 import static uet.oop.bomberman.tileManager.mapInGame;
 import static uet.oop.bomberman.tileManager.map;
+import static uet.oop.bomberman.BombermanGame.stillObject;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.Blocks.Brick;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Flame extends Entity {
@@ -24,6 +26,10 @@ public class Flame extends Entity {
 
     public void setOff(boolean isOff) {
         this.isOff = isOff;
+    }
+
+    public void removeDuplicates() {
+
     }
 
     // stop = 0, up = 1, down = 2, left = 3, right = 4, lastUp = 5, LastDown = 6,
@@ -66,6 +72,7 @@ public class Flame extends Entity {
                     mapInGame[coordinateX][coordinateY] = map[coordinateX][coordinateY];
                 }
                 mapInGame[coordinateX][coordinateY] = ' ';
+                setExploded(coordinateX, coordinateY);
                 flameUps++;
                 break;
             } else {
@@ -85,6 +92,7 @@ public class Flame extends Entity {
                     mapInGame[coordinateX][coordinateY] = map[coordinateX][coordinateY];
                 }
                 mapInGame[coordinateX][coordinateY] = ' ';
+                setExploded(coordinateX, coordinateY);
                 flameDowns += 1;
                 break;
             } else {
@@ -104,6 +112,7 @@ public class Flame extends Entity {
                     mapInGame[coordinateX][coordinateY] = map[coordinateX][coordinateY];
                 }
                 mapInGame[coordinateX][coordinateY] = ' ';
+                setExploded(coordinateX, coordinateY);
                 flameLefts++;
                 break;
             } else {
@@ -123,6 +132,7 @@ public class Flame extends Entity {
                     mapInGame[coordinateX][coordinateY] = map[coordinateX][coordinateY];
                 }
                 mapInGame[coordinateX][coordinateY] = ' ';
+                setExploded(coordinateX, coordinateY);
                 flameRights++;
                 break;
             } else {
@@ -226,6 +236,20 @@ public class Flame extends Entity {
     @Override
     public void move() {
 
+    }
+
+    public void setExploded(int x, int y) {
+        for (int i = 0; i < stillObject.size(); i++) {
+            if (stillObject.get(i).getName() == "Brick" && stillObject.get(i).getX() == x * Sprite.SCALED_SIZE
+                    && stillObject.get(i).getY() == y * Sprite.SCALED_SIZE) {
+                stillObject.get(i).setDead(true);
+                System.out.println("exploded");
+            }
+        }
+    }
+
+    public String getName() {
+        return "Flame";
     }
 
 }

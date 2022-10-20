@@ -11,7 +11,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.Blocks.Brick;
 import uet.oop.bomberman.entities.Bombs.Bomb;
 import uet.oop.bomberman.entities.Bombs.Flame;
 import uet.oop.bomberman.graphics.Sprite;
@@ -28,8 +27,7 @@ public class BombermanGame extends Application {
     public static Bomber bomberman;
     public static List<Entity> hiddenItem = new ArrayList<>();
     public static List<Entity> enemies = new ArrayList<>();
-    public static List<Brick> bricks = new ArrayList<>();
-    public static List<Entity> objects = new ArrayList<>();
+    public static List<Entity> stillObject = new ArrayList<>();
     public static List<Entity> grass = new ArrayList<>();
     public static final List<Bomb> bombs = new ArrayList<>();
     public static final List<Flame> flames = new ArrayList<>();
@@ -105,6 +103,7 @@ public class BombermanGame extends Application {
         enemies.removeIf(Entity::isDead);
         stillObject.removeIf(Entity::isOff);
         flames.removeIf(Flame::isOff);
+        hiddenItem.removeIf(Entity::isOff);
     }
 
     public void update() {

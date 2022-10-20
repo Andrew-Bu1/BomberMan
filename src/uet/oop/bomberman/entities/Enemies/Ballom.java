@@ -3,8 +3,8 @@ package uet.oop.bomberman.entities.Enemies;
 import java.util.Random;
 
 import uet.oop.bomberman.entities.Entity;
-//import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
+import static uet.oop.bomberman.tileManager.mapInGame;
 
 public class Ballom extends Entity {
     private Random random = new Random();
@@ -79,6 +79,10 @@ public class Ballom extends Entity {
                 }
                 break;
         }
+    }
+
+    public String getName() {
+        return "Ballom";
     }
 
 }

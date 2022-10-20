@@ -20,7 +20,10 @@ public class FlameItem extends Entity {
 
     @Override
     public void move() {
+    }
 
+    public String getName() {
+        return "FlameItem";
     }
 
 }

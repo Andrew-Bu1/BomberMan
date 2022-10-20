@@ -8,6 +8,7 @@ import static uet.oop.bomberman.BombermanGame.input;
 
 import static uet.oop.bomberman.BombermanGame.bombs;
 import static uet.oop.bomberman.BombermanGame.enemies;
+import static uet.oop.bomberman.BombermanGame.flames;;
 
 public class Bomber extends Entity {
     private int speed = 2;
@@ -154,11 +155,19 @@ public class Bomber extends Entity {
     }
 
     public void checkDeath() {
-        super.checkDeath();
         for (int i = 0; i < enemies.size(); i++) {
             if (checkDynamicObject(enemies.get(i), this)) {
                 isDead = true;
             }
         }
+        for (int i = 0; i < flames.size(); i++) {
+            if (checkDynamicObject(flames.get(i), this)) {
+                isDead = true;
+            }
+        }
+    }
+
+    public String getName() {
+        return "Bomber";
     }
 }

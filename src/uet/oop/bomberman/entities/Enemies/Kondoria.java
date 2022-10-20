@@ -36,4 +36,8 @@ public class Kondoria extends Entity {
 
     }
 
+    public String getName() {
+        return "Kondoria";
+    }
+
 }

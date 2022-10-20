@@ -2,7 +2,6 @@ package uet.oop.bomberman.entities.Blocks;
 
 //import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
-import static uet.oop.bomberman.BombermanGame.flames;
 
 import uet.oop.bomberman.entities.Entity;
 
@@ -20,9 +19,11 @@ public class Brick extends Entity {
         if (animate > 20) {
             animate = 0;
         }
-        time++;
-        if (time == 120) {
-            isOff = true;
+        if (isDead) {
+            time++;
+            if (time == 20) {
+                isOff = true;
+            }
         }
         animateSprite();
     }
@@ -38,6 +39,10 @@ public class Brick extends Entity {
     @Override
     public void move() {
 
+    }
+
+    public String getName() {
+        return "Brick";
     }
 
 }

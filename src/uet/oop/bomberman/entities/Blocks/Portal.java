@@ -23,4 +23,8 @@ public class Portal extends Entity {
 
     }
 
+    public String getName() {
+        return "Portal";
+    }
+
 }

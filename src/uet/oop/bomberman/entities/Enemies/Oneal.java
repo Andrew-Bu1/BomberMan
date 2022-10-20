@@ -39,4 +39,8 @@ public class Oneal extends Entity {
 
     }
 
+    public String getName() {
+        return "Oneal";
+    }
+
 }

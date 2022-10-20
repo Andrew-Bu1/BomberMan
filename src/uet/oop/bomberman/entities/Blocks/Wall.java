@@ -24,4 +24,8 @@ public class Wall extends Entity {
 
     }
 
+    public String getName() {
+        return "Wall";
+    }
+
 }

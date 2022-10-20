@@ -1,12 +1,13 @@
 package uet.oop.bomberman.entities;
 
+import uet.oop.bomberman.entities.Bombs.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import static uet.oop.bomberman.BombermanGame.input;
 
-import static uet.oop.bomberman.BombermanGame.enemies;
 import static uet.oop.bomberman.BombermanGame.bombs;
+import static uet.oop.bomberman.BombermanGame.enemies;
 
 public class Bomber extends Entity {
     private int speed = 2;
@@ -153,11 +154,11 @@ public class Bomber extends Entity {
     }
 
     public void checkDeath() {
-        // for (int i = 0; i < enemies.size(); i++) {
-        // if (checkDynamicObject(this, enemies.get(i))) {
-        // isDead = true;
-        // }
-        // }
+        super.checkDeath();
+        for (int i = 0; i < enemies.size(); i++) {
+            if (checkDynamicObject(enemies.get(i), this)) {
+                isDead = true;
+            }
+        }
     }
-
 }

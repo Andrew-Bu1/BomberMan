@@ -1,9 +1,11 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.Bombs;
 
 import static uet.oop.bomberman.BombermanGame.flames;
 import static uet.oop.bomberman.tileManager.mapInGame;
+import static uet.oop.bomberman.tileManager.map;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Flame extends Entity {
@@ -15,19 +17,6 @@ public class Flame extends Entity {
     private int radius = 1;
     private int time = 0;
     private boolean isOff = false;
-
-    // public void removeDuplicates() {
-    // for (int i = 0; i < flames.size() - 1; i++) {
-    // for (int j = 0; j < flames.size(); j++) {
-    // if (flames.get(i).getX() == flames.get(j).getX() && flames.get(i).getY() ==
-    // flames.get(i).getY()
-    // && i != j) {
-    // System.out.println("collided");
-    // }
-    // }
-    // }
-
-    // }
 
     public boolean isOff() {
         return isOff;
@@ -64,63 +53,82 @@ public class Flame extends Entity {
         if (time == 40) {
             isOff = true;
         }
-        System.out.println(flames.size());
     }
 
     private void countFlameUps() {
         for (int i = 1; i <= radius; i++) {
-            if (mapInGame[(int) x / Sprite.SCALED_SIZE][(int) y / Sprite.SCALED_SIZE - i] == '#') {
+            int coordinateX = (int) x / Sprite.SCALED_SIZE;
+            int coordinateY = (int) y / Sprite.SCALED_SIZE - i;
+            if (mapInGame[coordinateX][coordinateY] == '#') {
                 return;
-            } else if (mapInGame[(int) x / Sprite.SCALED_SIZE][(int) y / Sprite.SCALED_SIZE - i] == '*') {
+            } else if (mapInGame[coordinateX][coordinateY] == '*') {
+                if (map[coordinateX][coordinateY] != '*') {
+                    mapInGame[coordinateX][coordinateY] = map[coordinateX][coordinateY];
+                }
+                mapInGame[coordinateX][coordinateY] = ' ';
                 flameUps++;
                 break;
             } else {
                 flameUps++;
             }
         }
-        System.out.println(flameUps);
     }
 
     private void countFlameDowns() {
         for (int i = 1; i <= radius; i++) {
-            if (mapInGame[(int) x / Sprite.SCALED_SIZE][(int) y / Sprite.SCALED_SIZE + i] == '#') {
+            int coordinateX = (int) x / Sprite.SCALED_SIZE;
+            int coordinateY = (int) y / Sprite.SCALED_SIZE + i;
+            if (mapInGame[coordinateX][coordinateY] == '#') {
                 return;
-            } else if (mapInGame[(int) x / Sprite.SCALED_SIZE][(int) y / Sprite.SCALED_SIZE + i] == '*') {
+            } else if (mapInGame[coordinateX][coordinateY] == '*') {
+                if (map[coordinateX][coordinateY] != '*') {
+                    mapInGame[coordinateX][coordinateY] = map[coordinateX][coordinateY];
+                }
+                mapInGame[coordinateX][coordinateY] = ' ';
                 flameDowns += 1;
                 break;
             } else {
                 flameDowns++;
             }
         }
-        System.out.println(flameDowns);
     }
 
     private void countFlameLefts() {
         for (int i = 1; i <= radius; i++) {
-            if (mapInGame[(int) x / Sprite.SCALED_SIZE - i][(int) y / Sprite.SCALED_SIZE] == '#') {
+            int coordinateX = (int) x / Sprite.SCALED_SIZE - i;
+            int coordinateY = (int) y / Sprite.SCALED_SIZE;
+            if (mapInGame[coordinateX][coordinateY] == '#') {
                 return;
-            } else if (mapInGame[(int) x / Sprite.SCALED_SIZE + i][(int) y / Sprite.SCALED_SIZE] == '*') {
+            } else if (mapInGame[coordinateX][coordinateY] == '*') {
+                if (map[coordinateX][coordinateY] != '*') {
+                    mapInGame[coordinateX][coordinateY] = map[coordinateX][coordinateY];
+                }
+                mapInGame[coordinateX][coordinateY] = ' ';
                 flameLefts++;
                 break;
             } else {
                 flameLefts++;
             }
         }
-        System.out.println(flameRights);
     }
 
     private void countFlameRights() {
         for (int i = 1; i <= radius; i++) {
-            if (mapInGame[(int) x / Sprite.SCALED_SIZE + i][(int) y / Sprite.SCALED_SIZE] == '#') {
+            int coordinateX = (int) x / Sprite.SCALED_SIZE + i;
+            int coordinateY = (int) y / Sprite.SCALED_SIZE;
+            if (mapInGame[coordinateX][coordinateY] == '#') {
                 return;
-            } else if (mapInGame[(int) x / Sprite.SCALED_SIZE + i][(int) y / Sprite.SCALED_SIZE] == '*') {
+            } else if (mapInGame[coordinateX][coordinateY] == '*') {
+                if (map[coordinateX][coordinateY] != '*') {
+                    mapInGame[coordinateX][coordinateY] = map[coordinateX][coordinateY];
+                }
+                mapInGame[coordinateX][coordinateY] = ' ';
                 flameRights++;
                 break;
             } else {
                 flameRights++;
             }
         }
-        System.out.println(flameRights);
     }
 
     public void createFlame(int x, int y, int radius) {
@@ -213,64 +221,6 @@ public class Flame extends Entity {
                         .getFxImage();
                 break;
         }
-        // if (isLast) {
-        // switch (direction) {
-        // case 1:
-        // img = Sprite.movingSprite(Sprite.explosion_vertical_top_last,
-        // Sprite.explosion_vertical_top_last1, Sprite.explosion_vertical_top_last2,
-        // animate, 18)
-        // .getFxImage();
-        // break;
-        // case 2:
-        // img = Sprite.movingSprite(Sprite.explosion_vertical_down_last,
-        // Sprite.explosion_vertical_down_last1, Sprite.explosion_vertical_down_last2,
-        // animate, 18)
-        // .getFxImage();
-        // break;
-        // case 3:
-        // img = Sprite.movingSprite(Sprite.explosion_horizontal_left_last,
-        // Sprite.explosion_horizontal_left_last1,
-        // Sprite.explosion_horizontal_left_last2, animate,
-        // 18).getFxImage();
-        // break;
-        // case 4:
-        // img = Sprite.movingSprite(Sprite.explosion_horizontal_right_last,
-        // Sprite.explosion_horizontal_right_last1,
-        // Sprite.explosion_horizontal_right_last2,
-        // animate,
-        // 18).getFxImage();
-        // break;
-        // }
-        // } else {
-        // switch (direction) {
-        // case 0:
-        // img = Sprite.movingSprite(Sprite.bomb_exploded, Sprite.bomb_exploded1,
-        // Sprite.bomb_2, animate, 18)
-        // .getFxImage();
-        // break;
-        // case 1:
-        // img = Sprite.movingSprite(Sprite.explosion_vertical,
-        // Sprite.explosion_vertical1, Sprite.explosion_vertical2, animate, 18)
-        // .getFxImage();
-        // break;
-        // case 2:
-        // img = Sprite.movingSprite(Sprite.explosion_vertical,
-        // Sprite.explosion_vertical1, Sprite.explosion_vertical2, animate, 18)
-        // .getFxImage();
-        // break;
-        // case 3:
-        // img = Sprite.movingSprite(Sprite.explosion_horizontal,
-        // Sprite.explosion_horizontal1, Sprite.explosion_horizontal2, animate,
-        // 18).getFxImage();
-        // break;
-        // case 4:
-        // img = Sprite.movingSprite(Sprite.explosion_horizontal,
-        // Sprite.explosion_horizontal1, Sprite.explosion_horizontal2,
-        // animate,
-        // 18).getFxImage();
-        // break;
-        // }
-        // }
     }
 
     @Override

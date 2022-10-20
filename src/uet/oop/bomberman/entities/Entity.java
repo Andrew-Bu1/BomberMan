@@ -2,6 +2,8 @@ package uet.oop.bomberman.entities;
 
 import static uet.oop.bomberman.BombermanGame.bomberman;
 import static uet.oop.bomberman.tileManager.mapInGame;
+import static uet.oop.bomberman.BombermanGame.flames;
+import static uet.oop.bomberman.BombermanGame.enemies;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -32,6 +34,12 @@ public abstract class Entity {
     protected int animate = 0;
 
     protected boolean isDead = false;
+
+    protected boolean isOff = false;
+
+    public boolean isOff() {
+        return isOff;
+    }
 
     public void setDead(boolean isDead) {
         this.isDead = isDead;
@@ -124,6 +132,14 @@ public abstract class Entity {
 
         return Left1 < Right2 && Right1 > Left2
                 && Top1 < Bottom2 && Bottom1 > Top2;
+    }
+
+    public void checkDeath() {
+        for (int i = 0; i < flames.size(); i++) {
+            if (checkDynamicObject(this, flames.get(i))) {
+                isDead = true;
+            }
+        }
     }
 
 }

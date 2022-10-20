@@ -9,10 +9,11 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import uet.oop.bomberman.entities.Bomb;
 import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.Flame;
+import uet.oop.bomberman.entities.Blocks.Brick;
+import uet.oop.bomberman.entities.Bombs.Bomb;
+import uet.oop.bomberman.entities.Bombs.Flame;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
@@ -27,7 +28,8 @@ public class BombermanGame extends Application {
     public static Bomber bomberman;
     public static List<Entity> hiddenItem = new ArrayList<>();
     public static List<Entity> enemies = new ArrayList<>();
-    public static List<Entity> stillObject = new ArrayList<>();
+    public static List<Brick> bricks = new ArrayList<>();
+    public static List<Entity> objects = new ArrayList<>();
     public static List<Entity> grass = new ArrayList<>();
     public static final List<Bomb> bombs = new ArrayList<>();
     public static final List<Flame> flames = new ArrayList<>();
@@ -101,7 +103,7 @@ public class BombermanGame extends Application {
     public void removeObject() {
         bombs.removeIf(Bomb::isExploded);
         enemies.removeIf(Entity::isDead);
-        stillObject.removeIf(Entity::isDead);
+        stillObject.removeIf(Entity::isOff);
         flames.removeIf(Flame::isOff);
     }
 

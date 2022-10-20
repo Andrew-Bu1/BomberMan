@@ -1,10 +1,12 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.Blocks;
 
+import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
-public class Portal extends Entity {
-    public Portal(int x, int y) {
-        super(x, y, Sprite.portal.getFxImage());
+public class Grass extends Entity {
+
+    public Grass(int x, int y) {
+        super(x, y, Sprite.grass.getFxImage());
     }
 
     @Override

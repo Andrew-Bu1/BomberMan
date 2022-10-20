@@ -1,7 +1,9 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.Bombs;
 
 import uet.oop.bomberman.graphics.Sprite;
 import static uet.oop.bomberman.BombermanGame.bomberman;
+
+import uet.oop.bomberman.entities.Entity;
 
 public class Bomb extends Entity {
     private int time = 0;

@@ -1,5 +1,6 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.Items;
 
+import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class SpeedItem extends Entity {
@@ -21,6 +22,5 @@ public class SpeedItem extends Entity {
     public void move() {
 
     }
-
 
 }

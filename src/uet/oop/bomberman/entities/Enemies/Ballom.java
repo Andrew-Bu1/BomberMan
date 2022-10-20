@@ -1,7 +1,8 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.Enemies;
 
 import java.util.Random;
 
+import uet.oop.bomberman.entities.Entity;
 //import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -20,6 +21,7 @@ public class Ballom extends Entity {
             animate = 0;
         }
         move();
+
     }
 
     @Override

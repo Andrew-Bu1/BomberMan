@@ -7,7 +7,6 @@ import static uet.oop.bomberman.BombermanGame.stillObject;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.Blocks.Brick;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Flame extends Entity {
@@ -70,8 +69,9 @@ public class Flame extends Entity {
             } else if (mapInGame[coordinateX][coordinateY] == '*') {
                 if (map[coordinateX][coordinateY] != '*') {
                     mapInGame[coordinateX][coordinateY] = map[coordinateX][coordinateY];
+                } else {
+                    mapInGame[coordinateX][coordinateY] = ' ';
                 }
-                mapInGame[coordinateX][coordinateY] = ' ';
                 setExploded(coordinateX, coordinateY);
                 flameUps++;
                 break;
@@ -90,8 +90,9 @@ public class Flame extends Entity {
             } else if (mapInGame[coordinateX][coordinateY] == '*') {
                 if (map[coordinateX][coordinateY] != '*') {
                     mapInGame[coordinateX][coordinateY] = map[coordinateX][coordinateY];
+                } else {
+                    mapInGame[coordinateX][coordinateY] = ' ';
                 }
-                mapInGame[coordinateX][coordinateY] = ' ';
                 setExploded(coordinateX, coordinateY);
                 flameDowns += 1;
                 break;
@@ -110,8 +111,9 @@ public class Flame extends Entity {
             } else if (mapInGame[coordinateX][coordinateY] == '*') {
                 if (map[coordinateX][coordinateY] != '*') {
                     mapInGame[coordinateX][coordinateY] = map[coordinateX][coordinateY];
+                } else {
+                    mapInGame[coordinateX][coordinateY] = ' ';
                 }
-                mapInGame[coordinateX][coordinateY] = ' ';
                 setExploded(coordinateX, coordinateY);
                 flameLefts++;
                 break;
@@ -130,8 +132,9 @@ public class Flame extends Entity {
             } else if (mapInGame[coordinateX][coordinateY] == '*') {
                 if (map[coordinateX][coordinateY] != '*') {
                     mapInGame[coordinateX][coordinateY] = map[coordinateX][coordinateY];
+                } else {
+                    mapInGame[coordinateX][coordinateY] = ' ';
                 }
-                mapInGame[coordinateX][coordinateY] = ' ';
                 setExploded(coordinateX, coordinateY);
                 flameRights++;
                 break;
@@ -186,7 +189,6 @@ public class Flame extends Entity {
                         4));
             }
         }
-        System.out.println(flames.size());
     }
 
     @Override
@@ -233,23 +235,22 @@ public class Flame extends Entity {
         }
     }
 
-    @Override
-    public void move() {
-
-    }
-
     public void setExploded(int x, int y) {
         for (int i = 0; i < stillObject.size(); i++) {
             if (stillObject.get(i).getName() == "Brick" && stillObject.get(i).getX() == x * Sprite.SCALED_SIZE
                     && stillObject.get(i).getY() == y * Sprite.SCALED_SIZE) {
                 stillObject.get(i).setDead(true);
-                System.out.println("exploded");
             }
         }
     }
 
     public String getName() {
         return "Flame";
+    }
+
+    @Override
+    public void move() {
+
     }
 
 }

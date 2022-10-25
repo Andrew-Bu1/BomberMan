@@ -21,7 +21,6 @@ import uet.oop.bomberman.entities.Items.SpeedItem;
 
 import static uet.oop.bomberman.BombermanGame.enemies;
 import static uet.oop.bomberman.BombermanGame.stillObject;
-import static uet.oop.bomberman.BombermanGame.hiddenItem;
 import static uet.oop.bomberman.BombermanGame.grass;
 import static uet.oop.bomberman.BombermanGame.bomberman;
 import static uet.oop.bomberman.BombermanGame.bombs;
@@ -64,6 +63,8 @@ public class tileManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        createEnemies();
+        createObjects();
 
     }
 
@@ -77,17 +78,16 @@ public class tileManager {
                 }
 
                 if (map[i][j] == 'x') {
-                    hiddenItem.add(new Portal(i, j));
+                    stillObject.add(new Portal(i, j));
                     stillObject.add(new Brick(i, j));
-                }
-                if (map[i][j] == 's') {
-                    hiddenItem.add(new SpeedItem(i, j));
+                } else if (map[i][j] == 's') {
+                    stillObject.add(new SpeedItem(i, j));
                     stillObject.add(new Brick(i, j));
                 } else if (map[i][j] == 'f') {
-                    hiddenItem.add(new FlameItem(i, j));
+                    stillObject.add(new FlameItem(i, j));
                     stillObject.add(new Brick(i, j));
                 } else if (map[i][j] == 'b') {
-                    hiddenItem.add(new BombItem(i, j));
+                    stillObject.add(new BombItem(i, j));
                     stillObject.add(new Brick(i, j));
                 }
 
@@ -124,4 +124,11 @@ public class tileManager {
         flames.forEach(g -> g.render(gc));
     }
 
+    public void clearMap() {
+        stillObject.clear();
+        enemies.clear();
+        grass.clear();
+        bombs.clear();
+        flames.clear();
+    }
 }

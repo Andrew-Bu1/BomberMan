@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+// import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Entity;
@@ -15,6 +16,7 @@ import uet.oop.bomberman.entities.Bombs.Bomb;
 import uet.oop.bomberman.entities.Bombs.Flame;
 import uet.oop.bomberman.graphics.Sprite;
 
+// import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +27,6 @@ public class BombermanGame extends Application {
     private Group root;
     private Canvas canvas;
     public static Bomber bomberman;
-    public static List<Entity> hiddenItem = new ArrayList<>();
     public static List<Entity> enemies = new ArrayList<>();
     public static List<Entity> stillObject = new ArrayList<>();
     public static List<Entity> grass = new ArrayList<>();
@@ -57,6 +58,9 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
+        // File audioFile = new File("src/sound.wav");
+        // AudioClip clip = new AudioClip(audioFile.toURI().toString());
+        // clip.play();
 
         // Them scene vao stage
         stage.setScene(scene);
@@ -94,8 +98,6 @@ public class BombermanGame extends Application {
         timer.start();
 
         level.loadMap("res\\levels\\Level0.txt");
-        level.createObjects();
-        level.createEnemies();
     }
 
     public void removeObject() {
@@ -103,7 +105,6 @@ public class BombermanGame extends Application {
         enemies.removeIf(Entity::isDead);
         stillObject.removeIf(Entity::isOff);
         flames.removeIf(Flame::isOff);
-        hiddenItem.removeIf(Entity::isOff);
     }
 
     public void update() {

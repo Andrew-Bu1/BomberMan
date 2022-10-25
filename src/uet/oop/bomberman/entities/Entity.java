@@ -3,7 +3,7 @@ package uet.oop.bomberman.entities;
 import static uet.oop.bomberman.BombermanGame.bomberman;
 import static uet.oop.bomberman.tileManager.mapInGame;
 import static uet.oop.bomberman.BombermanGame.flames;
-import static uet.oop.bomberman.BombermanGame.enemies;
+import static uet.oop.bomberman.BombermanGame.stillObject;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -39,6 +39,16 @@ public abstract class Entity {
 
     public boolean isOff() {
         return isOff;
+    }
+
+    protected boolean isHidden = false;
+
+    public void setHidden(boolean isHidden) {
+        this.isHidden = isHidden;
+    }
+
+    public boolean isHidden() {
+        return isHidden;
     }
 
     public void setDead(boolean isDead) {
@@ -94,6 +104,7 @@ public abstract class Entity {
         if (this instanceof Bomber) {
             xTopLeft = (int) (0.8 + (double) x1 / (Sprite.SCALED_SIZE));
             yTopLeft = (int) (0.8 + (double) y1 / (Sprite.SCALED_SIZE));
+
         } else {
             xTopLeft = (int) (0.9 + (double) x1 / (Sprite.SCALED_SIZE));
             yTopLeft = (int) (0.9 + (double) y1 / (Sprite.SCALED_SIZE));
@@ -104,24 +115,101 @@ public abstract class Entity {
             return true;
         }
 
+        if (mapInGame[xBottomRight][yBottomRight] == 'b') {
+            mapInGame[xBottomRight][yBottomRight] = ' ';
+            if (this instanceof Bomber) {
+                bomberman.increaseBomb();
+            }
+            itemUsed(xBottomRight, yBottomRight);
+            return false;
+        } else if (mapInGame[xBottomLeft][yBottomLeft] == 'b') {
+            if (this instanceof Bomber) {
+                bomberman.increaseBomb();
+            }
+            mapInGame[xBottomLeft][yBottomLeft] = ' ';
+            itemUsed(xBottomLeft, yBottomLeft);
+            return false;
+        } else if (mapInGame[xTopRight][yTopRight] == 'b') {
+            if (this instanceof Bomber) {
+                bomberman.increaseBomb();
+            }
+            mapInGame[xTopRight][yTopRight] = ' ';
+            itemUsed(xTopRight, yTopRight);
+            return false;
+        } else if (mapInGame[xTopLeft][yTopLeft] == 'b') {
+            if (this instanceof Bomber) {
+                bomberman.increaseBomb();
+            }
+            mapInGame[xTopLeft][yTopLeft] = ' ';
+            itemUsed(xTopLeft, yTopLeft);
+            return false;
+        }
+
+        if (mapInGame[xBottomRight][yBottomRight] == 'f') {
+            mapInGame[xBottomRight][yBottomRight] = ' ';
+            if (this instanceof Bomber) {
+                bomberman.increaseRadius();
+            }
+            itemUsed(xBottomRight, yBottomRight);
+            return false;
+        } else if (mapInGame[xBottomLeft][yBottomLeft] == 'f') {
+            if (this instanceof Bomber) {
+                bomberman.increaseRadius();
+            }
+            mapInGame[xBottomLeft][yBottomLeft] = ' ';
+            itemUsed(xBottomLeft, yBottomLeft);
+            return false;
+        } else if (mapInGame[xTopRight][yTopRight] == 'f') {
+            if (this instanceof Bomber) {
+                bomberman.increaseRadius();
+            }
+            mapInGame[xTopRight][yTopRight] = ' ';
+            itemUsed(xTopRight, yTopRight);
+            return false;
+        } else if (mapInGame[xTopLeft][yTopLeft] == 'f') {
+            if (this instanceof Bomber) {
+                bomberman.increaseRadius();
+            }
+            mapInGame[xTopLeft][yTopLeft] = ' ';
+            itemUsed(xTopLeft, yTopLeft);
+            return false;
+        }
+
+        if (mapInGame[xBottomRight][yBottomRight] == 's') {
+            mapInGame[xBottomRight][yBottomRight] = ' ';
+            if (this instanceof Bomber) {
+                bomberman.increaseSpeed();
+            }
+            itemUsed(xBottomRight, yBottomRight);
+            return false;
+        } else if (mapInGame[xBottomLeft][yBottomLeft] == 's') {
+            if (this instanceof Bomber) {
+                bomberman.increaseSpeed();
+            }
+            mapInGame[xBottomLeft][yBottomLeft] = ' ';
+            itemUsed(xBottomLeft, yBottomLeft);
+            return false;
+        } else if (mapInGame[xTopRight][yTopRight] == 's') {
+            if (this instanceof Bomber) {
+                bomberman.increaseSpeed();
+            }
+            mapInGame[xTopRight][yTopRight] = ' ';
+            itemUsed(xTopRight, yTopRight);
+            return false;
+        } else if (mapInGame[xTopLeft][yTopLeft] == 's') {
+            if (this instanceof Bomber) {
+                bomberman.increaseSpeed();
+            }
+            mapInGame[xTopLeft][yTopLeft] = ' ';
+            itemUsed(xTopLeft, yTopLeft);
+            return false;
+        }
+
         if (mapInGame[xBottomRight][yBottomRight] == '*' || mapInGame[xBottomLeft][yBottomLeft] == '*'
                 || mapInGame[xTopRight][yTopRight] == '*' || mapInGame[xTopLeft][yTopLeft] == '*') {
             return true;
         }
 
-        if (this instanceof Bomber
-                && (mapInGame[xBottomRight][yBottomRight] == 'b' || mapInGame[xBottomLeft][yBottomLeft] == 'b'
-                        || mapInGame[xTopRight][yTopRight] == 'b' || mapInGame[xTopLeft][yTopLeft] == 'b')) {
-            mapInGame[xBottomRight][yBottomRight] = ' ';
-            bomberman.increaseBomb();
-        }
-
-        if (this instanceof Bomber
-                && (mapInGame[xBottomRight][yBottomRight] == 's' || mapInGame[xBottomLeft][yBottomLeft] == 's'
-                        || mapInGame[xTopRight][yTopRight] == 's' || mapInGame[xTopLeft][yTopLeft] == 's')) {
-            mapInGame[xBottomRight][yBottomRight] = ' ';
-            bomberman.increaseSpeed();
-        }
         return false;
     }
 
@@ -143,5 +231,16 @@ public abstract class Entity {
     }
 
     public abstract String getName();
+
+    public void itemUsed(int x, int y) {
+        for (int i = 0; i < stillObject.size(); i++) {
+            if ((stillObject.get(i).getName() == "BombItem" || stillObject.get(i).getName() == "SpeedItem"
+                    || stillObject.get(i).getName() == "FlameItem")
+                    && stillObject.get(i).getX() == x * Sprite.SCALED_SIZE
+                    && stillObject.get(i).getY() == y * Sprite.SCALED_SIZE) {
+                stillObject.get(i).setDead(true);
+            }
+        }
+    }
 
 }

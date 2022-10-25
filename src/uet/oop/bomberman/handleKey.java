@@ -8,15 +8,9 @@ public class handleKey {
     private boolean pressDown;
     private boolean pressLeft;
     private boolean pressRight;
-    private boolean isMoving;
-
-    public void setMoving(boolean isMoving) {
-        this.isMoving = isMoving;
-    }
 
     public handleKey() {
         pressDown = pressLeft = pressRight = pressUp = false;
-        isMoving = false;
     }
 
     public boolean isPressUp() {
@@ -33,10 +27,6 @@ public class handleKey {
 
     public boolean isPressRight() {
         return pressRight;
-    }
-
-    public boolean isMoving() {
-        return isMoving;
     }
 
     public void pressKey(KeyEvent e) {

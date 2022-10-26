@@ -2,12 +2,10 @@ package uet.oop.bomberman;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyEvent;
 // import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
@@ -33,7 +31,7 @@ public class BombermanGame extends Application {
     public static final List<Bomb> bombs = new ArrayList<>();
     public static final List<Flame> flames = new ArrayList<>();
     private tileManager level = new tileManager();
-    public static handleKey input = new handleKey();
+    public static handleKey input;
     public static Menu menu = new Menu();
 
     private final int FPS = 60;
@@ -59,19 +57,9 @@ public class BombermanGame extends Application {
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                input.pressKey(event);
-            }
-        });
 
-        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                input.releaseKey(event);
-            }
-        });
+        input = new handleKey(scene);
+
         AnimationTimer timer = new AnimationTimer() {
             long frameStart = System.nanoTime();
 

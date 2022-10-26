@@ -1,27 +1,34 @@
 package uet.oop.bomberman;
 
+import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import static uet.oop.bomberman.BombermanGame.bomberman;
 import static uet.oop.bomberman.BombermanGame.menu;
 
 public class handleKey {
-    private boolean pressUp;
-    private boolean pressDown;
-    private boolean pressLeft;
-    private boolean pressRight;
-    private boolean isHolding;
+    private boolean pressUp = false;
+    private boolean pressDown = false;
+    private boolean pressLeft = false;
+    private boolean pressRight = false;
+    private boolean isHolding = false;
 
     public boolean isHolding() {
         return isHolding;
     }
 
-    public void setHolding(boolean isHolding) {
-        this.isHolding = isHolding;
+    public handleKey(Scene scene) {
+        scene.setOnKeyPressed(event -> {
+            pressKey(event);
+        });
+
+        scene.setOnKeyReleased(event -> {
+            releaseKey(event);
+        });
     }
 
-    public handleKey() {
-        pressDown = pressLeft = pressRight = pressUp = isHolding = false;
+    public void setHolding(boolean isHolding) {
+        this.isHolding = isHolding;
     }
 
     public boolean isPressUp() {

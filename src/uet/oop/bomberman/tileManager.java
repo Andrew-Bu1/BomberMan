@@ -19,7 +19,6 @@ import uet.oop.bomberman.entities.Enemies.Oneal;
 import uet.oop.bomberman.entities.Items.BombItem;
 import uet.oop.bomberman.entities.Items.FlameItem;
 import uet.oop.bomberman.entities.Items.SpeedItem;
-import uet.oop.bomberman.graphics.Sprite;
 
 import static uet.oop.bomberman.BombermanGame.enemies;
 import static uet.oop.bomberman.BombermanGame.stillObject;
@@ -28,8 +27,7 @@ import static uet.oop.bomberman.BombermanGame.bomberman;
 import static uet.oop.bomberman.BombermanGame.bombs;
 import static uet.oop.bomberman.BombermanGame.flames;
 
-import static uet.oop.bomberman.BombermanGame.gameState;
-import static uet.oop.bomberman.BombermanGame.playState;
+
 
 public class tileManager {
     public static final int WIDTH = 20;

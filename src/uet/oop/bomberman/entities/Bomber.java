@@ -3,17 +3,16 @@ package uet.oop.bomberman.entities;
 import uet.oop.bomberman.entities.Bombs.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyEvent;
-import static uet.oop.bomberman.BombermanGame.input;
 
+import static uet.oop.bomberman.BombermanGame.input;
 import static uet.oop.bomberman.BombermanGame.bombs;
 import static uet.oop.bomberman.BombermanGame.enemies;
 import static uet.oop.bomberman.BombermanGame.flames;
+import static uet.oop.bomberman.BombermanGame.menu;
 
 public class Bomber extends Entity {
     private int speed = 2;
     public static int direction;
-    private boolean isMoving = false;
 
     private int numBomb = 0;
     private int maxBomb = 3;
@@ -32,7 +31,7 @@ public class Bomber extends Entity {
     }
 
     public void increaseBomb() {
-        maxBomb = maxBomb + 1;
+        maxBomb++;
     }
 
     public void increaseRadius() {
@@ -53,31 +52,21 @@ public class Bomber extends Entity {
 
     @Override
     public void update() {
-        animate++;
-        if (animate > 20) {
-            animate = 0;
+        if (menu.getGameState() == menu.getPlayState()) {
+            animate++;
+            if (animate > 20) {
+                animate = 0;
+            }
+            move();
+            animateSprite();
+            checkDeath();
         }
-        move();
-        animateSprite();
-        checkDeath();
-    }
-
-    public void handleEventPressed(KeyEvent e) {
-        input.pressKey(e);
-        if (!isMoving) {
-            isMoving = true;
-        }
-    }
-
-    public void handleEventReleased(KeyEvent e) {
-        input.releaseKey(e);
-        isMoving = false;
     }
 
     @Override
     public void animateSprite() {
         if (input.isPressUp()) {
-            if (isMoving) {
+            if (input.isHolding()) {
                 img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, animate, 18)
                         .getFxImage();
                 isDead = false;
@@ -85,14 +74,14 @@ public class Bomber extends Entity {
                 img = Sprite.player_up.getFxImage();
             }
         } else if (input.isPressDown()) {
-            if (isMoving) {
+            if (input.isHolding()) {
                 img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, animate, 18)
                         .getFxImage();
             } else {
                 img = Sprite.player_down.getFxImage();
             }
         } else if (input.isPressLeft()) {
-            if (isMoving) {
+            if (input.isHolding()) {
                 img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, animate, 18)
                         .getFxImage();
             } else {
@@ -100,7 +89,7 @@ public class Bomber extends Entity {
             }
 
         } else if (input.isPressRight()) {
-            if (isMoving) {
+            if (input.isHolding()) {
                 img = Sprite
                         .movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, animate, 18)
                         .getFxImage();

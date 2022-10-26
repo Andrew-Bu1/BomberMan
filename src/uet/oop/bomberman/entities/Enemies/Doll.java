@@ -1,5 +1,6 @@
 package uet.oop.bomberman.entities.Enemies;
 
+import static uet.oop.bomberman.BombermanGame.menu;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -12,16 +13,18 @@ public class Doll extends Entity {
 
     @Override
     public void update() {
-        animateSprite();
-        animate++;
-        if (animate > 20) {
-            animate = 0;
-        }
-        move();
-        if (isDead) {
-            time++;
-            if (time == 40) {
-                isOff = true;
+        if (menu.getGameState() == menu.getPlayState()) {
+            animateSprite();
+            animate++;
+            if (animate > 20) {
+                animate = 0;
+            }
+            move();
+            if (isDead) {
+                time++;
+                if (time == 60) {
+                    isOff = true;
+                }
             }
         }
     }

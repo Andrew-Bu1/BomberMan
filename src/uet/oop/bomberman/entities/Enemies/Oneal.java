@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.Enemies;
 
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
+import static uet.oop.bomberman.BombermanGame.menu;
 
 public class Oneal extends Entity {
     private int time = 0;
@@ -11,15 +12,18 @@ public class Oneal extends Entity {
     }
 
     public void update() {
-        animateSprite();
-        animate++;
-        if (animate > 20) {
-            animate = 0;
-        }
-        if (isDead) {
-            time++;
-            if (time == 40) {
-                isOff = true;
+        if (menu.getGameState() == menu.getPlayState()) {
+            animateSprite();
+            animate++;
+            if (animate > 20) {
+                animate = 0;
+            }
+            move();
+            if (isDead) {
+                time++;
+                if (time == 60) {
+                    isOff = true;
+                }
             }
         }
     }

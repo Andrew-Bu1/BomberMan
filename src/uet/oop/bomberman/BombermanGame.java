@@ -10,13 +10,13 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 // import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
+
 import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Bombs.Bomb;
 import uet.oop.bomberman.entities.Bombs.Flame;
 import uet.oop.bomberman.graphics.Sprite;
 
-// import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,16 +34,17 @@ public class BombermanGame extends Application {
     public static final List<Flame> flames = new ArrayList<>();
     private tileManager level = new tileManager();
     public static handleKey input = new handleKey();
-
-    public static int gameState;
-    public static final int menuState = 0;
-    public static final int playState = 1;
-    public static final int pauseState = 2;
+    public static Menu menu = new Menu();
 
     private final int FPS = 60;
     private final int frameDelay = 1000000000 / FPS;
 
-    public BombermanGame() {
+    public static void main(String[] args) {
+        Application.launch(BombermanGame.class);
+    }
+
+    @Override
+    public void start(Stage stage) {
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * tileManager.WIDTH, Sprite.SCALED_SIZE * tileManager.HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -54,18 +55,6 @@ public class BombermanGame extends Application {
 
         // Tao scene
         scene = new Scene(root);
-        gameState = playState;
-    }
-
-    public static void main(String[] args) {
-        Application.launch(BombermanGame.class);
-    }
-
-    @Override
-    public void start(Stage stage) {
-        // File audioFile = new File("src/sound.wav");
-        // AudioClip clip = new AudioClip(audioFile.toURI().toString());
-        // clip.play();
 
         // Them scene vao stage
         stage.setScene(scene);
@@ -73,14 +62,14 @@ public class BombermanGame extends Application {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                bomberman.handleEventPressed(event);
+                input.pressKey(event);
             }
         });
 
         scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                bomberman.handleEventReleased(event);
+                input.releaseKey(event);
             }
         });
         AnimationTimer timer = new AnimationTimer() {

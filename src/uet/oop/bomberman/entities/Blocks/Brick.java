@@ -4,6 +4,7 @@ package uet.oop.bomberman.entities.Blocks;
 import uet.oop.bomberman.graphics.Sprite;
 
 import uet.oop.bomberman.entities.Entity;
+import static uet.oop.bomberman.BombermanGame.menu;
 
 public class Brick extends Entity {
     private int time = 0;
@@ -14,18 +15,20 @@ public class Brick extends Entity {
 
     @Override
     public void update() {
-
-        animate++;
-        if (animate > 20) {
-            animate = 0;
-        }
-        if (isDead) {
-            time++;
-            if (time == 20) {
-                isOff = true;
+        if (menu.getGameState() == menu.getPlayState()) {
+            animate++;
+            if (animate > 20) {
+                animate = 0;
             }
+            if (isDead) {
+                time++;
+                if (time == 20) {
+                    isOff = true;
+                }
+            }
+            animateSprite();
         }
-        animateSprite();
+
     }
 
     @Override

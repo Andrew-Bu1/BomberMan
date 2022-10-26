@@ -5,6 +5,7 @@ import static uet.oop.bomberman.tileManager.mapInGame;
 import static uet.oop.bomberman.tileManager.map;
 import static uet.oop.bomberman.BombermanGame.stillObject;
 import static uet.oop.bomberman.BombermanGame.enemies;
+import static uet.oop.bomberman.BombermanGame.menu;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
@@ -50,14 +51,16 @@ public class Flame extends Entity {
 
     @Override
     public void update() {
-        animateSprite();
-        animate++;
-        time++;
-        if (animate > 20) {
-            animate = 0;
-        }
-        if (time == 40) {
-            isOff = true;
+        if (menu.getGameState() == menu.getPlayState()) {
+            animateSprite();
+            animate++;
+            time++;
+            if (animate > 20) {
+                animate = 0;
+            }
+            if (time == 40) {
+                isOff = true;
+            }
         }
     }
 

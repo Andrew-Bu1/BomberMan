@@ -37,6 +37,10 @@ public abstract class Entity {
 
     protected boolean isOff = false;
 
+    public void setOff(boolean isOff) {
+        this.isOff = isOff;
+    }
+
     public boolean isOff() {
         return isOff;
     }
@@ -255,7 +259,7 @@ public abstract class Entity {
                     || stillObject.get(i).getName() == "FlameItem")
                     && stillObject.get(i).getX() == x * Sprite.SCALED_SIZE
                     && stillObject.get(i).getY() == y * Sprite.SCALED_SIZE) {
-                stillObject.get(i).setDead(true);
+                stillObject.get(i).setOff(true);
             }
         }
     }

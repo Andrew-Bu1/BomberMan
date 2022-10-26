@@ -4,8 +4,7 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class FlameItem extends Entity {
-    private int time = 0;
-
+    
     public FlameItem(int x, int y) {
         super(x, y, Sprite.powerup_flames.getFxImage());
         setHidden(true);
@@ -13,12 +12,6 @@ public class FlameItem extends Entity {
 
     @Override
     public void update() {
-        if (isDead) {
-            time++;
-            if (time == 20) {
-                isOff = true;
-            }
-        }
     }
 
     @Override

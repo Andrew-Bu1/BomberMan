@@ -4,6 +4,8 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Oneal extends Entity {
+    private int time = 0;
+
     public Oneal(int x, int y) {
         super(x, y, Sprite.oneal_left1.getFxImage());
     }
@@ -13,6 +15,12 @@ public class Oneal extends Entity {
         animate++;
         if (animate > 20) {
             animate = 0;
+        }
+        if (isDead) {
+            time++;
+            if (time == 40) {
+                isOff = true;
+            }
         }
     }
 

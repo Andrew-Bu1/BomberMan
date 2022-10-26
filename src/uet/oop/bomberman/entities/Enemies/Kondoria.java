@@ -4,13 +4,26 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Kondoria extends Entity {
+    private int time = 0;
+
     public Kondoria(int x, int y) {
         super(x, y, Sprite.kondoria_left1.getFxImage());
     }
 
     @Override
     public void update() {
-
+        animateSprite();
+        animate++;
+        if (animate > 20) {
+            animate = 0;
+        }
+        move();
+        if (isDead) {
+            time++;
+            if (time == 40) {
+                isOff = true;
+            }
+        }
     }
 
     @Override

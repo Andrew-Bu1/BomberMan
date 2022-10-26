@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import javafx.scene.canvas.GraphicsContext;
+import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Blocks.Brick;
 import uet.oop.bomberman.entities.Blocks.Grass;
 import uet.oop.bomberman.entities.Blocks.Portal;
@@ -18,6 +19,7 @@ import uet.oop.bomberman.entities.Enemies.Oneal;
 import uet.oop.bomberman.entities.Items.BombItem;
 import uet.oop.bomberman.entities.Items.FlameItem;
 import uet.oop.bomberman.entities.Items.SpeedItem;
+import uet.oop.bomberman.graphics.Sprite;
 
 import static uet.oop.bomberman.BombermanGame.enemies;
 import static uet.oop.bomberman.BombermanGame.stillObject;
@@ -25,6 +27,9 @@ import static uet.oop.bomberman.BombermanGame.grass;
 import static uet.oop.bomberman.BombermanGame.bomberman;
 import static uet.oop.bomberman.BombermanGame.bombs;
 import static uet.oop.bomberman.BombermanGame.flames;
+
+import static uet.oop.bomberman.BombermanGame.gameState;
+import static uet.oop.bomberman.BombermanGame.playState;
 
 public class tileManager {
     public static final int WIDTH = 20;
@@ -91,6 +96,10 @@ public class tileManager {
                     stillObject.add(new Brick(i, j));
                 }
 
+                if (map[i][j] == 'p') {
+                    bomberman = new Bomber(i, j);
+                }
+
                 if (map[i][j] != '#') {
                     grass.add(new Grass(i, j));
                 }
@@ -122,6 +131,7 @@ public class tileManager {
         bomberman.render(gc);
         bombs.forEach(g -> g.render(gc));
         flames.forEach(g -> g.render(gc));
+
     }
 
     public void clearMap() {

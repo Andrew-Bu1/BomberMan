@@ -4,6 +4,7 @@ import static uet.oop.bomberman.BombermanGame.flames;
 import static uet.oop.bomberman.tileManager.mapInGame;
 import static uet.oop.bomberman.tileManager.map;
 import static uet.oop.bomberman.BombermanGame.stillObject;
+import static uet.oop.bomberman.BombermanGame.enemies;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
@@ -158,6 +159,11 @@ public class Flame extends Entity {
             } else {
                 flames.add(new Flame(x / Sprite.SCALED_SIZE, y / Sprite.SCALED_SIZE - i, 1));
             }
+            for (int j = 0; j < enemies.size(); j++) {
+                if (checkDynamicObject(x, y - Sprite.SCALED_SIZE * i, enemies.get(j))) {
+                    enemies.get(j).setDead(true);
+                }
+            }
         }
 
         for (int i = 1; i <= flameDowns; i++) {
@@ -168,6 +174,12 @@ public class Flame extends Entity {
                 flames.add(new Flame(x / Sprite.SCALED_SIZE, y / Sprite.SCALED_SIZE + i,
                         2));
             }
+            for (int j = 0; j < enemies.size(); j++) {
+                if (checkDynamicObject(x, y + Sprite.SCALED_SIZE * i, enemies.get(j))) {
+                    enemies.get(j).setDead(true);
+                }
+            }
+
         }
 
         for (int i = 1; i <= flameLefts; i++) {
@@ -178,6 +190,11 @@ public class Flame extends Entity {
                 flames.add(new Flame(x / Sprite.SCALED_SIZE - i, y / Sprite.SCALED_SIZE,
                         3));
             }
+            for (int j = 0; j < enemies.size(); j++) {
+                if (checkDynamicObject(x - Sprite.SCALED_SIZE * i, y, enemies.get(j))) {
+                    enemies.get(j).setDead(true);
+                }
+            }
         }
 
         for (int i = 1; i <= flameRights; i++) {
@@ -187,6 +204,11 @@ public class Flame extends Entity {
             } else {
                 flames.add(new Flame(x / Sprite.SCALED_SIZE + i, y / Sprite.SCALED_SIZE,
                         4));
+            }
+            for (int j = 0; j < enemies.size(); j++) {
+                if (checkDynamicObject(x + Sprite.SCALED_SIZE * i, y, enemies.get(j))) {
+                    enemies.get(j).setDead(true);
+                }
             }
         }
     }

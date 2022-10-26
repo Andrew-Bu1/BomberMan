@@ -35,6 +35,11 @@ public class BombermanGame extends Application {
     private tileManager level = new tileManager();
     public static handleKey input = new handleKey();
 
+    public static int gameState;
+    public static final int menuState = 0;
+    public static final int playState = 1;
+    public static final int pauseState = 2;
+
     private final int FPS = 60;
     private final int frameDelay = 1000000000 / FPS;
 
@@ -49,7 +54,7 @@ public class BombermanGame extends Application {
 
         // Tao scene
         scene = new Scene(root);
-        bomberman = new Bomber(1, 1);
+        gameState = playState;
     }
 
     public static void main(String[] args) {
@@ -98,11 +103,12 @@ public class BombermanGame extends Application {
         timer.start();
 
         level.loadMap("res\\levels\\Level0.txt");
+
     }
 
     public void removeObject() {
         bombs.removeIf(Bomb::isExploded);
-        enemies.removeIf(Entity::isDead);
+        enemies.removeIf(Entity::isOff);
         stillObject.removeIf(Entity::isOff);
         flames.removeIf(Flame::isOff);
     }

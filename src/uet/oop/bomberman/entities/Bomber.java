@@ -9,8 +9,6 @@ import static uet.oop.bomberman.BombermanGame.input;
 import static uet.oop.bomberman.BombermanGame.bombs;
 import static uet.oop.bomberman.BombermanGame.enemies;
 import static uet.oop.bomberman.BombermanGame.flames;
-import static uet.oop.bomberman.tileManager.mapInGame;
-import static uet.oop.bomberman.BombermanGame.stillObject;
 
 public class Bomber extends Entity {
     private int speed = 2;

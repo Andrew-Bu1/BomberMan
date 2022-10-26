@@ -4,10 +4,10 @@ import java.util.Random;
 
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
-import static uet.oop.bomberman.tileManager.mapInGame;
 
 public class Ballom extends Entity {
     private Random random = new Random();
+    private int time = 0;
 
     public Ballom(int x, int y) {
         super(x, y, Sprite.balloom_left1.getFxImage());
@@ -21,6 +21,12 @@ public class Ballom extends Entity {
             animate = 0;
         }
         move();
+        if (isDead) {
+            time++;
+            if (time == 40) {
+                isOff = true;
+            }
+        }
 
     }
 

@@ -4,12 +4,26 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Doll extends Entity {
+    private int time = 0;
+
     public Doll(int x, int y) {
         super(x, y, Sprite.doll_left1.getFxImage());
     }
 
     @Override
     public void update() {
+        animateSprite();
+        animate++;
+        if (animate > 20) {
+            animate = 0;
+        }
+        move();
+        if (isDead) {
+            time++;
+            if (time == 40) {
+                isOff = true;
+            }
+        }
     }
 
     @Override

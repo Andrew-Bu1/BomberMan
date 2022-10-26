@@ -230,6 +230,23 @@ public abstract class Entity {
                 && Top1 < Bottom2 && Bottom1 > Top2;
     }
 
+    public boolean checkDynamicObject(int x, int y, Entity object1) {
+        int Left1 = x;
+        int Left2 = object1.getX();
+
+        int Right1 = x + Sprite.SCALED_SIZE;
+        int Right2 = object1.getX() + (int) object1.getImg().getWidth();
+
+        int Top1 = y;
+        int Top2 = object1.getY();
+
+        int Bottom1 = y + Sprite.SCALED_SIZE;
+        int Bottom2 = object1.getY() + (int) object1.getImg().getHeight();
+
+        return Left1 < Right2 && Right1 > Left2
+                && Top1 < Bottom2 && Bottom1 > Top2;
+    }
+
     public abstract String getName();
 
     public void itemUsed(int x, int y) {

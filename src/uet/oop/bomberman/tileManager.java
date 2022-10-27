@@ -26,8 +26,7 @@ import static uet.oop.bomberman.BombermanGame.grass;
 import static uet.oop.bomberman.BombermanGame.bomberman;
 import static uet.oop.bomberman.BombermanGame.bombs;
 import static uet.oop.bomberman.BombermanGame.flames;
-
-
+import static uet.oop.bomberman.BombermanGame.menu;
 
 public class tileManager {
     public static final int WIDTH = 20;
@@ -123,12 +122,16 @@ public class tileManager {
     }
 
     public void render(GraphicsContext gc) {
-        grass.forEach(g -> g.render(gc));
-        stillObject.forEach(g -> g.render(gc));
-        enemies.forEach(g -> g.render(gc));
-        bomberman.render(gc);
-        bombs.forEach(g -> g.render(gc));
-        flames.forEach(g -> g.render(gc));
+        if (menu.getGameState() != menu.getMenuState()) {
+            grass.forEach(g -> g.render(gc));
+            stillObject.forEach(g -> g.render(gc));
+            enemies.forEach(g -> g.render(gc));
+            bomberman.render(gc);
+            bombs.forEach(g -> g.render(gc));
+            flames.forEach(g -> g.render(gc));
+        } else {
+            menu.drawMenu(gc);
+        }
 
     }
 

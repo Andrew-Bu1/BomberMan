@@ -48,6 +48,23 @@ public class handleKey {
     }
 
     public void pressKey(KeyEvent e) {
+        if (menu.getGameState() == menu.getMenuState()) {
+            if (e.getCode() == KeyCode.UP) {
+                menu.increaseMenuButton();
+            } else if (e.getCode() == KeyCode.DOWN) {
+                menu.decreaseMenuButton();
+            }
+
+            if (e.getCode() == KeyCode.ENTER) {
+                if (menu.getMenuButton() == 0) {
+                    menu.setGameState(menu.getPlayState());
+                } else if (menu.getMenuButton() == 1) {
+
+                } else {
+
+                }
+            }
+        }
         if (e.getCode() == KeyCode.P) {
             if (menu.getGameState() == menu.getPlayState()) {
                 menu.setGameState(menu.getOptionState());

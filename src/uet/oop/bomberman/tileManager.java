@@ -122,15 +122,19 @@ public class tileManager {
     }
 
     public void render(GraphicsContext gc) {
-        if (menu.getGameState() != menu.getMenuState()) {
+        if (menu.getGameState() != menu.getMenuState() || menu.getGameState() != menu.getHelpState()) {
             grass.forEach(g -> g.render(gc));
             stillObject.forEach(g -> g.render(gc));
             enemies.forEach(g -> g.render(gc));
             bomberman.render(gc);
             bombs.forEach(g -> g.render(gc));
             flames.forEach(g -> g.render(gc));
-        } else {
+        }
+        if (menu.getGameState() == menu.getMenuState()) {
             menu.drawMenu(gc);
+        }
+        if (menu.getGameState() == menu.getHelpState()) {
+            menu.drawhelpMenu(gc);
         }
 
     }

@@ -13,11 +13,14 @@ public class Menu {
     private final int playState = 0;
     private final int optionState = 1;
     private final int menuState = 2;
+    private final int helpState = 3;
     private final ClassLoader file = ClassLoader.getSystemClassLoader();
 
     private final Font menuFont = new Font("Arial", 40);
     private final Image menuImage = new Image(file.getResource("menu.png").toString());
-    private final Image optionImage = new Image(file.getResource("Option.png").toString());
+    private final Image helpImage = new Image(file.getResource("helpMenu.png").toString());
+    // private final Image optionImage = new
+    // Image(file.getResource("Option.png").toString());
 
     private int menuButton = 0;
 
@@ -49,6 +52,10 @@ public class Menu {
         return optionState;
     }
 
+    public int getHelpState() {
+        return helpState;
+    }
+
     public int getMenuState() {
         return menuState;
     }
@@ -74,22 +81,29 @@ public class Menu {
 
         if (menuButton == 0) {
             gc.fillText(">", 6 * Sprite.SCALED_SIZE, 7 * Sprite.SCALED_SIZE);
+            gc.fillText("<", 13.25 * Sprite.SCALED_SIZE, 7 * Sprite.SCALED_SIZE);
         }
         gc.fillText("Help", 8.75 * Sprite.SCALED_SIZE, 9 * Sprite.SCALED_SIZE);
 
         if (menuButton == 1) {
             gc.fillText(">", 7.75 * Sprite.SCALED_SIZE, 9 * Sprite.SCALED_SIZE);
+            gc.fillText("<", 11.5 * Sprite.SCALED_SIZE, 9 * Sprite.SCALED_SIZE);
         }
         gc.fillText("Exit", 8.75 * Sprite.SCALED_SIZE, 11 * Sprite.SCALED_SIZE);
 
         if (menuButton == 2) {
             gc.fillText(">", 7.75 * Sprite.SCALED_SIZE, 11 * Sprite.SCALED_SIZE);
+            gc.fillText("<", 11 * Sprite.SCALED_SIZE, 11 * Sprite.SCALED_SIZE);
         }
 
     }
 
-    public void drawOption(GraphicsContext gc) {
-        gc.drawImage(optionImage, 100, 100);
+    public void drawhelpMenu(GraphicsContext gc) {
+        gc.drawImage(helpImage, 0, 0);
     }
+
+    // public void drawOption(GraphicsContext gc) {
+    // gc.drawImage(optionImage, 0, 0);
+    // }
 
 }

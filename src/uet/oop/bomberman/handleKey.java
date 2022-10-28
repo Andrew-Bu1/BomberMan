@@ -59,10 +59,14 @@ public class handleKey {
                 if (menu.getMenuButton() == 0) {
                     menu.setGameState(menu.getPlayState());
                 } else if (menu.getMenuButton() == 1) {
-
-                } else {
+                    menu.setGameState(menu.getHelpState());
+                } else if (menu.getMenuButton() == 2) {
 
                 }
+            }
+        } else if (menu.getGameState() == menu.getHelpState()) {
+            if (e.getCode() == KeyCode.ENTER) {
+                menu.setGameState(menu.getMenuState());
             }
         }
         if (e.getCode() == KeyCode.P) {

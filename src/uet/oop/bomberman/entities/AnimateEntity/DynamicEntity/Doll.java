@@ -1,10 +1,10 @@
-package uet.oop.bomberman.entities.Enemies;
+package uet.oop.bomberman.entities.AnimateEntity.DynamicEntity;
 
 import static uet.oop.bomberman.BombermanGame.menu;
-import uet.oop.bomberman.entities.Entity;
+
 import uet.oop.bomberman.graphics.Sprite;
 
-public class Doll extends Entity {
+public class Doll extends DynamicEntity {
     private int time = 0;
 
     public Doll(int x, int y) {

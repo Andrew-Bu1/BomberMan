@@ -1,12 +1,10 @@
-package uet.oop.bomberman.entities.Bombs;
+package uet.oop.bomberman.entities.AnimateEntity;
 
 import uet.oop.bomberman.graphics.Sprite;
 import static uet.oop.bomberman.BombermanGame.bomberman;
 import static uet.oop.bomberman.BombermanGame.menu;
 
-import uet.oop.bomberman.entities.Entity;
-
-public class Bomb extends Entity {
+public class Bomb extends AnimateEntity {
     private int time = 0;
     private boolean isExploded = false;
 
@@ -43,11 +41,6 @@ public class Bomb extends Entity {
         if (!isExploded) {
             img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, animate, 18).getFxImage();
         }
-    }
-
-    @Override
-    public void move() {
-
     }
 
     public String getName() {

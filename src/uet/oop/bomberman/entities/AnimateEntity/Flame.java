@@ -1,17 +1,16 @@
-package uet.oop.bomberman.entities.Bombs;
+package uet.oop.bomberman.entities.AnimateEntity;
 
 import static uet.oop.bomberman.BombermanGame.flames;
 import static uet.oop.bomberman.tileManager.mapInGame;
 import static uet.oop.bomberman.tileManager.map;
-import static uet.oop.bomberman.BombermanGame.stillObject;
 import static uet.oop.bomberman.BombermanGame.enemies;
 import static uet.oop.bomberman.BombermanGame.menu;
+import static uet.oop.bomberman.BombermanGame.bricks;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
-public class Flame extends Entity {
+public class Flame extends AnimateEntity {
 
     private int flameLefts = 0;
     private int flameRights = 0;
@@ -261,10 +260,10 @@ public class Flame extends Entity {
     }
 
     public void setExploded(int x, int y) {
-        for (int i = 0; i < stillObject.size(); i++) {
-            if (stillObject.get(i).getName() == "Brick" && stillObject.get(i).getX() == x * Sprite.SCALED_SIZE
-                    && stillObject.get(i).getY() == y * Sprite.SCALED_SIZE) {
-                stillObject.get(i).setDead(true);
+        for (int i = 0; i < bricks.size(); i++) {
+            if (bricks.get(i).getX() == x * Sprite.SCALED_SIZE
+                    && bricks.get(i).getY() == y * Sprite.SCALED_SIZE) {
+                bricks.get(i).setDead(true);
             }
         }
     }
@@ -272,10 +271,4 @@ public class Flame extends Entity {
     public String getName() {
         return "Flame";
     }
-
-    @Override
-    public void move() {
-
-    }
-
 }

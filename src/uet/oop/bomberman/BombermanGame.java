@@ -8,11 +8,13 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 // import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
-
-import uet.oop.bomberman.entities.Bomber;
-import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.Bombs.Bomb;
-import uet.oop.bomberman.entities.Bombs.Flame;
+import uet.oop.bomberman.entities.AnimateEntity.Bomb;
+import uet.oop.bomberman.entities.AnimateEntity.Brick;
+import uet.oop.bomberman.entities.AnimateEntity.Flame;
+import uet.oop.bomberman.entities.AnimateEntity.DynamicEntity.Bomber;
+import uet.oop.bomberman.entities.AnimateEntity.DynamicEntity.DynamicEntity;
+import uet.oop.bomberman.entities.StaticEntity.Blocks.Block;
+import uet.oop.bomberman.entities.StaticEntity.Items.Item;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
@@ -25,9 +27,10 @@ public class BombermanGame extends Application {
     private Group root;
     private Canvas canvas;
     public static Bomber bomberman;
-    public static List<Entity> enemies = new ArrayList<>();
-    public static List<Entity> stillObject = new ArrayList<>();
-    public static List<Entity> grass = new ArrayList<>();
+    public static List<DynamicEntity> enemies = new ArrayList<>();
+    public static List<Block> stillObject = new ArrayList<>();
+    public static List<Brick> bricks = new ArrayList<>();
+    public static List<Item> items = new ArrayList<>();
     public static final List<Bomb> bombs = new ArrayList<>();
     public static final List<Flame> flames = new ArrayList<>();
     private tileManager level = new tileManager();
@@ -85,17 +88,18 @@ public class BombermanGame extends Application {
 
     public void removeObject() {
         bombs.removeIf(Bomb::isExploded);
-        enemies.removeIf(Entity::isOff);
-        stillObject.removeIf(Entity::isOff);
+        enemies.removeIf(DynamicEntity::isOff);
         flames.removeIf(Flame::isOff);
+        items.removeIf(Item::isOff);
+        bricks.removeIf(Brick::isOff);
     }
 
     public void update() {
-        enemies.forEach(Entity::update);
+        enemies.forEach(DynamicEntity::update);
         bomberman.update();
         bombs.forEach(Bomb::update);
-        stillObject.forEach(Entity::update);
-        flames.forEach(Entity::update);
+        flames.forEach(Flame::update);
+        bricks.forEach(Brick::update);
         removeObject();
     }
 

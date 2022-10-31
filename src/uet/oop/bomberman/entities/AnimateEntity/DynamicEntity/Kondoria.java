@@ -1,10 +1,9 @@
-package uet.oop.bomberman.entities.Enemies;
+package uet.oop.bomberman.entities.AnimateEntity.DynamicEntity;
 
-import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 import static uet.oop.bomberman.BombermanGame.menu;
 
-public class Kondoria extends Entity {
+public class Kondoria extends DynamicEntity {
     private int time = 0;
 
     public Kondoria(int x, int y) {

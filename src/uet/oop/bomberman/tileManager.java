@@ -7,26 +7,27 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import javafx.scene.canvas.GraphicsContext;
-import uet.oop.bomberman.entities.Bomber;
-import uet.oop.bomberman.entities.Blocks.Brick;
-import uet.oop.bomberman.entities.Blocks.Grass;
-import uet.oop.bomberman.entities.Blocks.Portal;
-import uet.oop.bomberman.entities.Blocks.Wall;
-import uet.oop.bomberman.entities.Enemies.Ballom;
-import uet.oop.bomberman.entities.Enemies.Doll;
-import uet.oop.bomberman.entities.Enemies.Kondoria;
-import uet.oop.bomberman.entities.Enemies.Oneal;
-import uet.oop.bomberman.entities.Items.BombItem;
-import uet.oop.bomberman.entities.Items.FlameItem;
-import uet.oop.bomberman.entities.Items.SpeedItem;
+import uet.oop.bomberman.entities.AnimateEntity.Brick;
+import uet.oop.bomberman.entities.AnimateEntity.DynamicEntity.Ballom;
+import uet.oop.bomberman.entities.AnimateEntity.DynamicEntity.Bomber;
+import uet.oop.bomberman.entities.AnimateEntity.DynamicEntity.Doll;
+import uet.oop.bomberman.entities.AnimateEntity.DynamicEntity.Kondoria;
+import uet.oop.bomberman.entities.AnimateEntity.DynamicEntity.Oneal;
+import uet.oop.bomberman.entities.StaticEntity.Blocks.Grass;
+import uet.oop.bomberman.entities.StaticEntity.Blocks.Portal;
+import uet.oop.bomberman.entities.StaticEntity.Blocks.Wall;
+import uet.oop.bomberman.entities.StaticEntity.Items.BombItem;
+import uet.oop.bomberman.entities.StaticEntity.Items.FlameItem;
+import uet.oop.bomberman.entities.StaticEntity.Items.SpeedItem;
 
 import static uet.oop.bomberman.BombermanGame.enemies;
 import static uet.oop.bomberman.BombermanGame.stillObject;
-import static uet.oop.bomberman.BombermanGame.grass;
+import static uet.oop.bomberman.BombermanGame.bricks;
 import static uet.oop.bomberman.BombermanGame.bomberman;
 import static uet.oop.bomberman.BombermanGame.bombs;
 import static uet.oop.bomberman.BombermanGame.flames;
 import static uet.oop.bomberman.BombermanGame.menu;
+import static uet.oop.bomberman.BombermanGame.items;
 
 public class tileManager {
     public static final int WIDTH = 20;
@@ -74,23 +75,23 @@ public class tileManager {
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
                 if (map[i][j] == '*') {
-                    stillObject.add(new Brick(i, j));
+                    bricks.add(new Brick(i, j));
                 } else if (map[i][j] == '#') {
                     stillObject.add(new Wall(i, j));
                 }
 
                 if (map[i][j] == 'x') {
                     stillObject.add(new Portal(i, j));
-                    stillObject.add(new Brick(i, j));
+                    bricks.add(new Brick(i, j));
                 } else if (map[i][j] == 's') {
-                    stillObject.add(new SpeedItem(i, j));
-                    stillObject.add(new Brick(i, j));
+                    items.add(new SpeedItem(i, j));
+                    bricks.add(new Brick(i, j));
                 } else if (map[i][j] == 'f') {
-                    stillObject.add(new FlameItem(i, j));
-                    stillObject.add(new Brick(i, j));
+                    items.add(new FlameItem(i, j));
+                    bricks.add(new Brick(i, j));
                 } else if (map[i][j] == 'b') {
-                    stillObject.add(new BombItem(i, j));
-                    stillObject.add(new Brick(i, j));
+                    items.add(new BombItem(i, j));
+                    bricks.add(new Brick(i, j));
                 }
 
                 if (map[i][j] == 'p') {
@@ -98,7 +99,7 @@ public class tileManager {
                 }
 
                 if (map[i][j] != '#') {
-                    grass.add(new Grass(i, j));
+                    stillObject.add(new Grass(i, j));
                 }
 
             }
@@ -123,12 +124,12 @@ public class tileManager {
 
     public void render(GraphicsContext gc) {
         if (menu.getGameState() != menu.getMenuState() || menu.getGameState() != menu.getHelpState()) {
-            grass.forEach(g -> g.render(gc));
             stillObject.forEach(g -> g.render(gc));
             enemies.forEach(g -> g.render(gc));
             bomberman.render(gc);
             bombs.forEach(g -> g.render(gc));
             flames.forEach(g -> g.render(gc));
+            bricks.forEach(g -> g.render(gc));
         }
         if (menu.getGameState() == menu.getMenuState()) {
             menu.drawMenu(gc);
@@ -142,8 +143,8 @@ public class tileManager {
     public void clearMap() {
         stillObject.clear();
         enemies.clear();
-        grass.clear();
         bombs.clear();
         flames.clear();
+        bricks.clear();
     }
 }

@@ -1,13 +1,9 @@
-package uet.oop.bomberman.entities.Blocks;
+package uet.oop.bomberman.entities.AnimateEntity;
 
-//import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
-
-import uet.oop.bomberman.entities.Entity;
 import static uet.oop.bomberman.BombermanGame.menu;
 
-public class Brick extends Entity {
-    private int time = 0;
+public class Brick extends AnimateEntity {
 
     public Brick(int x, int y) {
         super(x, y, Sprite.brick.getFxImage());
@@ -37,11 +33,6 @@ public class Brick extends Entity {
             img = Sprite.movingSprite(Sprite.brick_exploded, Sprite.brick_exploded1, Sprite.brick_exploded2, animate,
                     18).getFxImage();
         }
-    }
-
-    @Override
-    public void move() {
-
     }
 
     public String getName() {

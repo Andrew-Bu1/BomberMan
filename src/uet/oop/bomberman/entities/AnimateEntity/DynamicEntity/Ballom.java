@@ -1,12 +1,11 @@
-package uet.oop.bomberman.entities.Enemies;
+package uet.oop.bomberman.entities.AnimateEntity.DynamicEntity;
 
 import java.util.Random;
 
-import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 import static uet.oop.bomberman.BombermanGame.menu;
 
-public class Ballom extends Entity {
+public class Ballom extends DynamicEntity {
     private Random random = new Random();
     private int time = 0;
 

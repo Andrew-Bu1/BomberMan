@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import uet.oop.bomberman.entities.AnimateEntity.DynamicEntity.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Menu {
@@ -14,16 +15,42 @@ public class Menu {
     private final int optionState = 1;
     private final int menuState = 2;
     private final int helpState = 3;
+    private final int loseState = 4;
+    private final int winState = 5;
     public final ClassLoader file = ClassLoader.getSystemClassLoader();
 
     private final Font menuFont = new Font("Arial", 40);
+    private final Font optionFont = new Font("Arial", 20);
     private final Image menuImage = new Image(file.getResource("menu.png").toString());
     private final Image helpImage = new Image(file.getResource("helpMenu.png").toString());
     private final Image optionImage = new Image(file.getResource("option.png").toString());
+    private final Image stateImage = new Image(file.getResource("state.png").toString());
     // private final Image optionImage = new
     // Image(file.getResource("Option.png").toString());
 
     private int menuButton = 0;
+
+    private int optionButton = 0;
+
+    public int getOptionButton() {
+        return optionButton;
+    }
+
+    public void increaseOptionButton() {
+        if (optionButton == 0) {
+            optionButton = 2;
+        } else {
+            optionButton--;
+        }
+    }
+
+    public void decreaseOptionButton() {
+        if (optionButton == 2) {
+            optionButton = 0;
+        } else {
+            optionButton++;
+        }
+    }
 
     public int getMenuButton() {
         return menuButton;
@@ -59,6 +86,14 @@ public class Menu {
 
     public int getMenuState() {
         return menuState;
+    }
+
+    public int getLoseState() {
+        return loseState;
+    }
+
+    public int getWinState() {
+        return winState;
     }
 
     public int getGameState() {
@@ -101,18 +136,36 @@ public class Menu {
 
     public void drawhelpMenu(GraphicsContext gc) {
         gc.drawImage(helpImage, 0, 0);
+        gc.fillText("Victory", 7.75 * Sprite.SCALED_SIZE, 11 * Sprite.SCALED_SIZE);
+        gc.fillText("Score" + Bomber.getHighscore(), 7.75 * Sprite.SCALED_SIZE, 11 * Sprite.SCALED_SIZE);
     }
 
     public void drawVictory(GraphicsContext gc) {
+        gc.drawImage(stateImage, 0, 0);
+        gc.fillText("You Lose" + Bomber.getHighscore(), 7.75 * Sprite.SCALED_SIZE, 11 * Sprite.SCALED_SIZE);
 
     }
 
     public void drawLose(GraphicsContext gc) {
-
+        gc.drawImage(stateImage, 0, 0);
     }
 
     public void drawOption(GraphicsContext gc) {
         gc.drawImage(optionImage, Sprite.SCALED_SIZE * 7, Sprite.SCALED_SIZE * 5);
+        gc.setFont(optionFont);
+
+        gc.fillText("Music: " + (Sound.isMusicOn() ? "On" : "Off"), Sprite.SCALED_SIZE * 8, Sprite.SCALED_SIZE * 6.5);
+        if (optionButton == 0) {
+            gc.fillText(">", Sprite.SCALED_SIZE * 7.5, Sprite.SCALED_SIZE * 6.5);
+        }
+        gc.fillText("Effect: " + (Sound.isEffectOn() ? "On" : "Off"), Sprite.SCALED_SIZE * 8, Sprite.SCALED_SIZE * 7.5);
+        if (optionButton == 1) {
+            gc.fillText(">", Sprite.SCALED_SIZE * 7.5, Sprite.SCALED_SIZE * 7.5);
+        }
+        gc.fillText("Return Menu", Sprite.SCALED_SIZE * 8, Sprite.SCALED_SIZE * 8.5);
+        if (optionButton == 2) {
+            gc.fillText(">", Sprite.SCALED_SIZE * 7.5, Sprite.SCALED_SIZE * 8.5);
+        }
     }
 
 }

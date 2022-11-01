@@ -33,7 +33,7 @@ import static uet.oop.bomberman.BombermanGame.hiddenItems;
 public class tileManager {
     public static final int WIDTH = 20;
     public static final int HEIGHT = 16;
-    public static int level = 0;
+    private int level = 0;
 
     public static char[][] map = new char[WIDTH][HEIGHT];
     public static char[][] mapInGame = new char[WIDTH][HEIGHT];
@@ -42,8 +42,14 @@ public class tileManager {
         return "res/levels/level" + level + ".txt";
     }
 
-    public void loadMap(String file) {
-        File read = new File(file);
+    public void increaseLevel() {
+        level++;
+        loadMap();
+    }
+
+    public void loadMap() {
+        clearMap();
+        File read = new File(mapPath());
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(read));
@@ -140,6 +146,9 @@ public class tileManager {
         if (menu.getGameState() == menu.getHelpState()) {
             menu.drawhelpMenu(gc);
         }
+        if (menu.getGameState() == menu.getOptionState()) {
+            menu.drawOption(gc);
+        }
 
     }
 
@@ -149,5 +158,6 @@ public class tileManager {
         bombs.clear();
         flames.clear();
         bricks.clear();
+        hiddenItems.clear();
     }
 }

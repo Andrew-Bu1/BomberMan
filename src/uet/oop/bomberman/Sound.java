@@ -6,6 +6,8 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+import static uet.oop.bomberman.BombermanGame.menu;
+
 public class Sound {
     private static AudioClip effect;
     private static MediaPlayer music;
@@ -46,6 +48,16 @@ public class Sound {
         setPlaying(true);
         music = new MediaPlayer(new Media(new File("res/sound/" + musicFile + ".wav").toURI().toString()));
         music.play();
+    }
+
+    public static void playMusic() {
+        if (menu.getGameState() == menu.getGameState()) {
+            music = new MediaPlayer(new Media(new File("res/sound/background.wav").toURI().toString()));
+        } else if (menu.getGameState() == menu.getMenuState()) {
+            music = new MediaPlayer(new Media(new File("res/sound/menuMusic.wav").toURI().toString()));
+        }
+        music.play();
+        setPlaying(true);
     }
 
     public static void stopMusic() {

@@ -1,12 +1,15 @@
 package uet.oop.bomberman.entities.AnimateEntity.DynamicEntity;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.Sound;
+import uet.oop.bomberman.tileManager;
 import uet.oop.bomberman.entities.AnimateEntity.AnimateEntity;
 import uet.oop.bomberman.graphics.Sprite;
 
 import static uet.oop.bomberman.BombermanGame.hiddenItems;
 import static uet.oop.bomberman.BombermanGame.enemies;
 import static uet.oop.bomberman.tileManager.mapInGame;
+import static uet.oop.bomberman.BombermanGame.level;
 
 import static uet.oop.bomberman.BombermanGame.bomberman;
 
@@ -170,6 +173,7 @@ public abstract class DynamicEntity extends AnimateEntity {
                 || mapInGame[xBottomLeft][yBottomLeft] == 'x'
                 || mapInGame[xTopRight][yTopRight] == 'x' || mapInGame[xTopLeft][yTopLeft] == 'x')) {
             bomberman.increaseHighScore();
+            level.increaseLevel();
         }
 
         return false;
@@ -199,6 +203,9 @@ public abstract class DynamicEntity extends AnimateEntity {
                     && hiddenItems.get(i).getX() == x * Sprite.SCALED_SIZE
                     && hiddenItems.get(i).getY() == y * Sprite.SCALED_SIZE) {
                 bomberman.increaseHighScore();
+                if (Sound.isEffectOn()) {
+                    Sound.playEffect("itemCollected");
+                }
                 hiddenItems.get(i).setOff(true);
             }
         }

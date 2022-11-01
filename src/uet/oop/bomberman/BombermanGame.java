@@ -35,7 +35,7 @@ public class BombermanGame extends Application {
     public static List<HiddenBlock> hiddenItems = new ArrayList<>();
     public static final List<Bomb> bombs = new ArrayList<>();
     public static final List<Flame> flames = new ArrayList<>();
-    private tileManager level = new tileManager();
+    public static tileManager level = new tileManager();
     public static handleKey input;
     public static Menu menu = new Menu();
     public static Stage stageGame;
@@ -73,7 +73,7 @@ public class BombermanGame extends Application {
         };
         timer.start();
 
-        level.loadMap("res\\levels\\Level0.txt");
+        level.loadMap();
     }
 
     public static void logout(Stage stage) {

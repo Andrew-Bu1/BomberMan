@@ -11,6 +11,7 @@ import static uet.oop.bomberman.BombermanGame.bombs;
 import static uet.oop.bomberman.BombermanGame.enemies;
 import static uet.oop.bomberman.BombermanGame.flames;
 import static uet.oop.bomberman.BombermanGame.menu;
+import static uet.oop.bomberman.BombermanGame.level;
 
 public class Bomber extends DynamicEntity {
     private int time = 0;
@@ -24,9 +25,13 @@ public class Bomber extends DynamicEntity {
 
     private int radius = 2;
 
-    private int hearts = 3;
+    private static int hearts = 3;
 
     public static int highscore = 0;
+
+    public static int getHighscore() {
+        return highscore;
+    }
 
     public int getRadius() {
         return radius;
@@ -110,8 +115,11 @@ public class Bomber extends DynamicEntity {
                     decreaseHearts();
                     decreaseHighScore();
                     time = 0;
+                    level.loadMap();
                 }
                 time++;
+            } else if (isDead) {
+
             }
 
         }
@@ -136,7 +144,6 @@ public class Bomber extends DynamicEntity {
                         .getFxImage();
             } else {
                 img = Sprite.player_up.getFxImage();
-                System.out.println("up");
             }
         } else if (direction == 2) {
             if (input.isHolding()) {

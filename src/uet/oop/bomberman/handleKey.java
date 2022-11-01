@@ -52,12 +52,12 @@ public class handleKey {
             if (Sound.isMusicOn() && !Sound.isPlaying()) {
                 Sound.playMusic("menuMusic");
             }
-            if (e.getCode() == KeyCode.UP) {
+            if (e.getCode() == KeyCode.UP || e.getCode() == KeyCode.W) {
                 if (Sound.isEffectOn()) {
                     Sound.playEffect("menuMove");
                 }
                 menu.increaseMenuButton();
-            } else if (e.getCode() == KeyCode.DOWN) {
+            } else if (e.getCode() == KeyCode.DOWN || e.getCode() == KeyCode.S) {
                 if (Sound.isEffectOn()) {
                     Sound.playEffect("menuMove");
                 }
@@ -124,6 +124,38 @@ public class handleKey {
                     break;
                 default:
                     break;
+            }
+        } else if (menu.getGameState() == menu.getOptionState()) {
+            if (e.getCode() == KeyCode.UP || e.getCode() == KeyCode.W) {
+                if (Sound.isEffectOn()) {
+                    Sound.playEffect("menuMove");
+                }
+                menu.increaseOptionButton();
+            } else if (e.getCode() == KeyCode.DOWN || e.getCode() == KeyCode.S) {
+                if (Sound.isEffectOn()) {
+                    Sound.playEffect("menuMove");
+                }
+                menu.decreaseOptionButton();
+            }
+
+            if (e.getCode() == KeyCode.ENTER) {
+                if (Sound.isEffectOn()) {
+                    Sound.playEffect("menuEntered");
+                }
+                if (menu.getOptionButton() == 0) {
+                    if (Sound.isPlaying()) {
+                        Sound.stopMusic();
+                        Sound.setMusicOn(false);
+                    } else {
+                        Sound.playMusic();
+                        Sound.setMusicOn(true);
+                    }
+                } else if (menu.getOptionButton() == 1) {
+                    Sound.setEffectOn(!Sound.isEffectOn());
+                } else if (menu.getOptionButton() == 2) {
+                    menu.setGameState(menu.getMenuState());
+                    Sound.stopMusic();
+                }
             }
         }
 

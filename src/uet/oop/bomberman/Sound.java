@@ -8,10 +8,18 @@ import javafx.scene.media.MediaPlayer;
 
 public class Sound {
     private static AudioClip effect;
-    private static Media media;
     private static MediaPlayer music;
     private static boolean effectOn = true;
     private static boolean musicOn = true;
+    private static boolean isPlaying = false;
+
+    public static boolean isPlaying() {
+        return isPlaying;
+    }
+
+    public static void setPlaying(boolean isPlaying) {
+        Sound.isPlaying = isPlaying;
+    }
 
     public static boolean isEffectOn() {
         return effectOn;
@@ -21,11 +29,11 @@ public class Sound {
         effectOn = effect;
     }
 
-    public boolean isMusicOn() {
+    public static boolean isMusicOn() {
         return musicOn;
     }
 
-    public void setMusicOn(boolean music) {
+    public static void setMusicOn(boolean music) {
         musicOn = music;
     }
 
@@ -35,6 +43,13 @@ public class Sound {
     }
 
     public static void playMusic(String musicFile) {
+        setPlaying(true);
+        music = new MediaPlayer(new Media(new File("res/sound/" + musicFile + ".wav").toURI().toString()));
+        music.play();
+    }
 
+    public static void stopMusic() {
+        music.stop();
+        setPlaying(false);
     }
 }

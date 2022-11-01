@@ -61,8 +61,6 @@ public class BombermanGame extends Application {
         input = new handleKey(scene);
 
         AnimationTimer timer = new AnimationTimer() {
-            long frameStart = System.nanoTime();
-
             @Override
             public void handle(long l) {
                 level.render(gc);

@@ -49,6 +49,9 @@ public class handleKey {
 
     public void pressKey(KeyEvent e) {
         if (menu.getGameState() == menu.getMenuState()) {
+            if (Sound.isMusicOn() && !Sound.isPlaying()) {
+                Sound.playMusic("menuMusic");
+            }
             if (e.getCode() == KeyCode.UP) {
                 if (Sound.isEffectOn()) {
                     Sound.playEffect("menuMove");
@@ -66,6 +69,7 @@ public class handleKey {
                     Sound.playEffect("menuEntered");
                 }
                 if (menu.getMenuButton() == 0) {
+                    Sound.stopMusic();
                     menu.setGameState(menu.getPlayState());
                 } else if (menu.getMenuButton() == 1) {
                     menu.setGameState(menu.getHelpState());
@@ -81,17 +85,11 @@ public class handleKey {
                 menu.setGameState(menu.getMenuState());
             }
         }
-        if (e.getCode() == KeyCode.P) {
-            if (Sound.isEffectOn()) {
-                Sound.playEffect("menuMove");
-            }
-            if (menu.getGameState() == menu.getPlayState()) {
-                menu.setGameState(menu.getOptionState());
-            } else if (menu.getGameState() == menu.getOptionState()) {
-                menu.setGameState(menu.getPlayState());
-            }
-        }
+
         if (menu.getGameState() == menu.getPlayState()) {
+            if (Sound.isMusicOn() && !Sound.isPlaying()) {
+                Sound.playMusic("background");
+            }
             switch (e.getCode()) {
                 case W:
                     pressUp = true;
@@ -114,6 +112,16 @@ public class handleKey {
                         Sound.playEffect("bombPut");
                     }
                     bomberman.placeBomb();
+                    break;
+                case P:
+                    if (Sound.isEffectOn()) {
+                        Sound.playEffect("menuMove");
+                    }
+                    if (menu.getGameState() == menu.getPlayState()) {
+                        menu.setGameState(menu.getOptionState());
+                    } else if (menu.getGameState() == menu.getOptionState()) {
+                        menu.setGameState(menu.getPlayState());
+                    }
                     break;
                 default:
                     break;

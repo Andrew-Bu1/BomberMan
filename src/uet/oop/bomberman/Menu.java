@@ -14,7 +14,7 @@ public class Menu {
     private final int optionState = 1;
     private final int menuState = 2;
     private final int helpState = 3;
-    private final ClassLoader file = ClassLoader.getSystemClassLoader();
+    public static final ClassLoader file = ClassLoader.getSystemClassLoader();
 
     private final Font menuFont = new Font("Arial", 40);
     private final Image menuImage = new Image(file.getResource("menu.png").toString());
@@ -102,8 +102,16 @@ public class Menu {
         gc.drawImage(helpImage, 0, 0);
     }
 
-    // public void drawOption(GraphicsContext gc) {
-    // gc.drawImage(optionImage, 0, 0);
-    // }
+    public void drawVictory(GraphicsContext gc) {
+
+    }
+
+    public void drawLose(GraphicsContext gc) {
+
+    }
+
+    public void drawOption(GraphicsContext gc) {
+
+    }
 
 }

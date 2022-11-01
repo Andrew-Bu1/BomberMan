@@ -8,6 +8,7 @@ import static uet.oop.bomberman.BombermanGame.menu;
 import static uet.oop.bomberman.BombermanGame.bricks;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.Sound;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Flame extends AnimateEntity {
@@ -164,6 +165,9 @@ public class Flame extends AnimateEntity {
             for (int j = 0; j < enemies.size(); j++) {
                 if (checkDynamicObject(x, y - Sprite.SCALED_SIZE * i, enemies.get(j))) {
                     enemies.get(j).setDead(true);
+                    if (Sound.isEffectOn()) {
+                        Sound.playEffect("enemyDie");
+                    }
                 }
             }
         }
@@ -179,6 +183,9 @@ public class Flame extends AnimateEntity {
             for (int j = 0; j < enemies.size(); j++) {
                 if (checkDynamicObject(x, y + Sprite.SCALED_SIZE * i, enemies.get(j))) {
                     enemies.get(j).setDead(true);
+                    if (Sound.isEffectOn()) {
+                        Sound.playEffect("enemyDie");
+                    }
                 }
             }
 
@@ -195,6 +202,9 @@ public class Flame extends AnimateEntity {
             for (int j = 0; j < enemies.size(); j++) {
                 if (checkDynamicObject(x - Sprite.SCALED_SIZE * i, y, enemies.get(j))) {
                     enemies.get(j).setDead(true);
+                    if (Sound.isEffectOn()) {
+                        Sound.playEffect("enemyDie");
+                    }
                 }
             }
         }
@@ -210,6 +220,9 @@ public class Flame extends AnimateEntity {
             for (int j = 0; j < enemies.size(); j++) {
                 if (checkDynamicObject(x + Sprite.SCALED_SIZE * i, y, enemies.get(j))) {
                     enemies.get(j).setDead(true);
+                    if (Sound.isEffectOn()) {
+                        Sound.playEffect("enemyDie");
+                    }
                 }
             }
         }

@@ -14,11 +14,11 @@ import uet.oop.bomberman.entities.AnimateEntity.DynamicEntity.Doll;
 import uet.oop.bomberman.entities.AnimateEntity.DynamicEntity.Kondoria;
 import uet.oop.bomberman.entities.AnimateEntity.DynamicEntity.Oneal;
 import uet.oop.bomberman.entities.StaticEntity.Blocks.Grass;
-import uet.oop.bomberman.entities.StaticEntity.Blocks.Portal;
 import uet.oop.bomberman.entities.StaticEntity.Blocks.Wall;
-import uet.oop.bomberman.entities.StaticEntity.Items.BombItem;
-import uet.oop.bomberman.entities.StaticEntity.Items.FlameItem;
-import uet.oop.bomberman.entities.StaticEntity.Items.SpeedItem;
+import uet.oop.bomberman.entities.StaticEntity.HiddenBlock.BombItem;
+import uet.oop.bomberman.entities.StaticEntity.HiddenBlock.FlameItem;
+import uet.oop.bomberman.entities.StaticEntity.HiddenBlock.Portal;
+import uet.oop.bomberman.entities.StaticEntity.HiddenBlock.SpeedItem;
 
 import static uet.oop.bomberman.BombermanGame.enemies;
 import static uet.oop.bomberman.BombermanGame.stillObject;
@@ -27,7 +27,7 @@ import static uet.oop.bomberman.BombermanGame.bomberman;
 import static uet.oop.bomberman.BombermanGame.bombs;
 import static uet.oop.bomberman.BombermanGame.flames;
 import static uet.oop.bomberman.BombermanGame.menu;
-import static uet.oop.bomberman.BombermanGame.items;
+import static uet.oop.bomberman.BombermanGame.hiddenItems;
 
 public class tileManager {
     public static final int WIDTH = 20;
@@ -81,16 +81,16 @@ public class tileManager {
                 }
 
                 if (map[i][j] == 'x') {
-                    stillObject.add(new Portal(i, j));
+                    hiddenItems.add(new Portal(i, j));
                     bricks.add(new Brick(i, j));
                 } else if (map[i][j] == 's') {
-                    items.add(new SpeedItem(i, j));
+                    hiddenItems.add(new SpeedItem(i, j));
                     bricks.add(new Brick(i, j));
                 } else if (map[i][j] == 'f') {
-                    items.add(new FlameItem(i, j));
+                    hiddenItems.add(new FlameItem(i, j));
                     bricks.add(new Brick(i, j));
                 } else if (map[i][j] == 'b') {
-                    items.add(new BombItem(i, j));
+                    hiddenItems.add(new BombItem(i, j));
                     bricks.add(new Brick(i, j));
                 }
 
@@ -125,11 +125,13 @@ public class tileManager {
     public void render(GraphicsContext gc) {
         if (menu.getGameState() != menu.getMenuState() || menu.getGameState() != menu.getHelpState()) {
             stillObject.forEach(g -> g.render(gc));
+            hiddenItems.forEach(g -> g.render(gc));
+            bricks.forEach(g -> g.render(gc));
             enemies.forEach(g -> g.render(gc));
             bomberman.render(gc);
             bombs.forEach(g -> g.render(gc));
             flames.forEach(g -> g.render(gc));
-            bricks.forEach(g -> g.render(gc));
+
         }
         if (menu.getGameState() == menu.getMenuState()) {
             menu.drawMenu(gc);

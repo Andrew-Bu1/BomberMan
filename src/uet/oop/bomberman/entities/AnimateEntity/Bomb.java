@@ -4,6 +4,8 @@ import uet.oop.bomberman.graphics.Sprite;
 import static uet.oop.bomberman.BombermanGame.bomberman;
 import static uet.oop.bomberman.BombermanGame.menu;
 
+import uet.oop.bomberman.Sound;
+
 public class Bomb extends AnimateEntity {
     private int time = 0;
     private boolean isExploded = false;
@@ -29,6 +31,9 @@ public class Bomb extends AnimateEntity {
             if (time >= 100) {
                 isExploded = true;
                 bomberman.bombFinished();
+                if (Sound.isEffectOn()) {
+                    Sound.playEffect("bombExploded");
+                }
                 Flame flame1 = new Flame(x / Sprite.SCALED_SIZE, y / Sprite.SCALED_SIZE);
                 flame1.createFlame(x, y, bomberman.getRadius());
             }

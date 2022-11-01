@@ -50,12 +50,21 @@ public class handleKey {
     public void pressKey(KeyEvent e) {
         if (menu.getGameState() == menu.getMenuState()) {
             if (e.getCode() == KeyCode.UP) {
+                if (Sound.isEffectOn()) {
+                    Sound.playEffect("menuMove");
+                }
                 menu.increaseMenuButton();
             } else if (e.getCode() == KeyCode.DOWN) {
+                if (Sound.isEffectOn()) {
+                    Sound.playEffect("menuMove");
+                }
                 menu.decreaseMenuButton();
             }
 
             if (e.getCode() == KeyCode.ENTER) {
+                if (Sound.isEffectOn()) {
+                    Sound.playEffect("menuEntered");
+                }
                 if (menu.getMenuButton() == 0) {
                     menu.setGameState(menu.getPlayState());
                 } else if (menu.getMenuButton() == 1) {
@@ -66,10 +75,16 @@ public class handleKey {
             }
         } else if (menu.getGameState() == menu.getHelpState()) {
             if (e.getCode() == KeyCode.ENTER) {
+                if (Sound.isEffectOn()) {
+                    Sound.playEffect("menuEntered");
+                }
                 menu.setGameState(menu.getMenuState());
             }
         }
         if (e.getCode() == KeyCode.P) {
+            if (Sound.isEffectOn()) {
+                Sound.playEffect("menuMove");
+            }
             if (menu.getGameState() == menu.getPlayState()) {
                 menu.setGameState(menu.getOptionState());
             } else if (menu.getGameState() == menu.getOptionState()) {
@@ -95,6 +110,9 @@ public class handleKey {
                     setHolding(true);
                     break;
                 case SPACE:
+                    if (Sound.isEffectOn()) {
+                        Sound.playEffect("bombPut");
+                    }
                     bomberman.placeBomb();
                     break;
                 default:

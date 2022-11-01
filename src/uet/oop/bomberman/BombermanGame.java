@@ -14,7 +14,7 @@ import uet.oop.bomberman.entities.AnimateEntity.Flame;
 import uet.oop.bomberman.entities.AnimateEntity.DynamicEntity.Bomber;
 import uet.oop.bomberman.entities.AnimateEntity.DynamicEntity.DynamicEntity;
 import uet.oop.bomberman.entities.StaticEntity.Blocks.Block;
-import uet.oop.bomberman.entities.StaticEntity.Items.Item;
+import uet.oop.bomberman.entities.StaticEntity.HiddenBlock.HiddenBlock;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
@@ -30,15 +30,12 @@ public class BombermanGame extends Application {
     public static List<DynamicEntity> enemies = new ArrayList<>();
     public static List<Block> stillObject = new ArrayList<>();
     public static List<Brick> bricks = new ArrayList<>();
-    public static List<Item> items = new ArrayList<>();
+    public static List<HiddenBlock> hiddenItems = new ArrayList<>();
     public static final List<Bomb> bombs = new ArrayList<>();
     public static final List<Flame> flames = new ArrayList<>();
     private tileManager level = new tileManager();
     public static handleKey input;
     public static Menu menu = new Menu();
-
-    private final int FPS = 60;
-    private final int frameDelay = 1000000000 / FPS;
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -70,14 +67,6 @@ public class BombermanGame extends Application {
             public void handle(long l) {
                 level.render(gc);
                 update();
-                long frameTime = System.nanoTime() - frameStart;
-                if (frameDelay > frameTime) {
-                    try {
-                        Thread.sleep((frameDelay - frameTime) / 1000000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
             }
         };
         timer.start();
@@ -90,7 +79,7 @@ public class BombermanGame extends Application {
         bombs.removeIf(Bomb::isExploded);
         enemies.removeIf(DynamicEntity::isOff);
         flames.removeIf(Flame::isOff);
-        items.removeIf(Item::isOff);
+        hiddenItems.removeIf(HiddenBlock::isOff);
         bricks.removeIf(Brick::isOff);
     }
 

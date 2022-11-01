@@ -1,5 +1,6 @@
 package uet.oop.bomberman.entities.AnimateEntity.DynamicEntity;
 
+import uet.oop.bomberman.Sound;
 import uet.oop.bomberman.entities.AnimateEntity.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
@@ -145,11 +146,18 @@ public class Bomber extends DynamicEntity {
         for (int i = 0; i < enemies.size(); i++) {
             if (checkDynamicObject(enemies.get(i), this)) {
                 isDead = true;
+                if (Sound.isEffectOn()) {
+                    Sound.playEffect("bomberDie");
+                }
             }
         }
         for (int i = 0; i < flames.size(); i++) {
             if (checkDynamicObject(flames.get(i), this)) {
                 isDead = true;
+                if (Sound.isEffectOn()) {
+                    Sound.playEffect("bomberDie");
+                }
+
             }
         }
     }

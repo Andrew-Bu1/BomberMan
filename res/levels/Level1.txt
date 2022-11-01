@@ -30,7 +30,7 @@ p - Bomber
 1 - Balloon
 2 - Oneal
 
-Items:
+hiddenItems:
 b - Bomb Item
 f - Flame Item
 s - Speed Item

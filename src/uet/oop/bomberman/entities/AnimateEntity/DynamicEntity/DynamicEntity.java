@@ -4,7 +4,8 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.AnimateEntity.AnimateEntity;
 import uet.oop.bomberman.graphics.Sprite;
 
-import static uet.oop.bomberman.BombermanGame.items;
+import static uet.oop.bomberman.BombermanGame.hiddenItems;
+import static uet.oop.bomberman.BombermanGame.enemies;
 import static uet.oop.bomberman.tileManager.mapInGame;
 
 import static uet.oop.bomberman.BombermanGame.bomberman;
@@ -162,6 +163,12 @@ public abstract class DynamicEntity extends AnimateEntity {
             return true;
         }
 
+        if (enemies.size() == 0 && (mapInGame[xBottomRight][yBottomRight] == 'x'
+                || mapInGame[xBottomLeft][yBottomLeft] == 'x'
+                || mapInGame[xTopRight][yTopRight] == 'x' || mapInGame[xTopLeft][yTopLeft] == 'x')) {
+            System.out.println(enemies.size());
+        }
+
         return false;
     }
 
@@ -183,12 +190,12 @@ public abstract class DynamicEntity extends AnimateEntity {
     }
 
     public void itemUsed(int x, int y) {
-        for (int i = 0; i < items.size(); i++) {
-            if ((items.get(i).getName() == "BombItem" || items.get(i).getName() == "SpeedItem"
-                    || items.get(i).getName() == "FlameItem")
-                    && items.get(i).getX() == x * Sprite.SCALED_SIZE
-                    && items.get(i).getY() == y * Sprite.SCALED_SIZE) {
-                items.get(i).setOff(true);
+        for (int i = 0; i < hiddenItems.size(); i++) {
+            if ((hiddenItems.get(i).getName() == "BombItem" || hiddenItems.get(i).getName() == "SpeedItem"
+                    || hiddenItems.get(i).getName() == "FlameItem")
+                    && hiddenItems.get(i).getX() == x * Sprite.SCALED_SIZE
+                    && hiddenItems.get(i).getY() == y * Sprite.SCALED_SIZE) {
+                hiddenItems.get(i).setOff(true);
             }
         }
     }

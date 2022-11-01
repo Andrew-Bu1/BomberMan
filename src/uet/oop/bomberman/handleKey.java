@@ -84,6 +84,15 @@ public class handleKey {
                 }
                 menu.setGameState(menu.getMenuState());
             }
+        } else if (e.getCode() == KeyCode.P) {
+            if (Sound.isEffectOn()) {
+                Sound.playEffect("menuMove");
+            }
+            if (menu.getGameState() == menu.getPlayState()) {
+                menu.setGameState(menu.getOptionState());
+            } else if (menu.getGameState() == menu.getOptionState()) {
+                menu.setGameState(menu.getPlayState());
+            }
         }
 
         if (menu.getGameState() == menu.getPlayState()) {
@@ -112,16 +121,6 @@ public class handleKey {
                         Sound.playEffect("bombPut");
                     }
                     bomberman.placeBomb();
-                    break;
-                case P:
-                    if (Sound.isEffectOn()) {
-                        Sound.playEffect("menuMove");
-                    }
-                    if (menu.getGameState() == menu.getPlayState()) {
-                        menu.setGameState(menu.getOptionState());
-                    } else if (menu.getGameState() == menu.getOptionState()) {
-                        menu.setGameState(menu.getPlayState());
-                    }
                     break;
                 default:
                     break;

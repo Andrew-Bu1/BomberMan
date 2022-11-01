@@ -19,6 +19,7 @@ import uet.oop.bomberman.entities.StaticEntity.HiddenBlock.BombItem;
 import uet.oop.bomberman.entities.StaticEntity.HiddenBlock.FlameItem;
 import uet.oop.bomberman.entities.StaticEntity.HiddenBlock.Portal;
 import uet.oop.bomberman.entities.StaticEntity.HiddenBlock.SpeedItem;
+import uet.oop.bomberman.graphics.Sprite;
 
 import static uet.oop.bomberman.BombermanGame.enemies;
 import static uet.oop.bomberman.BombermanGame.stillObject;
@@ -31,7 +32,7 @@ import static uet.oop.bomberman.BombermanGame.hiddenItems;
 
 public class tileManager {
     public static final int WIDTH = 20;
-    public static final int HEIGHT = 15;
+    public static final int HEIGHT = 16;
     public static int level = 0;
 
     public static char[][] map = new char[WIDTH][HEIGHT];
@@ -96,6 +97,7 @@ public class tileManager {
 
                 if (map[i][j] == 'p') {
                     bomberman = new Bomber(i, j);
+                    bomberman.setInitialPosition(i * Sprite.SCALED_SIZE, j * Sprite.SCALED_SIZE);
                 }
 
                 if (map[i][j] != '#') {
@@ -131,7 +133,6 @@ public class tileManager {
             bomberman.render(gc);
             bombs.forEach(g -> g.render(gc));
             flames.forEach(g -> g.render(gc));
-
         }
         if (menu.getGameState() == menu.getMenuState()) {
             menu.drawMenu(gc);

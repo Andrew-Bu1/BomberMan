@@ -129,33 +129,36 @@ public abstract class DynamicEntity extends AnimateEntity {
         }
 
         if (mapInGame[xBottomRight][yBottomRight] == 's') {
-            mapInGame[xBottomRight][yBottomRight] = ' ';
             if (this instanceof Bomber) {
                 bomberman.increaseSpeed();
+                mapInGame[xBottomRight][yBottomRight] = ' ';
+                itemUsed(xBottomRight, yBottomRight);
+                return false;
             }
-            itemUsed(xBottomRight, yBottomRight);
-            return false;
+
         } else if (mapInGame[xBottomLeft][yBottomLeft] == 's') {
             if (this instanceof Bomber) {
                 bomberman.increaseSpeed();
+                mapInGame[xBottomLeft][yBottomLeft] = ' ';
+                itemUsed(xBottomLeft, yBottomLeft);
+                return false;
             }
-            mapInGame[xBottomLeft][yBottomLeft] = ' ';
-            itemUsed(xBottomLeft, yBottomLeft);
-            return false;
+
         } else if (mapInGame[xTopRight][yTopRight] == 's') {
             if (this instanceof Bomber) {
                 bomberman.increaseSpeed();
+                mapInGame[xTopRight][yTopRight] = ' ';
+                itemUsed(xTopRight, yTopRight);
+                return false;
             }
-            mapInGame[xTopRight][yTopRight] = ' ';
-            itemUsed(xTopRight, yTopRight);
-            return false;
+
         } else if (mapInGame[xTopLeft][yTopLeft] == 's') {
             if (this instanceof Bomber) {
                 bomberman.increaseSpeed();
+                mapInGame[xTopLeft][yTopLeft] = ' ';
+                itemUsed(xTopLeft, yTopLeft);
+                return false;
             }
-            mapInGame[xTopLeft][yTopLeft] = ' ';
-            itemUsed(xTopLeft, yTopLeft);
-            return false;
         }
 
         if (mapInGame[xBottomRight][yBottomRight] == '*' || mapInGame[xBottomLeft][yBottomLeft] == '*'
@@ -166,7 +169,7 @@ public abstract class DynamicEntity extends AnimateEntity {
         if (enemies.size() == 0 && (mapInGame[xBottomRight][yBottomRight] == 'x'
                 || mapInGame[xBottomLeft][yBottomLeft] == 'x'
                 || mapInGame[xTopRight][yTopRight] == 'x' || mapInGame[xTopLeft][yTopLeft] == 'x')) {
-            System.out.println(enemies.size());
+            bomberman.increaseHighScore();
         }
 
         return false;
@@ -195,6 +198,7 @@ public abstract class DynamicEntity extends AnimateEntity {
                     || hiddenItems.get(i).getName() == "FlameItem")
                     && hiddenItems.get(i).getX() == x * Sprite.SCALED_SIZE
                     && hiddenItems.get(i).getY() == y * Sprite.SCALED_SIZE) {
+                bomberman.increaseHighScore();
                 hiddenItems.get(i).setOff(true);
             }
         }

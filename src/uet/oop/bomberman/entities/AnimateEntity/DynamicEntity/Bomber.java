@@ -4,6 +4,7 @@ import uet.oop.bomberman.Sound;
 import uet.oop.bomberman.entities.AnimateEntity.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 import static uet.oop.bomberman.BombermanGame.input;
 import static uet.oop.bomberman.BombermanGame.bombs;
@@ -12,13 +13,20 @@ import static uet.oop.bomberman.BombermanGame.flames;
 import static uet.oop.bomberman.BombermanGame.menu;
 
 public class Bomber extends DynamicEntity {
+    private int time = 0;
     private int speed = 2;
-    public static int direction;
+
+    private int initialX;
+    private int initialY;
 
     private int numBomb = 0;
     private int maxBomb = 3;
 
     private int radius = 2;
+
+    private int hearts = 3;
+
+    public static int highscore = 0;
 
     public int getRadius() {
         return radius;
@@ -29,6 +37,22 @@ public class Bomber extends DynamicEntity {
             numBomb++;
             bombs.add(new Bomb((int) x / Sprite.SCALED_SIZE, (int) (y / Sprite.SCALED_SIZE)));
         }
+    }
+
+    public void increaseHighScore() {
+        highscore += 50;
+    }
+
+    public void decreaseHighScore() {
+        if (highscore > 100) {
+            highscore -= 100;
+        } else {
+            highscore = 0;
+        }
+    }
+
+    public void decreaseHearts() {
+        hearts--;
     }
 
     public void increaseBomb() {
@@ -61,7 +85,29 @@ public class Bomber extends DynamicEntity {
             move();
             animateSprite();
             checkDeath();
+            if (isDead && hearts > 1) {
+                if (time == 60) {
+                    isDead = false;
+                    setPosition(initialX, initialY);
+                    decreaseHearts();
+                    decreaseHighScore();
+                    time = 0;
+                }
+                time++;
+            }
+
         }
+
+    }
+
+    public void setInitialPosition(int x, int y) {
+        initialX = x;
+        initialY = y;
+    }
+
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     @Override
@@ -70,7 +116,6 @@ public class Bomber extends DynamicEntity {
             if (input.isHolding()) {
                 img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, animate, 18)
                         .getFxImage();
-                isDead = false;
             } else {
                 img = Sprite.player_up.getFxImage();
             }
@@ -128,7 +173,6 @@ public class Bomber extends DynamicEntity {
                 x = x1;
             }
         }
-
     }
 
     @Override
@@ -140,6 +184,9 @@ public class Bomber extends DynamicEntity {
                     .getFxImage();
             gc.drawImage(img, x, y);
         }
+        gc.setFill(Color.WHITE);
+        gc.fillText("Health: " + hearts, 0, 16 * Sprite.SCALED_SIZE);
+        gc.fillText("Score: " + highscore, 8 * Sprite.SCALED_SIZE, 16 * Sprite.SCALED_SIZE);
     }
 
     public void checkDeath() {

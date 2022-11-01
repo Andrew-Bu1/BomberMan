@@ -6,6 +6,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 // import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.AnimateEntity.Bomb;
@@ -36,6 +38,7 @@ public class BombermanGame extends Application {
     private tileManager level = new tileManager();
     public static handleKey input;
     public static Menu menu = new Menu();
+    public static Stage stageGame;
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -43,6 +46,7 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
+        stageGame = stage;
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * tileManager.WIDTH, Sprite.SCALED_SIZE * tileManager.HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -55,8 +59,8 @@ public class BombermanGame extends Application {
         scene = new Scene(root);
 
         // Them scene vao stage
-        stage.setScene(scene);
-        stage.show();
+        stageGame.setScene(scene);
+        stageGame.show();
 
         input = new handleKey(scene);
 
@@ -70,7 +74,16 @@ public class BombermanGame extends Application {
         timer.start();
 
         level.loadMap("res\\levels\\Level0.txt");
+    }
 
+    public static void logout(Stage stage) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Are you sure? :<");
+        alert.setHeaderText("Press OK to exit");
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            stage.close();
+        }
     }
 
     public void removeObject() {

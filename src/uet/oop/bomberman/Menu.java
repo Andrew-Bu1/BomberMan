@@ -14,11 +14,12 @@ public class Menu {
     private final int optionState = 1;
     private final int menuState = 2;
     private final int helpState = 3;
-    public static final ClassLoader file = ClassLoader.getSystemClassLoader();
+    public final ClassLoader file = ClassLoader.getSystemClassLoader();
 
     private final Font menuFont = new Font("Arial", 40);
     private final Image menuImage = new Image(file.getResource("menu.png").toString());
     private final Image helpImage = new Image(file.getResource("helpMenu.png").toString());
+    private final Image optionImage = new Image(file.getResource("option.png").toString());
     // private final Image optionImage = new
     // Image(file.getResource("Option.png").toString());
 
@@ -111,7 +112,7 @@ public class Menu {
     }
 
     public void drawOption(GraphicsContext gc) {
-
+        gc.drawImage(optionImage, Sprite.SCALED_SIZE * 7, Sprite.SCALED_SIZE * 5);
     }
 
 }

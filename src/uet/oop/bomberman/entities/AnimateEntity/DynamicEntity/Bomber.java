@@ -39,6 +39,23 @@ public class Bomber extends DynamicEntity {
         }
     }
 
+    // up = 1, down = 2, left = 3, right = 4
+    public void setDirection() {
+        if (input.isPressUp()) {
+            direction = 1;
+        }
+        if (input.isPressRight()) {
+            direction = 4;
+        }
+        if (input.isPressLeft()) {
+            direction = 3;
+        }
+        if (input.isPressDown()) {
+            direction = 2;
+        }
+
+    }
+
     public void increaseHighScore() {
         highscore += 50;
     }
@@ -82,6 +99,7 @@ public class Bomber extends DynamicEntity {
             if (animate > 20) {
                 animate = 0;
             }
+            setDirection();
             move();
             animateSprite();
             checkDeath();
@@ -112,21 +130,22 @@ public class Bomber extends DynamicEntity {
 
     @Override
     public void animateSprite() {
-        if (input.isPressUp()) {
+        if (direction == 1) {
             if (input.isHolding()) {
                 img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, animate, 18)
                         .getFxImage();
             } else {
                 img = Sprite.player_up.getFxImage();
+                System.out.println("up");
             }
-        } else if (input.isPressDown()) {
+        } else if (direction == 2) {
             if (input.isHolding()) {
                 img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, animate, 18)
                         .getFxImage();
             } else {
                 img = Sprite.player_down.getFxImage();
             }
-        } else if (input.isPressLeft()) {
+        } else if (direction == 3) {
             if (input.isHolding()) {
                 img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, animate, 18)
                         .getFxImage();
@@ -134,7 +153,7 @@ public class Bomber extends DynamicEntity {
                 img = Sprite.player_left.getFxImage();
             }
 
-        } else if (input.isPressRight()) {
+        } else if (direction == 4) {
             if (input.isHolding()) {
                 img = Sprite
                         .movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, animate, 18)

@@ -74,7 +74,7 @@ public class handleKey {
                 } else if (menu.getMenuButton() == 1) {
                     menu.setGameState(menu.getHelpState());
                 } else if (menu.getMenuButton() == 2) {
-
+                    BombermanGame.logout(BombermanGame.stageGame);
                 }
             }
         } else if (menu.getGameState() == menu.getHelpState()) {

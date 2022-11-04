@@ -34,6 +34,9 @@ public class tileManager {
     public static final int HEIGHT = 16;
     private int level = 0;
 
+    private int width = 0;
+    private int height = 0;
+
     public static char[][] map = new char[WIDTH][HEIGHT];
     public static char[][] mapInGame = new char[WIDTH][HEIGHT];
 
@@ -72,7 +75,10 @@ public class tileManager {
         }
         String st;
         try {
-            br.readLine();
+            String line = br.readLine();
+            String[] s = line.split(" ");
+            height = Integer.parseInt(s[1]);
+            width = Integer.parseInt(s[2]);
             int j = 0;
             while ((st = br.readLine()) != null) {
                 for (int i = 0; i < st.length(); i++) {

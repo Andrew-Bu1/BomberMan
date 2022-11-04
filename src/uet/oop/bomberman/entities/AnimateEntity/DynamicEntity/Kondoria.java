@@ -37,12 +37,12 @@ public class Kondoria extends DynamicEntity {
     public void animateSprite() {
         if (!isDead) {
             if (direction == 0 || direction == 2) {
-                img = Sprite.movingSprite(Sprite.kondoria_right1, Sprite.kondoria_left2,
+                img = Sprite.movingSprite(Sprite.kondoria_left1, Sprite.kondoria_left2,
                         Sprite.kondoria_left3,
                         animate, 18).getFxImage();
             } else if (direction == 1 || direction == 3) {
-                img = Sprite.movingSprite(Sprite.kondoria_left1, Sprite.kondoria_left2,
-                        Sprite.kondoria_left3,
+                img = Sprite.movingSprite(Sprite.kondoria_right1, Sprite.kondoria_right2,
+                        Sprite.kondoria_right3,
                         animate, 18).getFxImage();
             }
         } else {

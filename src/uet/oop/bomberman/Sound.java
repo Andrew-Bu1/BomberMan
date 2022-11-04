@@ -48,6 +48,7 @@ public class Sound {
         setPlaying(true);
         music = new MediaPlayer(new Media(new File("res/sound/" + musicFile + ".wav").toURI().toString()));
         music.play();
+        music.setCycleCount(MediaPlayer.INDEFINITE);
     }
 
     public static void playMusic() {

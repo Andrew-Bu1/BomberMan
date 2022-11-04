@@ -1,13 +1,9 @@
 package uet.oop.bomberman.entities.AnimateEntity.DynamicEntity;
 
-import java.util.Random;
-
 import uet.oop.bomberman.graphics.Sprite;
 import static uet.oop.bomberman.BombermanGame.menu;
 
 public class Ballom extends DynamicEntity {
-    private Random random = new Random();
-    private int time = 0;
 
     public Ballom(int x, int y) {
         super(x, y, Sprite.balloom_left1.getFxImage());
@@ -54,35 +50,39 @@ public class Ballom extends DynamicEntity {
         int y1, x1;
         switch (direction) {
             case 0:
-                y1 = y - 1;
+                y1 = y - speed;
                 if (!checkStaticObject(x, y1)) {
                     y = y1;
                 } else {
-                    direction = random.nextInt(4);
+                    int[] nums = { 1, 2, 3 };
+                    direction = nums[random.nextInt(nums.length)];
                 }
                 break;
             case 1:
-                y1 = y + 1;
+                y1 = y + speed;
                 if (!checkStaticObject(x, y1)) {
                     y = y1;
                 } else {
-                    direction = random.nextInt(4);
+                    int[] nums = { 0, 2, 3 };
+                    direction = nums[random.nextInt(nums.length)];
                 }
                 break;
             case 2:
-                x1 = x - 1;
+                x1 = x - speed;
                 if (!checkStaticObject(x1, y)) {
                     x = x1;
                 } else {
-                    direction = random.nextInt(4);
+                    int[] nums = { 0, 1, 3 };
+                    direction = nums[random.nextInt(nums.length)];
                 }
                 break;
             case 3:
-                x1 = x + 1;
+                x1 = x + speed;
                 if (!checkStaticObject(x1, y)) {
                     x = x1;
                 } else {
-                    direction = random.nextInt(4);
+                    int[] nums = { 0, 1, 2 };
+                    direction = nums[random.nextInt(nums.length)];
                 }
                 break;
         }

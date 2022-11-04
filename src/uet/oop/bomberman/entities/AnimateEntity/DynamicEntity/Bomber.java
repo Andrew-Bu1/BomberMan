@@ -5,6 +5,7 @@ import uet.oop.bomberman.entities.AnimateEntity.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 import static uet.oop.bomberman.BombermanGame.input;
 import static uet.oop.bomberman.BombermanGame.bombs;
@@ -12,13 +13,10 @@ import static uet.oop.bomberman.BombermanGame.enemies;
 import static uet.oop.bomberman.BombermanGame.flames;
 import static uet.oop.bomberman.BombermanGame.menu;
 import static uet.oop.bomberman.BombermanGame.level;
+import static uet.oop.bomberman.tileManager.mapInGame;
 
 public class Bomber extends DynamicEntity {
-    private int time = 0;
     private int speed = 2;
-
-    private int initialX;
-    private int initialY;
 
     private int numBomb = 0;
     private int maxBomb = 3;
@@ -29,8 +27,8 @@ public class Bomber extends DynamicEntity {
 
     public static int highscore = 0;
 
-    public static int getHighscore() {
-        return highscore;
+    public static void begin() {
+        hearts = 3;
     }
 
     public int getRadius() {
@@ -38,9 +36,13 @@ public class Bomber extends DynamicEntity {
     }
 
     public void placeBomb() {
+        if (mapInGame[x / Sprite.SCALED_SIZE][y / Sprite.SCALED_SIZE] == 'z') {
+            return;
+        }
         if (numBomb < maxBomb) {
             numBomb++;
             bombs.add(new Bomb((int) x / Sprite.SCALED_SIZE, (int) (y / Sprite.SCALED_SIZE)));
+            mapInGame[x / Sprite.SCALED_SIZE][y / Sprite.SCALED_SIZE] = 'z';
         }
     }
 
@@ -111,7 +113,6 @@ public class Bomber extends DynamicEntity {
             if (isDead && hearts > 1) {
                 if (time == 60) {
                     isDead = false;
-                    setPosition(initialX, initialY);
                     decreaseHearts();
                     decreaseHighScore();
                     time = 0;
@@ -119,21 +120,11 @@ public class Bomber extends DynamicEntity {
                 }
                 time++;
             } else if (isDead) {
-
+                menu.setGameState(menu.getLoseState());
             }
 
         }
 
-    }
-
-    public void setInitialPosition(int x, int y) {
-        initialX = x;
-        initialY = y;
-    }
-
-    public void setPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
     }
 
     @Override
@@ -211,8 +202,10 @@ public class Bomber extends DynamicEntity {
             gc.drawImage(img, x, y);
         }
         gc.setFill(Color.WHITE);
+        gc.setFont(new Font("Arial", 40));
         gc.fillText("Health: " + hearts, 0, 16 * Sprite.SCALED_SIZE);
-        gc.fillText("Score: " + highscore, 8 * Sprite.SCALED_SIZE, 16 * Sprite.SCALED_SIZE);
+        gc.fillText("Score: " + highscore, 6 * Sprite.SCALED_SIZE, 16 * Sprite.SCALED_SIZE);
+        gc.fillText("Enemies: " + enemies.size(), 13 * Sprite.SCALED_SIZE, 16 * Sprite.SCALED_SIZE);
     }
 
     public void checkDeath() {

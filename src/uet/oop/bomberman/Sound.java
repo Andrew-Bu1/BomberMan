@@ -52,7 +52,7 @@ public class Sound {
 
     public static void playMusic() {
         if (menu.getGameState() == menu.getGameState()) {
-            music = new MediaPlayer(new Media(new File("res/sound/background.wav").toURI().toString()));
+            music = new MediaPlayer(new Media(new File("res/sound/gamePlay.wav").toURI().toString()));
         } else if (menu.getGameState() == menu.getMenuState()) {
             music = new MediaPlayer(new Media(new File("res/sound/menuMusic.wav").toURI().toString()));
         }

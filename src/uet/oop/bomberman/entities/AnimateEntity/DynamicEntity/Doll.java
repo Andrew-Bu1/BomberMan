@@ -5,10 +5,18 @@ import static uet.oop.bomberman.BombermanGame.menu;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Doll extends DynamicEntity {
-    private int time = 0;
 
     public Doll(int x, int y) {
         super(x, y, Sprite.doll_left1.getFxImage());
+        direction = random.nextInt(4);
+    }
+
+    public void speedUp() {
+        if (animate < 20) {
+            speed = 3;
+        } else {
+            speed = 1;
+        }
     }
 
     @Override
@@ -49,7 +57,49 @@ public class Doll extends DynamicEntity {
 
     @Override
     public void move() {
-
+        int y1, x1;
+        switch (direction) {
+            case 0:
+                y1 = y - speed;
+                if (!checkStaticObject(x, y1)) {
+                    y = y1;
+                } else {
+                    speedUp();
+                    int[] nums = { 1, 2, 3 };
+                    direction = nums[random.nextInt(nums.length)];
+                }
+                break;
+            case 1:
+                y1 = y + speed;
+                if (!checkStaticObject(x, y1)) {
+                    y = y1;
+                } else {
+                    speedUp();
+                    int[] nums = { 0, 2, 3 };
+                    direction = nums[random.nextInt(nums.length)];
+                }
+                break;
+            case 2:
+                x1 = x - speed;
+                if (!checkStaticObject(x1, y)) {
+                    x = x1;
+                } else {
+                    speedUp();
+                    int[] nums = { 0, 1, 3 };
+                    direction = nums[random.nextInt(nums.length)];
+                }
+                break;
+            case 3:
+                x1 = x + speed;
+                if (!checkStaticObject(x1, y)) {
+                    x = x1;
+                } else {
+                    speedUp();
+                    int[] nums = { 0, 1, 2 };
+                    direction = nums[random.nextInt(nums.length)];
+                }
+                break;
+        }
     }
 
     public String getName() {

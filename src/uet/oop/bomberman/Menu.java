@@ -20,7 +20,7 @@ public class Menu {
     public final ClassLoader file = ClassLoader.getSystemClassLoader();
 
     private final Font menuFont = new Font("Arial", 40);
-    private final Font optionFont = new Font("Arial", 20);
+    private final Font optionFont = new Font("Arial", 25);
     private final Image menuImage = new Image(file.getResource("menu.png").toString());
     private final Image helpImage = new Image(file.getResource("helpMenu.png").toString());
     private final Image optionImage = new Image(file.getResource("option.png").toString());
@@ -31,6 +31,28 @@ public class Menu {
     private int menuButton = 0;
 
     private int optionButton = 0;
+
+    private int stateButton = 0;
+
+    public int getStateButton() {
+        return stateButton;
+    }
+
+    public void increaseStateButton() {
+        if (stateButton == 0) {
+            stateButton = 1;
+        } else {
+            stateButton--;
+        }
+    }
+
+    public void decreaseStateButton() {
+        if (stateButton == 1) {
+            stateButton = 0;
+        } else {
+            stateButton++;
+        }
+    }
 
     public int getOptionButton() {
         return optionButton;
@@ -112,7 +134,6 @@ public class Menu {
         gc.drawImage(menuImage, 0, 0);
         gc.setFill(Color.BLACK);
         gc.setFont(menuFont);
-        gc.setEffect(null);
         gc.fillText("New Game", 7 * Sprite.SCALED_SIZE, 7 * Sprite.SCALED_SIZE);
 
         if (menuButton == 0) {
@@ -136,18 +157,42 @@ public class Menu {
 
     public void drawhelpMenu(GraphicsContext gc) {
         gc.drawImage(helpImage, 0, 0);
-        gc.fillText("Victory", 7.75 * Sprite.SCALED_SIZE, 11 * Sprite.SCALED_SIZE);
-        gc.fillText("Score" + Bomber.getHighscore(), 7.75 * Sprite.SCALED_SIZE, 11 * Sprite.SCALED_SIZE);
+
     }
 
     public void drawVictory(GraphicsContext gc) {
         gc.drawImage(stateImage, 0, 0);
-        gc.fillText("You Lose" + Bomber.getHighscore(), 7.75 * Sprite.SCALED_SIZE, 11 * Sprite.SCALED_SIZE);
+        gc.setFill(Color.BLACK);
+        gc.fillText("Play Again", 7.75 * Sprite.SCALED_SIZE, 8 * Sprite.SCALED_SIZE);
+        gc.fillText("Return Menu", 7 * Sprite.SCALED_SIZE, 9 * Sprite.SCALED_SIZE);
+
+        if (stateButton == 0) {
+            gc.fillText(">", 6.75 * Sprite.SCALED_SIZE, 8 * Sprite.SCALED_SIZE);
+        }
+
+        if (stateButton == 1) {
+            gc.fillText(">", 6 * Sprite.SCALED_SIZE, 9 * Sprite.SCALED_SIZE);
+        }
+        gc.fillText("You Win", 7.75 * Sprite.SCALED_SIZE, 4 * Sprite.SCALED_SIZE);
+        gc.fillText("Score: " + Bomber.highscore, 7.75 * Sprite.SCALED_SIZE, 6 * Sprite.SCALED_SIZE);
 
     }
 
     public void drawLose(GraphicsContext gc) {
         gc.drawImage(stateImage, 0, 0);
+        gc.setFill(Color.BLACK);
+        gc.fillText("Play Again", 7.75 * Sprite.SCALED_SIZE, 8 * Sprite.SCALED_SIZE);
+        gc.fillText("Return Menu", 7 * Sprite.SCALED_SIZE, 9 * Sprite.SCALED_SIZE);
+
+        if (stateButton == 0) {
+            gc.fillText(">", 6.75 * Sprite.SCALED_SIZE, 8 * Sprite.SCALED_SIZE);
+        }
+
+        if (stateButton == 1) {
+            gc.fillText(">", 6 * Sprite.SCALED_SIZE, 9 * Sprite.SCALED_SIZE);
+        }
+        gc.fillText("You Lose", 7.75 * Sprite.SCALED_SIZE, 4 * Sprite.SCALED_SIZE);
+        gc.fillText("Score: " + Bomber.highscore, 7.75 * Sprite.SCALED_SIZE, 6 * Sprite.SCALED_SIZE);
     }
 
     public void drawOption(GraphicsContext gc) {

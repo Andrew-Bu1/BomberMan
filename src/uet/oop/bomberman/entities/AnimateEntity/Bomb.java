@@ -3,11 +3,13 @@ package uet.oop.bomberman.entities.AnimateEntity;
 import uet.oop.bomberman.graphics.Sprite;
 import static uet.oop.bomberman.BombermanGame.bomberman;
 import static uet.oop.bomberman.BombermanGame.menu;
+import static uet.oop.bomberman.tileManager.mapInGame;
+import static uet.oop.bomberman.tileManager.map;
 
 import uet.oop.bomberman.Sound;
 
 public class Bomb extends AnimateEntity {
-    private int time = 0;
+
     private boolean isExploded = false;
 
     public boolean isExploded() {
@@ -30,6 +32,13 @@ public class Bomb extends AnimateEntity {
             }
             if (time >= 100) {
                 isExploded = true;
+                if (map[x / Sprite.SCALED_SIZE][y
+                        / Sprite.SCALED_SIZE] != '*') {
+                    mapInGame[x / Sprite.SCALED_SIZE][y / Sprite.SCALED_SIZE] = map[x / Sprite.SCALED_SIZE][y
+                            / Sprite.SCALED_SIZE];
+                } else {
+                    mapInGame[x / Sprite.SCALED_SIZE][y / Sprite.SCALED_SIZE] = ' ';
+                }
                 bomberman.bombFinished();
                 if (Sound.isEffectOn()) {
                     Sound.playEffect("bombExploded");

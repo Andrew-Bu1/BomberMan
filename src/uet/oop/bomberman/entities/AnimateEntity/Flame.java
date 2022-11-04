@@ -19,7 +19,6 @@ public class Flame extends AnimateEntity {
     private int flameUps = 0;
     private int flameDowns = 0;
     private int radius = 1;
-    private int time = 0;
     private boolean isOff = false;
 
     public boolean isOff() {
@@ -28,10 +27,6 @@ public class Flame extends AnimateEntity {
 
     public void setOff(boolean isOff) {
         this.isOff = isOff;
-    }
-
-    public void removeDuplicates() {
-
     }
 
     // stop = 0, up = 1, down = 2, left = 3, right = 4, lastUp = 5, LastDown = 6,
@@ -265,7 +260,7 @@ public class Flame extends AnimateEntity {
                         Sprite.explosion_vertical_down_last2, time, 18).getFxImage();
                 break;
             case 7:
-                img = Sprite.movingSprite(Sprite.explosion_horizontal_left_last, Sprite.explosion_horizontal1,
+                img = Sprite.movingSprite(Sprite.explosion_horizontal_left_last, Sprite.explosion_horizontal_left_last1,
                         Sprite.explosion_horizontal_left_last2, time, 18).getFxImage();
                 break;
             case 8:

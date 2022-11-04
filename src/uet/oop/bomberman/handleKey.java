@@ -5,6 +5,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import static uet.oop.bomberman.BombermanGame.bomberman;
 import static uet.oop.bomberman.BombermanGame.menu;
+import static uet.oop.bomberman.BombermanGame.level;
 
 public class handleKey {
     private boolean pressUp = false;
@@ -71,6 +72,7 @@ public class handleKey {
                 if (menu.getMenuButton() == 0) {
                     Sound.stopMusic();
                     menu.setGameState(menu.getPlayState());
+                    level.newGame();
                 } else if (menu.getMenuButton() == 1) {
                     menu.setGameState(menu.getHelpState());
                 } else if (menu.getMenuButton() == 2) {
@@ -97,7 +99,7 @@ public class handleKey {
 
         if (menu.getGameState() == menu.getPlayState()) {
             if (Sound.isMusicOn() && !Sound.isPlaying()) {
-                Sound.playMusic("background");
+                Sound.playMusic("gamePlay");
             }
             switch (e.getCode()) {
                 case W:
@@ -158,7 +160,57 @@ public class handleKey {
                 }
             }
         }
+        if (menu.getGameState() == menu.getWinState()) {
+            if (e.getCode() == KeyCode.UP || e.getCode() == KeyCode.W) {
+                if (Sound.isEffectOn()) {
+                    Sound.playEffect("menuMove");
+                }
+                menu.increaseStateButton();
+            } else if (e.getCode() == KeyCode.DOWN || e.getCode() == KeyCode.S) {
+                if (Sound.isEffectOn()) {
+                    Sound.playEffect("menuMove");
+                }
+                menu.decreaseStateButton();
+            }
 
+            if (e.getCode() == KeyCode.ENTER) {
+                if (Sound.isEffectOn()) {
+                    Sound.playEffect("menuEntered");
+                }
+                if (menu.getStateButton() == 0) {
+                    menu.setGameState(menu.getPlayState());
+                    level.newGame();
+                } else if (menu.getStateButton() == 1) {
+                    menu.setGameState(menu.getMenuState());
+                    Sound.stopMusic();
+                }
+            }
+        } else if (menu.getGameState() == menu.getLoseState()) {
+            if (e.getCode() == KeyCode.UP || e.getCode() == KeyCode.W) {
+                if (Sound.isEffectOn()) {
+                    Sound.playEffect("menuMove");
+                }
+                menu.increaseStateButton();
+            } else if (e.getCode() == KeyCode.DOWN || e.getCode() == KeyCode.S) {
+                if (Sound.isEffectOn()) {
+                    Sound.playEffect("menuMove");
+                }
+                menu.decreaseStateButton();
+            }
+
+            if (e.getCode() == KeyCode.ENTER) {
+                if (Sound.isEffectOn()) {
+                    Sound.playEffect("menuEntered");
+                }
+                if (menu.getStateButton() == 0) {
+                    menu.setGameState(menu.getPlayState());
+                    level.newGame();
+                } else if (menu.getStateButton() == 1) {
+                    menu.setGameState(menu.getMenuState());
+                    Sound.stopMusic();
+                }
+            }
+        }
     }
 
     public void releaseKey(KeyEvent e) {

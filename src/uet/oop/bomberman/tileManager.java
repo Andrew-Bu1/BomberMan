@@ -19,7 +19,6 @@ import uet.oop.bomberman.entities.StaticEntity.HiddenBlock.BombItem;
 import uet.oop.bomberman.entities.StaticEntity.HiddenBlock.FlameItem;
 import uet.oop.bomberman.entities.StaticEntity.HiddenBlock.Portal;
 import uet.oop.bomberman.entities.StaticEntity.HiddenBlock.SpeedItem;
-import uet.oop.bomberman.graphics.Sprite;
 
 import static uet.oop.bomberman.BombermanGame.enemies;
 import static uet.oop.bomberman.BombermanGame.stillObject;
@@ -43,8 +42,23 @@ public class tileManager {
     }
 
     public void increaseLevel() {
-        level++;
+        if (Sound.isEffectOn()) {
+            Sound.playEffect("win");
+        }
+        if (level == 2) {
+            menu.setGameState(menu.getWinState());
+        } else {
+            level++;
+            loadMap();
+        }
+
+    }
+
+    public void newGame() {
+        level = 0;
         loadMap();
+        Bomber.highscore = 0;
+        Bomber.begin();
     }
 
     public void loadMap() {
@@ -58,6 +72,7 @@ public class tileManager {
         }
         String st;
         try {
+            br.readLine();
             int j = 0;
             while ((st = br.readLine()) != null) {
                 for (int i = 0; i < st.length(); i++) {
@@ -73,9 +88,8 @@ public class tileManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        createEnemies();
         createObjects();
-
+        createEnemies();
     }
 
     public void createObjects() {
@@ -103,7 +117,6 @@ public class tileManager {
 
                 if (map[i][j] == 'p') {
                     bomberman = new Bomber(i, j);
-                    bomberman.setInitialPosition(i * Sprite.SCALED_SIZE, j * Sprite.SCALED_SIZE);
                 }
 
                 if (map[i][j] != '#') {
@@ -131,7 +144,24 @@ public class tileManager {
     }
 
     public void render(GraphicsContext gc) {
-        if (menu.getGameState() != menu.getMenuState() || menu.getGameState() != menu.getHelpState()) {
+        if (menu.getGameState() == menu.getMenuState()) {
+            if (Sound.isMusicOn() && !Sound.isPlaying()) {
+                Sound.playMusic("menuMusic");
+            }
+            menu.drawMenu(gc);
+        } else if (menu.getGameState() == menu.getHelpState()) {
+            if (Sound.isMusicOn() && !Sound.isPlaying()) {
+                Sound.playMusic("menuMusic");
+            }
+            menu.drawhelpMenu(gc);
+        } else if (menu.getGameState() == menu.getWinState()) {
+            menu.drawVictory(gc);
+        } else if (menu.getGameState() == menu.getLoseState()) {
+            menu.drawLose(gc);
+        } else if (menu.getGameState() != menu.getMenuState() || menu.getGameState() != menu.getHelpState()) {
+            if (Sound.isMusicOn() && !Sound.isPlaying()) {
+                Sound.playMusic("gamePlay");
+            }
             stillObject.forEach(g -> g.render(gc));
             hiddenItems.forEach(g -> g.render(gc));
             bricks.forEach(g -> g.render(gc));
@@ -140,12 +170,7 @@ public class tileManager {
             bombs.forEach(g -> g.render(gc));
             flames.forEach(g -> g.render(gc));
         }
-        if (menu.getGameState() == menu.getMenuState()) {
-            menu.drawMenu(gc);
-        }
-        if (menu.getGameState() == menu.getHelpState()) {
-            menu.drawhelpMenu(gc);
-        }
+
         if (menu.getGameState() == menu.getOptionState()) {
             menu.drawOption(gc);
         }

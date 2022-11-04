@@ -2,20 +2,25 @@ package uet.oop.bomberman.entities.AnimateEntity.DynamicEntity;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.Sound;
-import uet.oop.bomberman.tileManager;
 import uet.oop.bomberman.entities.AnimateEntity.AnimateEntity;
 import uet.oop.bomberman.graphics.Sprite;
 
 import static uet.oop.bomberman.BombermanGame.hiddenItems;
 import static uet.oop.bomberman.BombermanGame.enemies;
 import static uet.oop.bomberman.tileManager.mapInGame;
+
+import java.util.Random;
+
 import static uet.oop.bomberman.BombermanGame.level;
 
 import static uet.oop.bomberman.BombermanGame.bomberman;
 
 public abstract class DynamicEntity extends AnimateEntity {
+    protected boolean notMove = false;
+    protected int timer = 0;
+    protected Random random = new Random();
 
-    protected int speed;
+    protected int speed = 1;
 
     protected boolean isDead = false;
 
@@ -134,38 +139,46 @@ public abstract class DynamicEntity extends AnimateEntity {
         if (mapInGame[xBottomRight][yBottomRight] == 's') {
             if (this instanceof Bomber) {
                 bomberman.increaseSpeed();
-                mapInGame[xBottomRight][yBottomRight] = ' ';
-                itemUsed(xBottomRight, yBottomRight);
-                return false;
             }
+            mapInGame[xBottomRight][yBottomRight] = ' ';
+            itemUsed(xBottomRight, yBottomRight);
+            return false;
 
         } else if (mapInGame[xBottomLeft][yBottomLeft] == 's') {
             if (this instanceof Bomber) {
                 bomberman.increaseSpeed();
-                mapInGame[xBottomLeft][yBottomLeft] = ' ';
-                itemUsed(xBottomLeft, yBottomLeft);
-                return false;
             }
+            mapInGame[xBottomLeft][yBottomLeft] = ' ';
+            itemUsed(xBottomLeft, yBottomLeft);
+            return false;
 
         } else if (mapInGame[xTopRight][yTopRight] == 's') {
             if (this instanceof Bomber) {
                 bomberman.increaseSpeed();
-                mapInGame[xTopRight][yTopRight] = ' ';
-                itemUsed(xTopRight, yTopRight);
-                return false;
             }
+            mapInGame[xTopRight][yTopRight] = ' ';
+            itemUsed(xTopRight, yTopRight);
+            return false;
 
         } else if (mapInGame[xTopLeft][yTopLeft] == 's') {
             if (this instanceof Bomber) {
                 bomberman.increaseSpeed();
-                mapInGame[xTopLeft][yTopLeft] = ' ';
-                itemUsed(xTopLeft, yTopLeft);
-                return false;
             }
+            mapInGame[xTopLeft][yTopLeft] = ' ';
+            itemUsed(xTopLeft, yTopLeft);
+            return false;
         }
 
         if (mapInGame[xBottomRight][yBottomRight] == '*' || mapInGame[xBottomLeft][yBottomLeft] == '*'
                 || mapInGame[xTopRight][yTopRight] == '*' || mapInGame[xTopLeft][yTopLeft] == '*') {
+            return true;
+        }
+
+        if (mapInGame[xBottomRight][yBottomRight] == 'z' || mapInGame[xBottomLeft][yBottomLeft] == 'z'
+                || mapInGame[xTopRight][yTopRight] == 'z' || mapInGame[xTopLeft][yTopLeft] == 'z') {
+            if (this instanceof Bomber) {
+                return false;
+            }
             return true;
         }
 
@@ -202,7 +215,10 @@ public abstract class DynamicEntity extends AnimateEntity {
                     || hiddenItems.get(i).getName() == "FlameItem")
                     && hiddenItems.get(i).getX() == x * Sprite.SCALED_SIZE
                     && hiddenItems.get(i).getY() == y * Sprite.SCALED_SIZE) {
-                bomberman.increaseHighScore();
+
+                if (this instanceof Bomber) {
+                    bomberman.increaseHighScore();
+                }
                 if (Sound.isEffectOn()) {
                     Sound.playEffect("itemCollected");
                 }

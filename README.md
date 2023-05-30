@@ -52,6 +52,9 @@ Xem comment ở starter project
 - Có thể chơi được ít nhất cho một màn chơi (chiến thắng một màn chơi)
 - Có thể thay đổi được tệp cấu hình khác cho màn chơi (tương tự mẫu cho trước)
 
+## Link demo
+https://www.youtube.com/watch?v=q93d-whApX8&t=248s
+
 ## Nhiệm vụ của bạn
 - Gói bắt buộc (+8đ)
 1. Thiết kế cây thừa kế cho các đối tượng game +2đ
